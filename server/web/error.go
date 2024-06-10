@@ -23,7 +23,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/beego/beego/v2"
+	beego "github.com/jialequ/android-sdk"
 	"github.com/jialequ/android-sdk/core/utils"
 	"github.com/jialequ/android-sdk/server/web/context"
 )
