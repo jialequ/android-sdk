@@ -22,7 +22,7 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	"github.com/jialequ/android-sdk"
+	beego "github.com/jialequ/android-sdk"
 	"github.com/jialequ/android-sdk/core/logs"
 	"github.com/jialequ/android-sdk/server/web"
 	"github.com/jialequ/android-sdk/server/web/context"

@@ -24,7 +24,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/jialequ/android-sdk"
+	"github.com/beego/beego/v2"
 	"github.com/jialequ/android-sdk/core/config"
 	"github.com/jialequ/android-sdk/core/logs"
 	"github.com/jialequ/android-sdk/core/utils"
