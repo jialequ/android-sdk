@@ -26,10 +26,10 @@ import (
 // mysql operators.
 var mysqlOperators = map[string]string{
 	"exact":       "= ?",
-	"iexact":      "LIKE ?",
+	"iexact":      literal_6943,
 	"strictexact": "= BINARY ?",
-	"contains":    "LIKE BINARY ?",
-	"icontains":   "LIKE ?",
+	"contains":    literal_0346,
+	"icontains":   literal_6943,
 	// "regex":       "REGEXP BINARY ?",
 	// "iregex":      "REGEXP ?",
 	"gt":          "> ?",
@@ -38,10 +38,10 @@ var mysqlOperators = map[string]string{
 	"lte":         "<= ?",
 	"eq":          "= ?",
 	"ne":          "!= ?",
-	"startswith":  "LIKE BINARY ?",
-	"endswith":    "LIKE BINARY ?",
-	"istartswith": "LIKE ?",
-	"iendswith":   "LIKE ?",
+	"startswith":  literal_0346,
+	"endswith":    literal_0346,
+	"istartswith": literal_6943,
+	"iendswith":   literal_6943,
 }
 
 // mysql column field types.
@@ -182,3 +182,7 @@ func newdbBaseMysql() dbBaser {
 	b.ins = b
 	return b
 }
+
+const literal_6943 = "LIKE ?"
+
+const literal_0346 = "LIKE BINARY ?"

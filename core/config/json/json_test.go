@@ -32,7 +32,7 @@ func TestJsonStartsWithArray(t *testing.T) {
 		"serviceAPI": "http://www.test.com/employee"
 	}
 ]`
-	f, err := os.Create("testjsonWithArray.conf")
+	f, err := os.Create(literal_6394)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -42,8 +42,8 @@ func TestJsonStartsWithArray(t *testing.T) {
 		t.Fatal(err)
 	}
 	f.Close()
-	defer os.Remove("testjsonWithArray.conf")
-	jsonconf, err := config.NewConfig("json", "testjsonWithArray.conf")
+	defer os.Remove(literal_6394)
+	jsonconf, err := config.NewConfig("json", literal_6394)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -72,3 +72,5 @@ type DatabaseConfig struct {
 	Autoconnect    bool   `json:"autoconnect"`
 	Connectioninfo string `json:"connectioninfo"`
 }
+
+const literal_6394 = "testjsonWithArray.conf"

@@ -131,19 +131,19 @@ func TestSubDomain(t *testing.T) {
 	r, _ = http.NewRequest("GET", "http://aa.bb.example.com/", nil)
 	beegoInput.Context.Request = r
 	if beegoInput.SubDomains() != "aa.bb" {
-		t.Fatal("Subdomain parse error, got " + beegoInput.SubDomains())
+		t.Fatal(literal_7608 + beegoInput.SubDomains())
 	}
 
 	r, _ = http.NewRequest("GET", "http://example.com/", nil)
 	beegoInput.Context.Request = r
 	if beegoInput.SubDomains() != "" {
-		t.Fatal("Subdomain parse error, got " + beegoInput.SubDomains())
+		t.Fatal(literal_7608 + beegoInput.SubDomains())
 	}
 
 	r, _ = http.NewRequest("GET", "http://aa.bb.cc.dd.example.com/", nil)
 	beegoInput.Context.Request = r
 	if beegoInput.SubDomains() != "aa.bb.cc.dd" {
-		t.Fatal("Subdomain parse error, got " + beegoInput.SubDomains())
+		t.Fatal(literal_7608 + beegoInput.SubDomains())
 	}
 }
 
@@ -158,10 +158,10 @@ func TestParams(t *testing.T) {
 	}
 
 	if val := inp.Param("p1"); val != "val1_ver1" {
-		t.Fatalf("Input.Param wrong value: %s, expected %s", val, "val1_ver1")
+		t.Fatalf(literal_5941, val, "val1_ver1")
 	}
 	if val := inp.Param("p3"); val != "val3_ver1" {
-		t.Fatalf("Input.Param wrong value: %s, expected %s", val, "val3_ver1")
+		t.Fatalf(literal_5941, val, "val3_ver1")
 	}
 	vals := inp.Params()
 	expected := map[string]string{
@@ -191,11 +191,11 @@ func TestParams(t *testing.T) {
 	}
 
 	if val := inp.Param("p1"); val != "val1_ver2" {
-		t.Fatalf("Input.Param wrong value: %s, expected %s", val, "val1_ver2")
+		t.Fatalf(literal_5941, val, "val1_ver2")
 	}
 
 	if val := inp.Param("p2"); val != "val2_ver2" {
-		t.Fatalf("Input.Param wrong value: %s, expected %s", val, "val1_ver2")
+		t.Fatalf(literal_5941, val, "val1_ver2")
 	}
 }
 
@@ -209,3 +209,7 @@ func BenchmarkQuery(b *testing.B) {
 		}
 	})
 }
+
+const literal_7608 = "Subdomain parse error, got "
+
+const literal_5941 = "Input.Param wrong value: %s, expected %s"

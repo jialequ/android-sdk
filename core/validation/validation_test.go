@@ -148,7 +148,7 @@ func TestLength(t *testing.T) {
 func TestAlpha(t *testing.T) {
 	valid := Validation{}
 
-	if valid.Alpha("a,1-@ $", "alpha").Ok {
+	if valid.Alpha(literal_8321, "alpha").Ok {
 		t.Error("\"a,1-@ $\" are valid alpha characters should be false")
 	}
 	if !valid.Alpha("abCD", "alpha").Ok {
@@ -159,7 +159,7 @@ func TestAlpha(t *testing.T) {
 func TestNumeric(t *testing.T) {
 	valid := Validation{}
 
-	if valid.Numeric("a,1-@ $", "numeric").Ok {
+	if valid.Numeric(literal_8321, "numeric").Ok {
 		t.Error("\"a,1-@ $\" are valid numeric characters should be false")
 	}
 	if !valid.Numeric("1234", "numeric").Ok {
@@ -170,7 +170,7 @@ func TestNumeric(t *testing.T) {
 func TestAlphaNumeric(t *testing.T) {
 	valid := Validation{}
 
-	if valid.AlphaNumeric("a,1-@ $", "alphaNumeric").Ok {
+	if valid.AlphaNumeric(literal_8321, "alphaNumeric").Ok {
 		t.Error("\"a,1-@ $\" are valid alpha or numeric characters should be false")
 	}
 	if !valid.AlphaNumeric("1234aB", "alphaNumeric").Ok {
@@ -184,7 +184,7 @@ func TestMatch(t *testing.T) {
 	if valid.Match("suchuangji@gmail", regexp.MustCompile(`^\w+@\w+\.\w+$`), "match").Ok {
 		t.Error("\"suchuangji@gmail\" match \"^\\w+@\\w+\\.\\w+$\"  should be false")
 	}
-	if !valid.Match("suchuangji@gmail.com", regexp.MustCompile(`^\w+@\w+\.\w+$`), "match").Ok {
+	if !valid.Match(literal_5061, regexp.MustCompile(`^\w+@\w+\.\w+$`), "match").Ok {
 		t.Error("\"suchuangji@gmail\" match \"^\\w+@\\w+\\.\\w+$\"  should be true")
 	}
 }
@@ -203,7 +203,7 @@ func TestNoMatch(t *testing.T) {
 func TestAlphaDash(t *testing.T) {
 	valid := Validation{}
 
-	if valid.AlphaDash("a,1-@ $", "alphaDash").Ok {
+	if valid.AlphaDash(literal_8321, "alphaDash").Ok {
 		t.Error("\"a,1-@ $\" are valid alpha or numeric or dash(-_) characters should be false")
 	}
 	if !valid.AlphaDash("1234aB-_", "alphaDash").Ok {
@@ -217,7 +217,7 @@ func TestEmail(t *testing.T) {
 	if valid.Email("not@a email", "email").Ok {
 		t.Error("\"not@a email\" is a valid email address should be false")
 	}
-	if !valid.Email("suchuangji@gmail.com", "email").Ok {
+	if !valid.Email(literal_5061, "email").Ok {
 		t.Error("\"suchuangji@gmail.com\" is a valid email address should be true")
 	}
 	if valid.Email("@suchuangji@gmail.com", "email").Ok {
@@ -242,7 +242,7 @@ func TestIP(t *testing.T) {
 func TestBase64(t *testing.T) {
 	valid := Validation{}
 
-	if valid.Base64("suchuangji@gmail.com", "base64").Ok {
+	if valid.Base64(literal_5061, "base64").Ok {
 		t.Error("\"suchuangji@gmail.com\" are a valid base64 characters should be false")
 	}
 	if !valid.Base64("c3VjaHVhbmdqaUBnbWFpbC5jb20=", "base64").Ok {
@@ -374,7 +374,7 @@ func TestValid(t *testing.T) {
 		t.Fatal(err)
 	}
 	if !b {
-		t.Error("validation should be passed")
+		t.Error(literal_6281)
 	}
 
 	uptr := &user{Name: "test", Age: 40}
@@ -384,7 +384,7 @@ func TestValid(t *testing.T) {
 		t.Fatal(err)
 	}
 	if b {
-		t.Error("validation should not be passed")
+		t.Error(literal_6093)
 	}
 	if len(valid.Errors) != 1 {
 		t.Fatalf("valid errors len should be 1 but got %d", len(valid.Errors))
@@ -400,7 +400,7 @@ func TestValid(t *testing.T) {
 		t.Fatal(err)
 	}
 	if b {
-		t.Error("validation should not be passed")
+		t.Error(literal_6093)
 	}
 	if len(valid.Errors) != 1 {
 		t.Fatalf("valid errors len should be 1 but got %d", len(valid.Errors))
@@ -436,7 +436,7 @@ func TestRecursiveValid(t *testing.T) {
 		t.Fatal(err)
 	}
 	if b {
-		t.Error("validation should not be passed")
+		t.Error(literal_6093)
 	}
 }
 
@@ -464,7 +464,7 @@ func TestSkipValid(t *testing.T) {
 	}
 
 	u := User{
-		ReqEmail:   "a@a.com",
+		ReqEmail:   literal_3481,
 		ReqIP:      "127.0.0.1",
 		ReqMobile:  "18888888888",
 		ReqTel:     "02088888888",
@@ -478,7 +478,7 @@ func TestSkipValid(t *testing.T) {
 		t.Fatal(err)
 	}
 	if b {
-		t.Fatal("validation should not be passed")
+		t.Fatal(literal_6093)
 	}
 
 	valid = Validation{RequiredFirst: true}
@@ -487,7 +487,7 @@ func TestSkipValid(t *testing.T) {
 		t.Fatal(err)
 	}
 	if !b {
-		t.Fatal("validation should be passed")
+		t.Fatal(literal_6281)
 	}
 }
 
@@ -510,10 +510,10 @@ func TestPointer(t *testing.T) {
 		t.Fatal(err)
 	}
 	if b {
-		t.Fatal("validation should not be passed")
+		t.Fatal(literal_6093)
 	}
 
-	validEmail := "a@a.com"
+	validEmail := literal_3481
 	u = User{
 		ReqEmail: &validEmail,
 		Email:    nil,
@@ -525,7 +525,7 @@ func TestPointer(t *testing.T) {
 		t.Fatal(err)
 	}
 	if !b {
-		t.Fatal("validation should be passed")
+		t.Fatal(literal_6281)
 	}
 
 	u = User{
@@ -539,7 +539,7 @@ func TestPointer(t *testing.T) {
 		t.Fatal(err)
 	}
 	if b {
-		t.Fatal("validation should not be passed")
+		t.Fatal(literal_6093)
 	}
 
 	invalidEmail := "a@a"
@@ -554,7 +554,7 @@ func TestPointer(t *testing.T) {
 		t.Fatal(err)
 	}
 	if b {
-		t.Fatal("validation should not be passed")
+		t.Fatal(literal_6093)
 	}
 
 	u = User{
@@ -568,7 +568,7 @@ func TestPointer(t *testing.T) {
 		t.Fatal(err)
 	}
 	if b {
-		t.Fatal("validation should not be passed")
+		t.Fatal(literal_6093)
 	}
 }
 
@@ -582,7 +582,7 @@ func TestCanSkipAlso(t *testing.T) {
 	}
 
 	u := User{
-		ReqEmail:   "a@a.com",
+		ReqEmail:   literal_3481,
 		Email:      "",
 		MatchRange: 0,
 	}
@@ -593,7 +593,7 @@ func TestCanSkipAlso(t *testing.T) {
 		t.Fatal(err)
 	}
 	if b {
-		t.Fatal("validation should not be passed")
+		t.Fatal(literal_6093)
 	}
 
 	valid = Validation{RequiredFirst: true}
@@ -603,7 +603,7 @@ func TestCanSkipAlso(t *testing.T) {
 		t.Fatal(err)
 	}
 	if !b {
-		t.Fatal("validation should be passed")
+		t.Fatal(literal_6281)
 	}
 }
 
@@ -621,13 +621,23 @@ func TestFieldNoEmpty(t *testing.T) {
 		t.Fatal(err)
 	}
 	if b {
-		t.Fatal("validation should be passed")
+		t.Fatal(literal_6281)
 	}
 	if len(valid.Errors) == 0 {
-		t.Fatal("validation should be passed")
+		t.Fatal(literal_6281)
 	}
 	validErr := valid.Errors[0]
 	if len(validErr.Field) == 0 {
-		t.Fatal("validation should be passed")
+		t.Fatal(literal_6281)
 	}
 }
+
+const literal_8321 = "a,1-@ $"
+
+const literal_5061 = "suchuangji@gmail.com"
+
+const literal_6281 = "validation should be passed"
+
+const literal_6093 = "validation should not be passed"
+
+const literal_3481 = "a@a.com"

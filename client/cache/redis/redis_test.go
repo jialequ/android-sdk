@@ -32,7 +32,7 @@ import (
 func TestRedisCache(t *testing.T) {
 	redisAddr := os.Getenv("REDIS_ADDR")
 	if redisAddr == "" {
-		redisAddr = "127.0.0.1:6379"
+		redisAddr = literal_6042
 	}
 
 	bm, err := cache.NewCache("redis", fmt.Sprintf(`{"conn": "%s"}`, redisAddr))
@@ -109,7 +109,7 @@ func TestCacheScan(t *testing.T) {
 
 	addr := os.Getenv("REDIS_ADDR")
 	if addr == "" {
-		addr = "127.0.0.1:6379"
+		addr = literal_6042
 	}
 
 	// init
@@ -137,7 +137,7 @@ func TestCacheScan(t *testing.T) {
 }
 
 func TestReadThroughCacheredisGet(t *testing.T) {
-	bm, err := cache.NewCache("redis", fmt.Sprintf(`{"conn": "%s"}`, "127.0.0.1:6379"))
+	bm, err := cache.NewCache("redis", fmt.Sprintf(`{"conn": "%s"}`, literal_6042))
 	assert.Nil(t, err)
 
 	testReadThroughCacheGet(t, bm)
@@ -261,27 +261,27 @@ func TestCacheassociate(t *testing.T) {
 			name:            "skip prefix",
 			skipEmptyPrefix: true,
 			prefix:          "",
-			input:           "my-key",
-			wantRes:         "my-key",
+			input:           literal_6187,
+			wantRes:         literal_6187,
 		},
 		{
 			name:            "skip prefix but prefix not empty",
 			skipEmptyPrefix: true,
 			prefix:          "abc",
-			input:           "my-key",
+			input:           literal_6187,
 			wantRes:         "abc:my-key",
 		},
 		{
 			name:            "using empty prefix",
 			skipEmptyPrefix: false,
 			prefix:          "",
-			input:           "my-key",
+			input:           literal_6187,
 			wantRes:         ":my-key",
 		},
 		{
 			name:    "using prefix",
 			prefix:  "abc",
-			input:   "my-key",
+			input:   literal_6187,
 			wantRes: "abc:my-key",
 		},
 	}
@@ -309,11 +309,11 @@ func TestCacheparseConf(t *testing.T) {
 		{
 			name: "just conn",
 			configStr: `{
-  "conn": "127.0.0.1:6379"
+  "conn": literal_6042
 }`,
 
 			wantCache: Cache{
-				conninfo:        "127.0.0.1:6379",
+				conninfo:        literal_6042,
 				dbNum:           0,
 				key:             DefaultKey,
 				password:        "",
@@ -336,7 +336,7 @@ func TestCacheparseConf(t *testing.T) {
 }`,
 
 			wantCache: Cache{
-				conninfo:        "127.0.0.1:6379",
+				conninfo:        literal_6042,
 				dbNum:           2,
 				key:             "mykey",
 				password:        "mypwd",
@@ -359,3 +359,7 @@ func TestCacheparseConf(t *testing.T) {
 		})
 	}
 }
+
+const literal_6042 = "127.0.0.1:6379"
+
+const literal_6187 = "my-key"

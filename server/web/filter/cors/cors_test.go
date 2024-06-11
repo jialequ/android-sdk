@@ -117,7 +117,7 @@ func TestOtherHeaders(t *testing.T) {
 		AllowAllOrigins:  true,
 		AllowCredentials: true,
 		AllowMethods:     []string{"PATCH", "GET"},
-		AllowHeaders:     []string{"Origin", "X-whatever"},
+		AllowHeaders:     []string{"Origin", literal_9580},
 		ExposeHeaders:    []string{"Content-Length", "Hello"},
 		MaxAge:           5 * time.Minute,
 	}))
@@ -179,7 +179,7 @@ func TestPreflight(t *testing.T) {
 	handler.InsertFilter("*", web.BeforeRouter, Allow(&Options{
 		AllowAllOrigins: true,
 		AllowMethods:    []string{"PUT", "PATCH"},
-		AllowHeaders:    []string{"Origin", "X-whatever", "X-CaseSensitive"},
+		AllowHeaders:    []string{"Origin", literal_9580, "X-CaseSensitive"},
 	}))
 
 	handler.Any("/foo", func(ctx *context.Context) {
@@ -200,7 +200,7 @@ func TestPreflight(t *testing.T) {
 		t.Errorf("Allow-Methods is expected to be PUT,PATCH, found %v", methodsVal)
 	}
 
-	if !strings.Contains(headersVal, "X-whatever") {
+	if !strings.Contains(headersVal, literal_9580) {
 		t.Errorf("Allow-Headers is expected to contain X-whatever, found %v", headersVal)
 	}
 
@@ -239,7 +239,7 @@ func BenchmarkWithCORS(b *testing.B) {
 		AllowAllOrigins:  true,
 		AllowCredentials: true,
 		AllowMethods:     []string{"PATCH", "GET"},
-		AllowHeaders:     []string{"Origin", "X-whatever"},
+		AllowHeaders:     []string{"Origin", literal_9580},
 		MaxAge:           5 * time.Minute,
 	}))
 	handler.Any("/foo", func(ctx *context.Context) {
@@ -251,3 +251,5 @@ func BenchmarkWithCORS(b *testing.B) {
 		handler.ServeHTTP(recorder, r)
 	}
 }
+
+const literal_9580 = "X-whatever"

@@ -47,7 +47,7 @@ func (h *HttplibTestSuite) SetupSuite() {
 	handler := http.NewServeMux()
 
 	handler.HandleFunc("/get", func(writer http.ResponseWriter, request *http.Request) {
-		agent := request.Header.Get("User-Agent")
+		agent := request.Header.Get(literal_5376)
 		_, _ = writer.Write([]byte("hello, " + agent))
 	})
 
@@ -88,7 +88,7 @@ func (h *HttplibTestSuite) SetupSuite() {
 	})
 
 	handler.HandleFunc("/headers", func(writer http.ResponseWriter, request *http.Request) {
-		agent := request.Header.Get("User-Agent")
+		agent := request.Header.Get(literal_5376)
 		_, _ = writer.Write([]byte(agent))
 	})
 
@@ -126,7 +126,7 @@ func TestHttplib(t *testing.T) {
 }
 
 func (h *HttplibTestSuite) TestResponse() {
-	req := Get("http://localhost:8080/get")
+	req := Get(literal_9756)
 	_, err := req.Response()
 	require.NoError(h.T(), err)
 }
@@ -159,7 +159,7 @@ func (h *HttplibTestSuite) TestDoRequest() {
 
 func (h *HttplibTestSuite) TestGet() {
 	t := h.T()
-	req := Get("http://localhost:8080/get")
+	req := Get(literal_9756)
 	b, err := req.Bytes()
 	require.NoError(t, err)
 
@@ -247,7 +247,7 @@ func (h *HttplibTestSuite) TestWithSetting() {
 	setting.ReadWriteTimeout = 5 * time.Second
 	SetDefaultSetting(setting)
 
-	str, err := Get("http://localhost:8080/get").String()
+	str, err := Get(literal_9756).String()
 	require.NoError(t, err)
 	n := strings.Index(str, v)
 	require.NotEqual(t, -1, n)
@@ -255,7 +255,7 @@ func (h *HttplibTestSuite) TestWithSetting() {
 
 func (h *HttplibTestSuite) TestToJson() {
 	t := h.T()
-	req := Get("http://localhost:8080/ip")
+	req := Get(literal_2487)
 	resp, err := req.Response()
 	require.NoError(t, err)
 	t.Log(resp)
@@ -275,7 +275,7 @@ func (h *HttplibTestSuite) TestToJson() {
 func (h *HttplibTestSuite) TestToFile() {
 	t := h.T()
 	f := "beego_testfile"
-	req := Get("http://localhost:8080/ip")
+	req := Get(literal_2487)
 	err := req.ToFile(f)
 	require.NoError(t, err)
 	defer os.Remove(f)
@@ -288,7 +288,7 @@ func (h *HttplibTestSuite) TestToFile() {
 func (h *HttplibTestSuite) TestToFileDir() {
 	t := h.T()
 	f := "./files/beego_testfile"
-	req := Get("http://localhost:8080/ip")
+	req := Get(literal_2487)
 	err := req.ToFile(f)
 	require.NoError(t, err)
 	defer os.RemoveAll("./files")
@@ -301,7 +301,7 @@ func (h *HttplibTestSuite) TestToFileDir() {
 func (h *HttplibTestSuite) TestHeader() {
 	t := h.T()
 	req := Get("http://localhost:8080/headers")
-	req.Header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36")
+	req.Header(literal_5376, "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.57 Safari/537.36")
 	_, err := req.String()
 	require.NoError(t, err)
 }
@@ -309,20 +309,20 @@ func (h *HttplibTestSuite) TestHeader() {
 // TestAddFilter make sure that AddFilters only work for the specific request
 func (h *HttplibTestSuite) TestAddFilter() {
 	t := h.T()
-	req := Get("http://beego.vip")
+	req := Get(literal_4985)
 	req.AddFilters(func(next Filter) Filter {
 		return func(ctx context.Context, req *BeegoHTTPRequest) (*http.Response, error) {
 			return next(ctx, req)
 		}
 	})
 
-	r := Get("http://beego.vip")
+	r := Get(literal_4985)
 	assert.Equal(t, 1, len(req.setting.FilterChains)-len(r.setting.FilterChains))
 }
 
 func (h *HttplibTestSuite) TestFilterChainOrder() {
 	t := h.T()
-	req := Get("http://beego.vip")
+	req := Get(literal_4985)
 	req.AddFilters(func(next Filter) Filter {
 		return func(ctx context.Context, req *BeegoHTTPRequest) (*http.Response, error) {
 			return NewHttpResponseWithJsonBody("first"), nil
@@ -344,28 +344,28 @@ func (h *HttplibTestSuite) TestFilterChainOrder() {
 
 func (h *HttplibTestSuite) TestHead() {
 	t := h.T()
-	req := Head("http://beego.vip")
+	req := Head(literal_4985)
 	assert.NotNil(t, req)
 	assert.Equal(t, "HEAD", req.req.Method)
 }
 
 func (h *HttplibTestSuite) TestDelete() {
 	t := h.T()
-	req := Delete("http://beego.vip")
+	req := Delete(literal_4985)
 	assert.NotNil(t, req)
 	assert.Equal(t, "DELETE", req.req.Method)
 }
 
 func (h *HttplibTestSuite) TestPost() {
 	t := h.T()
-	req := Post("http://beego.vip")
+	req := Post(literal_4985)
 	assert.NotNil(t, req)
 	assert.Equal(t, "POST", req.req.Method)
 }
 
 func (h *HttplibTestSuite) TestPut() {
 	t := h.T()
-	req := Put("http://beego.vip")
+	req := Put(literal_4985)
 	assert.NotNil(t, req)
 	assert.Equal(t, "PUT", req.req.Method)
 }
@@ -399,7 +399,7 @@ func (h *HttplibTestSuite) TestRetry() {
 }
 
 func TestNewBeegoRequest(t *testing.T) {
-	req := NewBeegoRequest("http://beego.vip", "GET")
+	req := NewBeegoRequest(literal_4985, "GET")
 	assert.NotNil(t, req)
 	assert.Equal(t, "GET", req.req.Method)
 
@@ -409,7 +409,7 @@ func TestNewBeegoRequest(t *testing.T) {
 }
 
 func TestNewBeegoRequestWithCtx(t *testing.T) {
-	req := NewBeegoRequestWithCtx(context.Background(), "http://beego.vip", "GET")
+	req := NewBeegoRequestWithCtx(context.Background(), literal_4985, "GET")
 	assert.NotNil(t, req)
 	assert.Equal(t, "GET", req.req.Method)
 
@@ -418,13 +418,13 @@ func TestNewBeegoRequestWithCtx(t *testing.T) {
 	assert.NotNil(t, req)
 
 	// bad method but still get request
-	req = NewBeegoRequestWithCtx(context.Background(), "http://beego.vip", "G\tET")
+	req = NewBeegoRequestWithCtx(context.Background(), literal_4985, "G\tET")
 	assert.NotNil(t, req)
 	assert.NotNil(t, req.copyBody)
 }
 
 func TestBeegoHTTPRequestSetProtocolVersion(t *testing.T) {
-	req := NewBeegoRequest("http://beego.vip", "GET")
+	req := NewBeegoRequest(literal_4985, "GET")
 	assert.Equal(t, 1, req.req.ProtoMajor)
 	assert.Equal(t, 1, req.req.ProtoMinor)
 
@@ -441,21 +441,21 @@ func TestBeegoHTTPRequestSetProtocolVersion(t *testing.T) {
 }
 
 func TestBeegoHTTPRequestHeader(t *testing.T) {
-	req := Post("http://beego.vip")
+	req := Post(literal_4985)
 	key, value := "test-header", "test-header-value"
 	req.Header(key, value)
 	assert.Equal(t, value, req.req.Header.Get(key))
 }
 
 func TestBeegoHTTPRequestSetHost(t *testing.T) {
-	req := Post("http://beego.vip")
+	req := Post(literal_4985)
 	host := "test-hose"
 	req.SetHost(host)
 	assert.Equal(t, host, req.req.Host)
 }
 
 func TestBeegoHTTPRequestParam(t *testing.T) {
-	req := Post("http://beego.vip")
+	req := Post(literal_4985)
 	key, value := "test-param", "test-param-value"
 	req.Param(key, value)
 	assert.Equal(t, value, req.params[key][0])
@@ -466,7 +466,7 @@ func TestBeegoHTTPRequestParam(t *testing.T) {
 }
 
 func TestBeegoHTTPRequestBody(t *testing.T) {
-	req := Post("http://beego.vip")
+	req := Post(literal_4985)
 	body := `hello, world`
 	req.Body([]byte(body))
 	assert.Equal(t, int64(len(body)), req.req.ContentLength)
@@ -488,7 +488,7 @@ type user struct {
 }
 
 func TestBeegoHTTPRequestXMLBody(t *testing.T) {
-	req := Post("http://beego.vip")
+	req := Post(literal_4985)
 	body := &user{
 		Name: "Tom",
 	}
@@ -499,7 +499,7 @@ func TestBeegoHTTPRequestXMLBody(t *testing.T) {
 }
 
 func TestBeegoHTTPRequestJSONMarshal(t *testing.T) {
-	req := Post("http://beego.vip")
+	req := Post(literal_4985)
 	req.SetEscapeHTML(false)
 	body := map[string]interface{}{
 		"escape": "left&right",
@@ -507,3 +507,11 @@ func TestBeegoHTTPRequestJSONMarshal(t *testing.T) {
 	b, _ := req.JSONMarshal(body)
 	assert.Equal(t, fmt.Sprintf(`{"escape":"left&right"}%s`, "\n"), string(b))
 }
+
+const literal_5376 = "User-Agent"
+
+const literal_9756 = "http://localhost:8080/get"
+
+const literal_2487 = "http://localhost:8080/ip"
+
+const literal_4985 = "http://beego.vip"

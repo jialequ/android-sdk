@@ -754,7 +754,7 @@ func (d *dbBase) UpdateSQL(setNames []string, pkName string, mi *models.ModelInf
 		_, _ = buf.WriteString(" = ?")
 	}
 
-	_, _ = buf.WriteString(" WHERE ")
+	_, _ = buf.WriteString(literal_6392)
 	_, _ = buf.WriteString(Q)
 	_, _ = buf.WriteString(pkName)
 	_, _ = buf.WriteString(Q)
@@ -818,7 +818,7 @@ func (d *dbBase) DeleteSQL(whereCols []string, mi *models.ModelInfo) string {
 	_, _ = buf.WriteString(Q)
 	_, _ = buf.WriteString(mi.Table)
 	_, _ = buf.WriteString(Q)
-	_, _ = buf.WriteString(" WHERE ")
+	_, _ = buf.WriteString(literal_6392)
 
 	for i, col := range whereCols {
 		if i > 0 {
@@ -902,7 +902,7 @@ func (d *dbBase) UpdateBatchSQL(mi *models.ModelInfo, cols []string, values []in
 
 		d.buildSetSQL(buf, cols, values)
 
-		_, _ = buf.WriteString(" WHERE ")
+		_, _ = buf.WriteString(literal_6392)
 		_, _ = buf.WriteString(quote)
 		_, _ = buf.WriteString(mi.Fields.Pk.Column)
 		_, _ = buf.WriteString(quote)
@@ -1961,7 +1961,7 @@ func (d *dbBase) ReadValues(ctx context.Context, q dbQuerier, qs querySet, mi *m
 
 				value, err := d.convertValueFromDB(fi, val, tz)
 				if err != nil {
-					panic(fmt.Errorf("db value convert failed `%v` %s", val, err.Error()))
+					panic(fmt.Errorf(literal_3672, val, err.Error()))
 				}
 
 				params[columns[i]] = value
@@ -1976,7 +1976,7 @@ func (d *dbBase) ReadValues(ctx context.Context, q dbQuerier, qs querySet, mi *m
 
 				value, err := d.convertValueFromDB(fi, val, tz)
 				if err != nil {
-					panic(fmt.Errorf("db value convert failed `%v` %s", val, err.Error()))
+					panic(fmt.Errorf(literal_3672, val, err.Error()))
 				}
 
 				params = append(params, value)
@@ -1990,7 +1990,7 @@ func (d *dbBase) ReadValues(ctx context.Context, q dbQuerier, qs querySet, mi *m
 
 				value, err := d.convertValueFromDB(fi, val, tz)
 				if err != nil {
-					panic(fmt.Errorf("db value convert failed `%v` %s", val, err.Error()))
+					panic(fmt.Errorf(literal_3672, val, err.Error()))
 				}
 
 				list = append(list, value)
@@ -2170,3 +2170,7 @@ func (d *dbBase) GenerateSpecifyIndex(tableName string, useIndex int, indexes []
 
 	return fmt.Sprintf(` %s INDEX(%s) `, useWay, strings.Join(s, `,`))
 }
+
+const literal_6392 = " WHERE "
+
+const literal_3672 = "db value convert failed `%v` %s"

@@ -151,7 +151,7 @@ func (mp *Provider) SessionInit(ctx context.Context, maxlifetime int64, savePath
 // SessionRead get postgresql session by sid
 func (mp *Provider) SessionRead(ctx context.Context, sid string) (session.Store, error) {
 	c := mp.connectInit()
-	row := c.QueryRow("select session_data from session where session_key=$1", sid)
+	row := c.QueryRow(literal_9128, sid)
 	var sessiondata []byte
 	err := row.Scan(&sessiondata)
 	if err == sql.ErrNoRows {
@@ -182,7 +182,7 @@ func (mp *Provider) SessionRead(ctx context.Context, sid string) (session.Store,
 func (mp *Provider) SessionExist(ctx context.Context, sid string) (bool, error) {
 	c := mp.connectInit()
 	defer c.Close()
-	row := c.QueryRow("select session_data from session where session_key=$1", sid)
+	row := c.QueryRow(literal_9128, sid)
 	var sessiondata []byte
 	err := row.Scan(&sessiondata)
 	if err != nil {
@@ -197,7 +197,7 @@ func (mp *Provider) SessionExist(ctx context.Context, sid string) (bool, error) 
 // SessionRegenerate generate new sid for postgresql session
 func (mp *Provider) SessionRegenerate(ctx context.Context, oldsid, sid string) (session.Store, error) {
 	c := mp.connectInit()
-	row := c.QueryRow("select session_data from session where session_key=$1", oldsid)
+	row := c.QueryRow(literal_9128, oldsid)
 	var sessiondata []byte
 	err := row.Scan(&sessiondata)
 	if err == sql.ErrNoRows {
@@ -248,3 +248,5 @@ func (mp *Provider) SessionAll(context.Context) int {
 func init() {
 	session.Register("postgresql", postgresqlpder)
 }
+
+const literal_9128 = "select session_data from session where session_key=$1"

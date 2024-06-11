@@ -46,7 +46,7 @@ func TestErrorCode01(t *testing.T) {
 		w := httptest.NewRecorder()
 
 		handler := NewControllerRegister()
-		handler.Add("/error", &errorTestController{})
+		handler.Add(literal_2584, &errorTestController{})
 		handler.ServeHTTP(w, r)
 		code, _ := strconv.Atoi(k)
 		if w.Code != code {
@@ -64,7 +64,7 @@ func TestErrorCode02(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	handler := NewControllerRegister()
-	handler.Add("/error", &errorTestController{})
+	handler.Add(literal_2584, &errorTestController{})
 	handler.ServeHTTP(w, r)
 	if w.Code != 404 {
 		t.Fail()
@@ -77,7 +77,7 @@ func TestErrorCode03(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	handler := NewControllerRegister()
-	handler.Add("/error", &errorTestController{})
+	handler.Add(literal_2584, &errorTestController{})
 	handler.ServeHTTP(w, r)
 	if w.Code != 200 {
 		t.Fail()
@@ -86,3 +86,5 @@ func TestErrorCode03(t *testing.T) {
 		t.Fail()
 	}
 }
+
+const literal_2584 = "/error"

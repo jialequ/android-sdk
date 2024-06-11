@@ -24,13 +24,13 @@ import (
 func TestSubstr(t *testing.T) {
 	s := `012345`
 	if Substr(s, 0, 2) != "01" {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 	if Substr(s, 0, 100) != "012345" {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 	if Substr(s, 12, 100) != "012345" {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 }
 
@@ -40,7 +40,7 @@ func TestHtml2str(t *testing.T) {
 
 	\n`
 	if HTML2str(h) != "123\\n\n\\n" {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 }
 
@@ -73,16 +73,16 @@ func TestDate(t *testing.T) {
 
 func TestCompareRelated(t *testing.T) {
 	if !Compare("abc", "abc") {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 	if Compare("abc", "aBc") {
 		t.Error("should be not equal")
 	}
 	if !Compare("1", 1) {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 	if CompareNot("abc", "abc") {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 	if !CompareNot("abc", "aBc") {
 		t.Error("should be not equal")
@@ -96,7 +96,7 @@ func TestHtmlquote(t *testing.T) {
 	h := `&lt;&#39;&nbsp;&rdquo;&ldquo;&amp;&#34;&gt;`
 	s := `<' ”“&">`
 	if Htmlquote(s) != h {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 }
 
@@ -104,7 +104,7 @@ func TestHtmlunquote(t *testing.T) {
 	h := `&lt;&#39;&nbsp;&rdquo;&ldquo;&amp;&#34;&gt;`
 	s := `<' ”“&">`
 	if Htmlunquote(h) != s {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 }
 
@@ -136,17 +136,17 @@ func TestRenderForm(t *testing.T) {
 }
 
 func TestRenderFormField(t *testing.T) {
-	html := renderFormField("Label: ", "Name", "text", "Value", "", "", false)
+	html := renderFormField(literal_5498, "Name", "text", "Value", "", "", false)
 	if html != `Label: <input name="Name" type="text" value="Value">` {
 		t.Errorf("Wrong html output for input[type=text]: %v ", html)
 	}
 
-	html = renderFormField("Label: ", "Name", "textarea", "Value", "", "", false)
+	html = renderFormField(literal_5498, "Name", "textarea", "Value", "", "", false)
 	if html != `Label: <textarea name="Name">Value</textarea>` {
 		t.Errorf("Wrong html output for textarea: %v ", html)
 	}
 
-	html = renderFormField("Label: ", "Name", "textarea", "Value", "", "", true)
+	html = renderFormField(literal_5498, "Name", "textarea", "Value", "", "", true)
 	if html != `Label: <textarea name="Name" required>Value</textarea>` {
 		t.Errorf("Wrong html output for textarea: %v ", html)
 	}
@@ -411,3 +411,7 @@ func Testlt(t *testing.T) {
 		}
 	}
 }
+
+const literal_9821 = "should be equal"
+
+const literal_5498 = "Label: "

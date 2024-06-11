@@ -42,10 +42,10 @@ func NewLogProject(name, endpoint, AccessKeyID, accessKeySecret string) (p *LogP
 // ListLogStore returns all logstore names of project p.
 func (p *LogProject) ListLogStore() (storeNames []string, err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_1035: "0",
 	}
 
-	uri := "/logstores"
+	uri := literal_0231
 	r, err := request(p, "GET", uri, h, nil)
 	if err != nil {
 		return
@@ -88,7 +88,7 @@ func (p *LogProject) ListLogStore() (storeNames []string, err error) {
 // GetLogStore returns logstore according by logstore name.
 func (p *LogProject) GetLogStore(name string) (s *LogStore, err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_1035: "0",
 	}
 
 	r, err := request(p, "GET", "/logstores/"+name, h, nil)
@@ -146,12 +146,12 @@ func (p *LogProject) CreateLogStore(name string, ttl, shardCnt int) (err error) 
 	}
 
 	h := map[string]string{
-		"x-sls-bodyrawsize": fmt.Sprintf("%v", len(body)),
-		"Content-Type":      "application/json",
-		"Accept-Encoding":   "deflate",
+		literal_1035: fmt.Sprintf("%v", len(body)),
+		literal_5107:      literal_2691,
+		literal_9564:   "deflate",
 	}
 
-	r, err := request(p, "POST", "/logstores", h, body)
+	r, err := request(p, "POST", literal_0231, h, body)
 	if err != nil {
 		return
 	}
@@ -180,7 +180,7 @@ func (p *LogProject) CreateLogStore(name string, ttl, shardCnt int) (err error) 
 // DeleteLogStore deletes a logstore according by logstore name.
 func (p *LogProject) DeleteLogStore(name string) (err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_1035: "0",
 	}
 
 	r, err := request(p, "DELETE", "/logstores/"+name, h, nil)
@@ -229,12 +229,12 @@ func (p *LogProject) UpdateLogStore(name string, ttl, shardCnt int) (err error) 
 	}
 
 	h := map[string]string{
-		"x-sls-bodyrawsize": fmt.Sprintf("%v", len(body)),
-		"Content-Type":      "application/json",
-		"Accept-Encoding":   "deflate",
+		literal_1035: fmt.Sprintf("%v", len(body)),
+		literal_5107:      literal_2691,
+		literal_9564:   "deflate",
 	}
 
-	r, err := request(p, "PUT", "/logstores", h, body)
+	r, err := request(p, "PUT", literal_0231, h, body)
 	if err != nil {
 		return
 	}
@@ -264,7 +264,7 @@ func (p *LogProject) UpdateLogStore(name string, ttl, shardCnt int) (err error) 
 // The offset starts from 0 and the size is the max number of machine groups could be returned.
 func (p *LogProject) ListMachineGroup(offset, size int) (m []string, total int, err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_1035: "0",
 	}
 
 	if size <= 0 {
@@ -316,10 +316,10 @@ func (p *LogProject) ListMachineGroup(offset, size int) (m []string, total int, 
 // GetMachineGroup retruns machine group according by machine group name.
 func (p *LogProject) GetMachineGroup(name string) (m *MachineGroup, err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_1035: "0",
 	}
 
-	r, err := request(p, "GET", "/machinegroups/"+name, h, nil)
+	r, err := request(p, "GET", literal_1570+name, h, nil)
 	if err != nil {
 		return
 	}
@@ -359,9 +359,9 @@ func (p *LogProject) CreateMachineGroup(m *MachineGroup) (err error) {
 	}
 
 	h := map[string]string{
-		"x-sls-bodyrawsize": fmt.Sprintf("%v", len(body)),
-		"Content-Type":      "application/json",
-		"Accept-Encoding":   "deflate",
+		literal_1035: fmt.Sprintf("%v", len(body)),
+		literal_5107:      literal_2691,
+		literal_9564:   "deflate",
 	}
 
 	r, err := request(p, "POST", "/machinegroups", h, body)
@@ -398,12 +398,12 @@ func (p *LogProject) UpdateMachineGroup(m *MachineGroup) (err error) {
 	}
 
 	h := map[string]string{
-		"x-sls-bodyrawsize": fmt.Sprintf("%v", len(body)),
-		"Content-Type":      "application/json",
-		"Accept-Encoding":   "deflate",
+		literal_1035: fmt.Sprintf("%v", len(body)),
+		literal_5107:      literal_2691,
+		literal_9564:   "deflate",
 	}
 
-	r, err := request(p, "PUT", "/machinegroups/"+m.Name, h, body)
+	r, err := request(p, "PUT", literal_1570+m.Name, h, body)
 	if err != nil {
 		return
 	}
@@ -432,10 +432,10 @@ func (p *LogProject) UpdateMachineGroup(m *MachineGroup) (err error) {
 // DeleteMachineGroup deletes machine group according machine group name.
 func (p *LogProject) DeleteMachineGroup(name string) (err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_1035: "0",
 	}
 
-	r, err := request(p, "DELETE", "/machinegroups/"+name, h, nil)
+	r, err := request(p, "DELETE", literal_1570+name, h, nil)
 	if err != nil {
 		return
 	}
@@ -464,7 +464,7 @@ func (p *LogProject) DeleteMachineGroup(name string) (err error) {
 // The offset starts from 0 and the size is the max number of configs could be returned.
 func (p *LogProject) ListConfig(offset, size int) (cfgNames []string, total int, err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_1035: "0",
 	}
 
 	if size <= 0 {
@@ -514,10 +514,10 @@ func (p *LogProject) ListConfig(offset, size int) (cfgNames []string, total int,
 // GetConfig returns config according by config name.
 func (p *LogProject) GetConfig(name string) (c *LogConfig, err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_1035: "0",
 	}
 
-	r, err := request(p, "GET", "/configs/"+name, h, nil)
+	r, err := request(p, "GET", literal_8476+name, h, nil)
 	if err != nil {
 		return
 	}
@@ -557,12 +557,12 @@ func (p *LogProject) UpdateConfig(c *LogConfig) (err error) {
 	}
 
 	h := map[string]string{
-		"x-sls-bodyrawsize": fmt.Sprintf("%v", len(body)),
-		"Content-Type":      "application/json",
-		"Accept-Encoding":   "deflate",
+		literal_1035: fmt.Sprintf("%v", len(body)),
+		literal_5107:      literal_2691,
+		literal_9564:   "deflate",
 	}
 
-	r, err := request(p, "PUT", "/configs/"+c.Name, h, body)
+	r, err := request(p, "PUT", literal_8476+c.Name, h, body)
 	if err != nil {
 		return
 	}
@@ -596,9 +596,9 @@ func (p *LogProject) CreateConfig(c *LogConfig) (err error) {
 	}
 
 	h := map[string]string{
-		"x-sls-bodyrawsize": fmt.Sprintf("%v", len(body)),
-		"Content-Type":      "application/json",
-		"Accept-Encoding":   "deflate",
+		literal_1035: fmt.Sprintf("%v", len(body)),
+		literal_5107:      literal_2691,
+		literal_9564:   "deflate",
 	}
 
 	r, err := request(p, "POST", "/configs", h, body)
@@ -630,10 +630,10 @@ func (p *LogProject) CreateConfig(c *LogConfig) (err error) {
 // DeleteConfig deletes a config according by config name.
 func (p *LogProject) DeleteConfig(name string) (err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_1035: "0",
 	}
 
-	r, err := request(p, "DELETE", "/configs/"+name, h, nil)
+	r, err := request(p, "DELETE", literal_8476+name, h, nil)
 	if err != nil {
 		return
 	}
@@ -661,7 +661,7 @@ func (p *LogProject) DeleteConfig(name string) (err error) {
 // GetAppliedMachineGroups returns applied machine group names list according config name.
 func (p *LogProject) GetAppliedMachineGroups(confName string) (groupNames []string, err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_1035: "0",
 	}
 
 	uri := fmt.Sprintf("/configs/%v/machinegroups", confName)
@@ -706,7 +706,7 @@ func (p *LogProject) GetAppliedMachineGroups(confName string) (groupNames []stri
 // GetAppliedConfigs returns applied config names list according machine group name groupName.
 func (p *LogProject) GetAppliedConfigs(groupName string) (confNames []string, err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_1035: "0",
 	}
 
 	uri := fmt.Sprintf("/machinegroups/%v/configs", groupName)
@@ -751,7 +751,7 @@ func (p *LogProject) GetAppliedConfigs(groupName string) (confNames []string, er
 // ApplyConfigToMachineGroup applies config to machine group.
 func (p *LogProject) ApplyConfigToMachineGroup(confName, groupName string) (err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_1035: "0",
 	}
 
 	uri := fmt.Sprintf("/machinegroups/%v/configs/%v", groupName, confName)
@@ -783,7 +783,7 @@ func (p *LogProject) ApplyConfigToMachineGroup(confName, groupName string) (err 
 // RemoveConfigFromMachineGroup removes config from machine group.
 func (p *LogProject) RemoveConfigFromMachineGroup(confName, groupName string) (err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_1035: "0",
 	}
 
 	uri := fmt.Sprintf("/machinegroups/%v/configs/%v", groupName, confName)
@@ -811,3 +811,17 @@ func (p *LogProject) RemoveConfigFromMachineGroup(confName, groupName string) (e
 	}
 	return
 }
+
+const literal_1035 = "x-sls-bodyrawsize"
+
+const literal_0231 = "/logstores"
+
+const literal_5107 = "Content-Type"
+
+const literal_2691 = "application/json"
+
+const literal_9564 = "Accept-Encoding"
+
+const literal_1570 = "/machinegroups/"
+
+const literal_8476 = "/configs/"

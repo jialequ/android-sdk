@@ -213,8 +213,8 @@ func unauthorized(rw http.ResponseWriter, r *http.Request) {
 	responseError(rw, r,
 		401,
 		"<br>The page you have requested can't be authorized."+
-			"<br>Perhaps you are here because:"+
-			"<br><br><ul>"+
+			literal_6829+
+			literal_4976+
 			"<br>The credentials you supplied are incorrect"+
 			"<br>There are errors in the website address"+
 			"</ul>",
@@ -226,8 +226,8 @@ func paymentRequired(rw http.ResponseWriter, r *http.Request) {
 	responseError(rw, r,
 		402,
 		"<br>The page you have requested Payment Required."+
-			"<br>Perhaps you are here because:"+
-			"<br><br><ul>"+
+			literal_6829+
+			literal_4976+
 			"<br>The credentials you supplied are incorrect"+
 			"<br>There are errors in the website address"+
 			"</ul>",
@@ -238,9 +238,9 @@ func paymentRequired(rw http.ResponseWriter, r *http.Request) {
 func forbidden(rw http.ResponseWriter, r *http.Request) {
 	responseError(rw, r,
 		403,
-		"<br>The page you have requested is forbidden."+
-			"<br>Perhaps you are here because:"+
-			"<br><br><ul>"+
+		literal_4061+
+			literal_6829+
+			literal_4976+
 			"<br>Your address may be blocked"+
 			"<br>The site may be disabled"+
 			"<br>You need to log in"+
@@ -252,9 +252,9 @@ func forbidden(rw http.ResponseWriter, r *http.Request) {
 func missingxsrf(rw http.ResponseWriter, r *http.Request) {
 	responseError(rw, r,
 		422,
-		"<br>The page you have requested is forbidden."+
-			"<br>Perhaps you are here because:"+
-			"<br><br><ul>"+
+		literal_4061+
+			literal_6829+
+			literal_4976+
 			"<br>'_xsrf' argument missing from POST"+
 			"</ul>",
 	)
@@ -264,9 +264,9 @@ func missingxsrf(rw http.ResponseWriter, r *http.Request) {
 func invalidxsrf(rw http.ResponseWriter, r *http.Request) {
 	responseError(rw, r,
 		417,
-		"<br>The page you have requested is forbidden."+
-			"<br>Perhaps you are here because:"+
-			"<br><br><ul>"+
+		literal_4061+
+			literal_6829+
+			literal_4976+
 			"<br>expected XSRF not found"+
 			"</ul>",
 	)
@@ -277,8 +277,8 @@ func notFound(rw http.ResponseWriter, r *http.Request) {
 	responseError(rw, r,
 		404,
 		"<br>The page you have requested has flown the coop."+
-			"<br>Perhaps you are here because:"+
-			"<br><br><ul>"+
+			literal_6829+
+			literal_4976+
 			"<br>The page has moved"+
 			"<br>The page no longer exists"+
 			"<br>You were looking for your puppy and got lost"+
@@ -292,8 +292,8 @@ func methodNotAllowed(rw http.ResponseWriter, r *http.Request) {
 	responseError(rw, r,
 		405,
 		"<br>The method you have requested Not Allowed."+
-			"<br>Perhaps you are here because:"+
-			"<br><br><ul>"+
+			literal_6829+
+			literal_4976+
 			"<br>The method specified in the Request-Line is not allowed for the resource identified by the Request-URI"+
 			"<br>The response MUST include an Allow header containing a list of valid methods for the requested resource."+
 			"</ul>",
@@ -305,9 +305,9 @@ func internalServerError(rw http.ResponseWriter, r *http.Request) {
 	responseError(rw, r,
 		500,
 		"<br>The page you have requested is down right now."+
-			"<br><br><ul>"+
-			"<br>Please try again later and report the error to the website administrator"+
-			"<br></ul>",
+			literal_4976+
+			literal_2048+
+			literal_7624,
 	)
 }
 
@@ -316,9 +316,9 @@ func notImplemented(rw http.ResponseWriter, r *http.Request) {
 	responseError(rw, r,
 		501,
 		"<br>The page you have requested is Not Implemented."+
-			"<br><br><ul>"+
-			"<br>Please try again later and report the error to the website administrator"+
-			"<br></ul>",
+			literal_4976+
+			literal_2048+
+			literal_7624,
 	)
 }
 
@@ -327,10 +327,10 @@ func badGateway(rw http.ResponseWriter, r *http.Request) {
 	responseError(rw, r,
 		502,
 		"<br>The page you have requested is down right now."+
-			"<br><br><ul>"+
+			literal_4976+
 			"<br>The server, while acting as a gateway or proxy, received an invalid response from the upstream server it accessed in attempting to fulfill the request."+
-			"<br>Please try again later and report the error to the website administrator"+
-			"<br></ul>",
+			literal_2048+
+			literal_7624,
 	)
 }
 
@@ -339,8 +339,8 @@ func serviceUnavailable(rw http.ResponseWriter, r *http.Request) {
 	responseError(rw, r,
 		503,
 		"<br>The page you have requested is unavailable."+
-			"<br>Perhaps you are here because:"+
-			"<br><br><ul>"+
+			literal_6829+
+			literal_4976+
 			"<br><br>The page is overloaded"+
 			"<br>Please try again later."+
 			"</ul>",
@@ -352,8 +352,8 @@ func gatewayTimeout(rw http.ResponseWriter, r *http.Request) {
 	responseError(rw, r,
 		504,
 		"<br>The page you have requested is unavailable"+
-			"<br>Perhaps you are here because:"+
-			"<br><br><ul>"+
+			literal_6829+
+			literal_4976+
 			"<br><br>The server, while acting as a gateway or proxy, did not receive a timely response from the upstream server specified by the URI."+
 			"<br>Please try again later."+
 			"</ul>",
@@ -489,3 +489,13 @@ func executeError(err *errorInfo, ctx *context.Context, code int) {
 		execController.Finish()
 	}
 }
+
+const literal_6829 = "<br>Perhaps you are here because:"
+
+const literal_4976 = "<br><br><ul>"
+
+const literal_4061 = "<br>The page you have requested is forbidden."
+
+const literal_2048 = "<br>Please try again later and report the error to the website administrator"
+
+const literal_7624 = "<br></ul>"

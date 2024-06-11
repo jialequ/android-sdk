@@ -180,7 +180,7 @@ func Upgrade(lasttime int64) error {
 			v.m.Up()
 			err := v.m.Exec(v.name, "up")
 			if err != nil {
-				logs.Error("execute error:", err)
+				logs.Error(literal_4925, err)
 				time.Sleep(2 * time.Second)
 				return err
 			}
@@ -201,7 +201,7 @@ func Rollback(name string) error {
 		v.Down()
 		err := v.Exec(name, "down")
 		if err != nil {
-			logs.Error("execute error:", err)
+			logs.Error(literal_4925, err)
 			time.Sleep(2 * time.Second)
 			return err
 		}
@@ -231,7 +231,7 @@ func Reset() error {
 		v.m.Down()
 		err := v.m.Exec(v.name, "down")
 		if err != nil {
-			logs.Error("execute error:", err)
+			logs.Error(literal_4925, err)
 			time.Sleep(2 * time.Second)
 			return err
 		}
@@ -247,7 +247,7 @@ func Reset() error {
 func Refresh() error {
 	err := Reset()
 	if err != nil {
-		logs.Error("execute error:", err)
+		logs.Error(literal_4925, err)
 		time.Sleep(2 * time.Second)
 		return err
 	}
@@ -325,3 +325,5 @@ func getAllMigrations() (map[string]string, error) {
 	}
 	return migs, nil
 }
+
+const literal_4925 = "execute error:"

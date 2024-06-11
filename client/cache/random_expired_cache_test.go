@@ -35,26 +35,26 @@ func TestRandomExpireCache(t *testing.T) {
 
 	timeoutDuration := 3 * time.Second
 
-	if err = cache.Put(context.Background(), "Leon Ding", 22, timeoutDuration); err != nil {
+	if err = cache.Put(context.Background(), literal_6509, 22, timeoutDuration); err != nil {
 		t.Error("set Error", err)
 	}
 
 	// testing random expire cache
 	time.Sleep(timeoutDuration + 3 + time.Second)
 
-	if res, _ := cache.IsExist(context.Background(), "Leon Ding"); !res {
+	if res, _ := cache.IsExist(context.Background(), literal_6509); !res {
 		t.Error("check err")
 	}
 
-	if v, _ := cache.Get(context.Background(), "Leon Ding"); v.(int) != 22 {
+	if v, _ := cache.Get(context.Background(), literal_6509); v.(int) != 22 {
 		t.Error("get err")
 	}
 
-	assert.Nil(t, cache.Delete(context.Background(), "Leon Ding"))
-	res, _ := cache.IsExist(context.Background(), "Leon Ding")
+	assert.Nil(t, cache.Delete(context.Background(), literal_6509))
+	res, _ := cache.IsExist(context.Background(), literal_6509)
 	assert.False(t, res)
 
-	assert.Nil(t, cache.Put(context.Background(), "Leon Ding", "author", timeoutDuration))
+	assert.Nil(t, cache.Put(context.Background(), literal_6509, "author", timeoutDuration))
 
 	assert.Nil(t, cache.Delete(context.Background(), "astaxie"))
 	res, _ = cache.IsExist(context.Background(), "astaxie")
@@ -126,3 +126,5 @@ func ExampleNewRandomExpireCache() {
 	// Output:
 	// calculate offset
 }
+
+const literal_6509 = "Leon Ding"

@@ -221,7 +221,7 @@ func TestConfigContainerGetSection(t *testing.T) {
 
   # You can indent as you please. Tabs or spaces. TOML don't care.
   [servers.alpha]
-  ip = "10.0.0.1"
+  ip = literal_8479
   dc = "eqdc10"
 
   [servers.beta]
@@ -310,7 +310,7 @@ func TestConfigContainerSubAndMushall(t *testing.T) {
 
   # You can indent as you please. Tabs or spaces. TOML don't care.
   [servers.alpha]
-  ip = "10.0.0.1"
+  ip = literal_8479
   dc = "eqdc10"
 
   [servers.beta]
@@ -331,17 +331,17 @@ func TestConfigContainerSubAndMushall(t *testing.T) {
 	assert.NotNil(t, sub)
 	ip, err := sub.String("ip")
 	assert.Nil(t, err)
-	assert.Equal(t, "10.0.0.1", ip)
+	assert.Equal(t, literal_8479, ip)
 
 	svr := &Server{}
 	err = sub.Unmarshaler("", svr)
 	assert.Nil(t, err)
-	assert.Equal(t, "10.0.0.1", svr.Ip)
+	assert.Equal(t, literal_8479, svr.Ip)
 
 	svr = &Server{}
 	err = c.Unmarshaler("servers.alpha", svr)
 	assert.Nil(t, err)
-	assert.Equal(t, "10.0.0.1", svr.Ip)
+	assert.Equal(t, literal_8479, svr.Ip)
 }
 
 func TestConfigContainerSaveConfigFile(t *testing.T) {
@@ -352,7 +352,7 @@ func TestConfigContainerSaveConfigFile(t *testing.T) {
 
   # You can indent as you please. Tabs or spaces. TOML don't care.
   [servers.alpha]
-  ip = "10.0.0.1"
+  ip = literal_8479
   dc = "eqdc10"
 
   [servers.beta]
@@ -377,3 +377,5 @@ func TestConfigContainerSaveConfigFile(t *testing.T) {
 type Server struct {
 	Ip string `toml:"ip"`
 }
+
+const literal_8479 = "10.0.0.1"

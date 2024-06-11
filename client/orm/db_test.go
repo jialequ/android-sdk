@@ -50,7 +50,7 @@ func TestDbBaseInsertValueSQL(t *testing.T) {
 			isMulti: false,
 			names:   []string{"name", "age"},
 			values:  []interface{}{"test", 18},
-			wantRes: "INSERT INTO `test_table` (`name`, `age`) VALUES (?, ?)",
+			wantRes: literal_3207,
 		},
 		{
 			name: "single insert by dbBasePostgres",
@@ -60,7 +60,7 @@ func TestDbBaseInsertValueSQL(t *testing.T) {
 			isMulti: false,
 			names:   []string{"name", "age"},
 			values:  []interface{}{"test", 18},
-			wantRes: "INSERT INTO \"test_table\" (\"name\", \"age\") VALUES ($1, $2)",
+			wantRes: literal_2571,
 		},
 		{
 			name: "multi insert by dbBase",
@@ -90,7 +90,7 @@ func TestDbBaseInsertValueSQL(t *testing.T) {
 			isMulti: true,
 			names:   []string{"name", "age"},
 			values:  []interface{}{"test", 18, "test2"},
-			wantRes: "INSERT INTO `test_table` (`name`, `age`) VALUES (?, ?)",
+			wantRes: literal_3207,
 		},
 		{
 			name: "multi insert by dbBasePostgres but values is not enough",
@@ -100,7 +100,7 @@ func TestDbBaseInsertValueSQL(t *testing.T) {
 			isMulti: true,
 			names:   []string{"name", "age"},
 			values:  []interface{}{"test", 18, "test2"},
-			wantRes: "INSERT INTO \"test_table\" (\"name\", \"age\") VALUES ($1, $2)",
+			wantRes: literal_2571,
 		},
 		{
 			name: "single insert by dbBase but values is double to names",
@@ -110,7 +110,7 @@ func TestDbBaseInsertValueSQL(t *testing.T) {
 			isMulti: false,
 			names:   []string{"name", "age"},
 			values:  []interface{}{"test", 18, "test2", 19},
-			wantRes: "INSERT INTO `test_table` (`name`, `age`) VALUES (?, ?)",
+			wantRes: literal_3207,
 		},
 		{
 			name: "single insert by dbBasePostgres but values is double to names",
@@ -120,7 +120,7 @@ func TestDbBaseInsertValueSQL(t *testing.T) {
 			isMulti: false,
 			names:   []string{"name", "age"},
 			values:  []interface{}{"test", 18, "test2", 19},
-			wantRes: "INSERT INTO \"test_table\" (\"name\", \"age\") VALUES ($1, $2)",
+			wantRes: literal_2571,
 		},
 	}
 
@@ -1457,3 +1457,7 @@ type testTab2 struct {
 	Age2   int64 `orm:"column(age_2)"`
 	Score2 int64 `orm:"column(score_2)"`
 }
+
+const literal_3207 = "INSERT INTO `test_table` (`name`, `age`) VALUES (?, ?)"
+
+const literal_2571 = "INSERT INTO \"test_table\" (\"name\", \"age\") VALUES ($1, $2)"

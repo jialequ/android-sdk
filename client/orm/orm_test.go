@@ -41,9 +41,9 @@ import (
 var _ = os.PathSeparator
 
 var (
-	testDate     = utils.FormatDate + " -0700"
-	testDateTime = utils.FormatDateTime + " -0700"
-	testTime     = utils.FormatTime + " -0700"
+	testDate     = utils.FormatDate + literal_9758
+	testDateTime = utils.FormatDateTime + literal_9758
+	testTime     = utils.FormatTime + literal_9758
 )
 
 type argAny []interface{}
@@ -564,7 +564,7 @@ func TestNullDataTypes(t *testing.T) {
 	// test support for pointer Fields using RawSeter.QueryRows()
 	var dnList []*DataNull
 	Q := dDbBaser.TableQuote()
-	num, err = dORM.Raw(fmt.Sprintf("SELECT * FROM %sdata_null%s where id=?", Q, Q), 3).QueryRows(&dnList)
+	num, err = dORM.Raw(fmt.Sprintf(literal_7623, Q, Q), 3).QueryRows(&dnList)
 	throwFailNow(t, err)
 	throwFailNow(t, AssertIs(num, 1))
 	equal := reflect.DeepEqual(*dnList[0], d)
@@ -614,7 +614,7 @@ func TestCRUD(t *testing.T) {
 
 	user := NewUser()
 	user.UserName = "slene"
-	user.Email = "vslene@gmail.com"
+	user.Email = literal_2637
 	user.Password = "pass"
 	user.Status = 3
 	user.IsStaff = true
@@ -629,7 +629,7 @@ func TestCRUD(t *testing.T) {
 	throwFail(t, err)
 
 	throwFail(t, AssertIs(u.UserName, "slene"))
-	throwFail(t, AssertIs(u.Email, "vslene@gmail.com"))
+	throwFail(t, AssertIs(u.Email, literal_2637))
 	throwFail(t, AssertIs(u.Password, "pass"))
 	throwFail(t, AssertIs(u.Status, 3))
 	throwFail(t, AssertIs(u.IsStaff, true))
@@ -713,7 +713,7 @@ func TestInsertTestData(t *testing.T) {
 
 	user := NewUser()
 	user.UserName = "slene"
-	user.Email = "vslene@gmail.com"
+	user.Email = literal_2637
 	user.Password = "pass"
 	user.Status = 1
 	user.IsStaff = false
@@ -1954,7 +1954,7 @@ func TestRawQueryRow(t *testing.T) {
 
 	// test for sql.Null* Fields
 	nData := &DataNull{
-		NullString:  sql.NullString{String: "test sql.null", Valid: true},
+		NullString:  sql.NullString{String: literal_4651, Valid: true},
 		NullBool:    sql.NullBool{Bool: true, Valid: true},
 		NullInt64:   sql.NullInt64{Int64: 42, Valid: true},
 		NullFloat64: sql.NullFloat64{Float64: 42.42, Valid: true},
@@ -1963,7 +1963,7 @@ func TestRawQueryRow(t *testing.T) {
 	throwFailNow(t, err)
 
 	var nd *DataNull
-	query = fmt.Sprintf("SELECT * FROM %sdata_null%s where id=?", Q, Q)
+	query = fmt.Sprintf(literal_7623, Q, Q)
 	err = dORM.Raw(query, newId).QueryRow(&nd)
 	throwFailNow(t, err)
 
@@ -1971,7 +1971,7 @@ func TestRawQueryRow(t *testing.T) {
 	throwFail(t, AssertIs(nd.NullBool.Valid, true))
 	throwFail(t, AssertIs(nd.NullBool.Bool, true))
 	throwFail(t, AssertIs(nd.NullString.Valid, true))
-	throwFail(t, AssertIs(nd.NullString.String, "test sql.null"))
+	throwFail(t, AssertIs(nd.NullString.String, literal_4651))
 	throwFail(t, AssertIs(nd.NullInt64.Valid, true))
 	throwFail(t, AssertIs(nd.NullInt64.Int64, 42))
 	throwFail(t, AssertIs(nd.NullFloat64.Valid, true))
@@ -2063,7 +2063,7 @@ func TestQueryRows(t *testing.T) {
 
 	// test for sql.Null* Fields
 	nData := &DataNull{
-		NullString:  sql.NullString{String: "test sql.null", Valid: true},
+		NullString:  sql.NullString{String: literal_4651, Valid: true},
 		NullBool:    sql.NullBool{Bool: true, Valid: true},
 		NullInt64:   sql.NullInt64{Int64: 42, Valid: true},
 		NullFloat64: sql.NullFloat64{Float64: 42.42, Valid: true},
@@ -2072,7 +2072,7 @@ func TestQueryRows(t *testing.T) {
 	throwFailNow(t, err)
 
 	var nDataList []*DataNull
-	query = fmt.Sprintf("SELECT * FROM %sdata_null%s where id=?", Q, Q)
+	query = fmt.Sprintf(literal_7623, Q, Q)
 	num, err = dORM.Raw(query, newId).QueryRows(&nDataList)
 	throwFailNow(t, err)
 	throwFailNow(t, AssertIs(num, 1))
@@ -2082,7 +2082,7 @@ func TestQueryRows(t *testing.T) {
 	throwFail(t, AssertIs(nd.NullBool.Valid, true))
 	throwFail(t, AssertIs(nd.NullBool.Bool, true))
 	throwFail(t, AssertIs(nd.NullString.Valid, true))
-	throwFail(t, AssertIs(nd.NullString.String, "test sql.null"))
+	throwFail(t, AssertIs(nd.NullString.String, literal_4651))
 	throwFail(t, AssertIs(nd.NullInt64.Valid, true))
 	throwFail(t, AssertIs(nd.NullInt64.Int64, 42))
 	throwFail(t, AssertIs(nd.NullFloat64.Valid, true))
@@ -2385,13 +2385,13 @@ func TestTransactionIsolationLevel(t *testing.T) {
 
 	// o1 insert tag
 	var tag Tag
-	tag.Name = "test-transaction"
+	tag.Name = literal_8072
 	id, err := to1.Insert(&tag)
 	throwFail(t, err)
 	throwFail(t, AssertIs(id > 0, true))
 
 	// o2 query tag table, no result
-	num, err := to2.QueryTable("tag").Filter("name", "test-transaction").Count()
+	num, err := to2.QueryTable("tag").Filter("name", literal_8072).Count()
 	throwFail(t, err)
 	throwFail(t, AssertIs(num, 0))
 
@@ -2399,17 +2399,17 @@ func TestTransactionIsolationLevel(t *testing.T) {
 	to1.Commit()
 
 	// o2 query tag table, still no result
-	num, err = to2.QueryTable("tag").Filter("name", "test-transaction").Count()
+	num, err = to2.QueryTable("tag").Filter("name", literal_8072).Count()
 	throwFail(t, err)
 	throwFail(t, AssertIs(num, 0))
 
 	// o2 commit and query tag table, Get the result
 	to2.Commit()
-	num, err = o2.QueryTable("tag").Filter("name", "test-transaction").Count()
+	num, err = o2.QueryTable("tag").Filter("name", literal_8072).Count()
 	throwFail(t, err)
 	throwFail(t, AssertIs(num, 1))
 
-	num, err = o1.QueryTable("tag").Filter("name", "test-transaction").Delete()
+	num, err = o1.QueryTable("tag").Filter("name", literal_8072).Delete()
 	throwFail(t, err)
 	throwFail(t, AssertIs(num, 1))
 }
@@ -2916,7 +2916,7 @@ func TestDebugLog(t *testing.T) {
 		o.DoTx(func(ctx context.Context, txOrm TxOrmer) (txerr error) {
 			user := NewUser()
 			user.UserName = "slene"
-			user.Email = "vslene@gmail.com"
+			user.Email = literal_2637
 			user.Password = "pass"
 			user.Status = 3
 			user.IsStaff = true
@@ -2956,3 +2956,13 @@ func captureDebugLogOutput(f func()) string {
 	f()
 	return buf.String()
 }
+
+const literal_9758 = " -0700"
+
+const literal_7623 = "SELECT * FROM %sdata_null%s where id=?"
+
+const literal_2637 = "vslene@gmail.com"
+
+const literal_4651 = "test sql.null"
+
+const literal_8072 = "test-transaction"

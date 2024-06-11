@@ -15,7 +15,7 @@ type PostgresQueryBuilder struct {
 
 func processingStr(str []string) string {
 	s := strings.Join(str, `","`)
-	s = fmt.Sprintf("%s%s%s", quote, s, quote)
+	s = fmt.Sprintf(literal_3591, quote, s, quote)
 	return s
 }
 
@@ -30,7 +30,7 @@ func (qb *PostgresQueryBuilder) Select(fields ...string) QueryBuilder {
 		for i := 0; i < n; i++ {
 			sli := strings.Split(fields[i], ".")
 			s := strings.Join(sli, `"."`)
-			s = fmt.Sprintf("%s%s%s", quote, s, quote)
+			s = fmt.Sprintf(literal_3591, quote, s, quote)
 			if n == 1 || i == n-1 {
 				str += s
 			} else {
@@ -58,21 +58,21 @@ func (qb *PostgresQueryBuilder) From(tables ...string) QueryBuilder {
 
 // InnerJoin INNER JOIN the table
 func (qb *PostgresQueryBuilder) InnerJoin(table string) QueryBuilder {
-	str := fmt.Sprintf("%s%s%s", quote, table, quote)
+	str := fmt.Sprintf(literal_3591, quote, table, quote)
 	qb.tokens = append(qb.tokens, "INNER JOIN", str)
 	return qb
 }
 
 // LeftJoin LEFT JOIN the table
 func (qb *PostgresQueryBuilder) LeftJoin(table string) QueryBuilder {
-	str := fmt.Sprintf("%s%s%s", quote, table, quote)
+	str := fmt.Sprintf(literal_3591, quote, table, quote)
 	qb.tokens = append(qb.tokens, "LEFT JOIN", str)
 	return qb
 }
 
 // RightJoin RIGHT JOIN the table
 func (qb *PostgresQueryBuilder) RightJoin(table string) QueryBuilder {
-	str := fmt.Sprintf("%s%s%s", quote, table, quote)
+	str := fmt.Sprintf(literal_3591, quote, table, quote)
 	qb.tokens = append(qb.tokens, "RIGHT JOIN", str)
 	return qb
 }
@@ -85,7 +85,7 @@ func (qb *PostgresQueryBuilder) On(cond string) QueryBuilder {
 	for i := 0; i < len(slice); i++ {
 		sli := strings.Split(slice[i], ".")
 		s := strings.Join(sli, `"."`)
-		s = fmt.Sprintf("%s%s%s", quote, s, quote)
+		s = fmt.Sprintf(literal_3591, quote, s, quote)
 		if i == 0 {
 			str = s + " =" + " "
 		} else {
@@ -190,7 +190,7 @@ func (qb *PostgresQueryBuilder) Delete(tables ...string) QueryBuilder {
 
 // InsertInto join the insert SQL
 func (qb *PostgresQueryBuilder) InsertInto(table string, fields ...string) QueryBuilder {
-	str := fmt.Sprintf("%s%s%s", quote, table, quote)
+	str := fmt.Sprintf(literal_3591, quote, table, quote)
 	qb.tokens = append(qb.tokens, "INSERT INTO", str)
 	if len(fields) != 0 {
 		fieldsStr := strings.Join(fields, CommaSpace)
@@ -217,3 +217,5 @@ func (qb *PostgresQueryBuilder) String() string {
 	qb.tokens = qb.tokens[:0]
 	return s
 }
+
+const literal_3591 = "%s%s%s"

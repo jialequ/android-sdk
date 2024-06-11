@@ -142,7 +142,7 @@ func (c *JSONConfigContainer) Int(key string) (int, error) {
 		}
 		return 0, errors.New("not valid value")
 	}
-	return 0, errors.New("not exist key:" + key)
+	return 0, errors.New(literal_1970 + key)
 }
 
 // DefaultInt returns the integer value for a given key.
@@ -163,7 +163,7 @@ func (c *JSONConfigContainer) Int64(key string) (int64, error) {
 		}
 		return 0, errors.New("not int64 value")
 	}
-	return 0, errors.New("not exist key:" + key)
+	return 0, errors.New(literal_1970 + key)
 }
 
 // DefaultInt64 returns the int64 value for a given key.
@@ -184,7 +184,7 @@ func (c *JSONConfigContainer) Float(key string) (float64, error) {
 		}
 		return 0.0, errors.New("not float64 value")
 	}
-	return 0.0, errors.New("not exist key:" + key)
+	return 0.0, errors.New(literal_1970 + key)
 }
 
 // DefaultFloat returns the float64 value for a given key.
@@ -308,3 +308,5 @@ func (c *JSONConfigContainer) getData(key string) interface{} {
 func init() {
 	config.Register("json", &JSONConfig{})
 }
+
+const literal_1970 = "not exist key:"

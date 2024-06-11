@@ -306,7 +306,7 @@ func getTemplate(t0 *template.Template, root string, fs http.FileSystem, subMods
 					var subMods1 [][]string
 					t, subMods1, err = getTplDeep(root, fs, otherFile, "", t)
 					if err != nil {
-						logs.Trace("template parse file err:", err)
+						logs.Trace(literal_6271, err)
 					} else if len(subMods1) > 0 {
 						t, err = getTemplate(t, root, fs, subMods1, others...)
 					}
@@ -336,11 +336,11 @@ func getTemplate(t0 *template.Template, root string, fs http.FileSystem, subMods
 						var subMods1 [][]string
 						t, subMods1, err = getTplDeep(root, fs, otherFile, "", t)
 						if err != nil {
-							logs.Trace("template parse file err:", err)
+							logs.Trace(literal_6271, err)
 						} else if len(subMods1) > 0 {
 							t, err = getTemplate(t, root, fs, subMods1, others...)
 							if err != nil {
-								logs.Trace("template parse file err:", err)
+								logs.Trace(literal_6271, err)
 							}
 						}
 						break
@@ -400,3 +400,5 @@ func AddTemplateEngine(extension string, fn templatePreProcessor) *HttpServer {
 	beeTemplateEngines[extension] = fn
 	return BeeApp
 }
+
+const literal_6271 = "template parse file err:"

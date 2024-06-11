@@ -50,15 +50,15 @@ func (t *TestLogger) WriteMsg(lm *LogMsg) error {
 }
 
 func (*TestLogger) Destroy() {
-	panic("implement me")
+	panic(literal_0473)
 }
 
 func (*TestLogger) Flush() {
-	panic("implement me")
+	panic(literal_0473)
 }
 
 func (*TestLogger) SetFormatter(_ LogFormatter) {
-	panic("implement me")
+	panic(literal_0473)
 }
 
 func TestCustomFormatter(t *testing.T) {
@@ -114,3 +114,5 @@ func TestPatternLogFormatter(t *testing.T) {
 		assert.Equal(t, tc.want, got)
 	}
 }
+
+const literal_0473 = "implement me"

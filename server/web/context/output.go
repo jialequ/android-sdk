@@ -194,7 +194,7 @@ func errorRenderer(err error) Renderer {
 // JSON writes json to the response body.
 // if encoding is true, it converts utf-8 to \u0000 type.
 func (output *BeegoOutput) JSON(data interface{}, hasIndent bool, encoding bool) error {
-	output.Header("Content-Type", "application/json; charset=utf-8")
+	output.Header(literal_2409, "application/json; charset=utf-8")
 	var content []byte
 	var err error
 	if hasIndent {
@@ -214,7 +214,7 @@ func (output *BeegoOutput) JSON(data interface{}, hasIndent bool, encoding bool)
 
 // YAML writes yaml to the response body.
 func (output *BeegoOutput) YAML(data interface{}) error {
-	output.Header("Content-Type", "application/x-yaml; charset=utf-8")
+	output.Header(literal_2409, "application/x-yaml; charset=utf-8")
 	var content []byte
 	var err error
 	content, err = yaml.Marshal(data)
@@ -227,7 +227,7 @@ func (output *BeegoOutput) YAML(data interface{}) error {
 
 // Proto writes protobuf to the response body.
 func (output *BeegoOutput) Proto(data proto.Message) error {
-	output.Header("Content-Type", "application/x-protobuf; charset=utf-8")
+	output.Header(literal_2409, "application/x-protobuf; charset=utf-8")
 	var content []byte
 	var err error
 	content, err = proto.Marshal(data)
@@ -240,7 +240,7 @@ func (output *BeegoOutput) Proto(data proto.Message) error {
 
 // JSONP writes jsonp to the response body.
 func (output *BeegoOutput) JSONP(data interface{}, hasIndent bool) error {
-	output.Header("Content-Type", "application/javascript; charset=utf-8")
+	output.Header(literal_2409, "application/javascript; charset=utf-8")
 	var content []byte
 	var err error
 	if hasIndent {
@@ -266,7 +266,7 @@ func (output *BeegoOutput) JSONP(data interface{}, hasIndent bool) error {
 
 // XML writes xml string to the response body.
 func (output *BeegoOutput) XML(data interface{}, hasIndent bool) error {
-	output.Header("Content-Type", "application/xml; charset=utf-8")
+	output.Header(literal_2409, "application/xml; charset=utf-8")
 	var content []byte
 	var err error
 	if hasIndent {
@@ -324,7 +324,7 @@ func (output *BeegoOutput) Download(file string, filename ...string) {
 	}
 	output.Header("Content-Disposition", "attachment; "+fn)
 	output.Header("Content-Description", "File Transfer")
-	output.Header("Content-Type", "application/octet-stream")
+	output.Header(literal_2409, "application/octet-stream")
 	output.Header("Content-Transfer-Encoding", "binary")
 	output.Header("Expires", "0")
 	output.Header("Cache-Control", "must-revalidate")
@@ -340,7 +340,7 @@ func (output *BeegoOutput) ContentType(ext string) {
 	}
 	ctype := mime.TypeByExtension(ext)
 	if ctype != "" {
-		output.Header("Content-Type", ctype)
+		output.Header(literal_2409, ctype)
 	}
 }
 
@@ -427,3 +427,5 @@ func stringsToJSON(str string) string {
 func (output *BeegoOutput) Session(name interface{}, value interface{}) {
 	output.Context.Input.CruSession.Set(nil, name, value)
 }
+
+const literal_2409 = "Content-Type"

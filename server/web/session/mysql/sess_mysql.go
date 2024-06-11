@@ -148,7 +148,7 @@ func (mp *Provider) SessionInit(ctx context.Context, maxlifetime int64, savePath
 // SessionRead get mysql session by sid
 func (mp *Provider) SessionRead(ctx context.Context, sid string) (session.Store, error) {
 	c := mp.connectInit()
-	row := c.QueryRow("select session_data from "+TableName+" where session_key=?", sid)
+	row := c.QueryRow(literal_2653+TableName+literal_8652, sid)
 	var sessiondata []byte
 	err := row.Scan(&sessiondata)
 	if err == sql.ErrNoRows {
@@ -174,7 +174,7 @@ func (mp *Provider) SessionRead(ctx context.Context, sid string) (session.Store,
 func (mp *Provider) SessionExist(ctx context.Context, sid string) (bool, error) {
 	c := mp.connectInit()
 	defer c.Close()
-	row := c.QueryRow("select session_data from "+TableName+" where session_key=?", sid)
+	row := c.QueryRow(literal_2653+TableName+literal_8652, sid)
 	var sessiondata []byte
 	err := row.Scan(&sessiondata)
 	if err != nil {
@@ -189,7 +189,7 @@ func (mp *Provider) SessionExist(ctx context.Context, sid string) (bool, error) 
 // SessionRegenerate generate new sid for mysql session
 func (mp *Provider) SessionRegenerate(ctx context.Context, oldsid, sid string) (session.Store, error) {
 	c := mp.connectInit()
-	row := c.QueryRow("select session_data from "+TableName+" where session_key=?", oldsid)
+	row := c.QueryRow(literal_2653+TableName+literal_8652, oldsid)
 	var sessiondata []byte
 	err := row.Scan(&sessiondata)
 	if err == sql.ErrNoRows {
@@ -215,7 +215,7 @@ func (mp *Provider) SessionRegenerate(ctx context.Context, oldsid, sid string) (
 // SessionDestroy delete mysql session by sid
 func (mp *Provider) SessionDestroy(ctx context.Context, sid string) error {
 	c := mp.connectInit()
-	c.Exec("DELETE FROM "+TableName+" where session_key=?", sid)
+	c.Exec("DELETE FROM "+TableName+literal_8652, sid)
 	c.Close()
 	return nil
 }
@@ -242,3 +242,7 @@ func (mp *Provider) SessionAll(context.Context) int {
 func init() {
 	session.Register("mysql", mysqlpder)
 }
+
+const literal_2653 = "select session_data from "
+
+const literal_8652 = " where session_key=?"

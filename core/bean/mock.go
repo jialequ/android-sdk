@@ -52,19 +52,19 @@ func mock(pv reflect.Value) (err error) { // NOSONAR
 		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
 			value, e := strconv.ParseInt(tagValue, 10, 64)
 			if e != nil || pvv.OverflowInt(value) {
-				err = fmt.Errorf("the value:%s is invalid", tagValue)
+				err = fmt.Errorf(literal_5824, tagValue)
 			}
 			pvv.SetInt(value)
 		case reflect.Uint, reflect.Uint8, reflect.Uint16, reflect.Uint32, reflect.Uint64, reflect.Uintptr:
 			value, e := strconv.ParseUint(tagValue, 10, 64)
 			if e != nil || pvv.OverflowUint(value) {
-				err = fmt.Errorf("the value:%s is invalid", tagValue)
+				err = fmt.Errorf(literal_5824, tagValue)
 			}
 			pvv.SetUint(value)
 		case reflect.Float32, reflect.Float64:
 			value, e := strconv.ParseFloat(tagValue, pvv.Type().Bits())
 			if e != nil || pvv.OverflowFloat(value) {
-				err = fmt.Errorf("the value:%s is invalid", tagValue)
+				err = fmt.Errorf(literal_5824, tagValue)
 			}
 			pvv.SetFloat(value)
 		default:
@@ -83,7 +83,7 @@ func mockSlice(tagValue string, pvv reflect.Value) (err error) { // NOSONAR
 	}
 	sliceMetas := strings.Split(tagValue, ":")
 	if len(sliceMetas) != 2 || sliceMetas[0] != "length" {
-		err = fmt.Errorf("the value:%s is invalid", tagValue)
+		err = fmt.Errorf(literal_5824, tagValue)
 		return
 	}
 	length, e := strconv.Atoi(sliceMetas[1])
@@ -127,7 +127,7 @@ func mockBool(tagValue string, pvv reflect.Value) (err error) {
 	case "false":
 		pvv.SetBool(false)
 	default:
-		err = fmt.Errorf("the value:%s is invalid", tagValue)
+		err = fmt.Errorf(literal_5824, tagValue)
 	}
 	return
 }
@@ -140,3 +140,5 @@ func mockPtr(pvv reflect.Value, ptt reflect.Type) (err error) {
 	err = mock(pvv)
 	return
 }
+
+const literal_5824 = "the value:%s is invalid"

@@ -82,7 +82,7 @@ var _viewsBlocksBlockTpl = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xaa\
 func viewsBlocksBlockTplBytes() ([]byte, error) {
 	return bindataRead(
 		_viewsBlocksBlockTpl,
-		"views/blocks/block.tpl",
+		literal_6130,
 	)
 }
 
@@ -92,7 +92,7 @@ func viewsBlocksBlockTpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "views/blocks/block.tpl", size: 50, mode: os.FileMode(0o664), modTime: time.Unix(1541431067, 0)}
+	info := bindataFileInfo{name: literal_6130, size: 50, mode: os.FileMode(0o664), modTime: time.Unix(1541431067, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -102,7 +102,7 @@ var _viewsHeaderTpl = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\xaa\xae\x
 func viewsHeaderTplBytes() ([]byte, error) {
 	return bindataRead(
 		_viewsHeaderTpl,
-		"views/header.tpl",
+		literal_0524,
 	)
 }
 
@@ -112,7 +112,7 @@ func viewsHeaderTpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "views/header.tpl", size: 52, mode: os.FileMode(0o664), modTime: time.Unix(1541431067, 0)}
+	info := bindataFileInfo{name: literal_0524, size: 52, mode: os.FileMode(0o664), modTime: time.Unix(1541431067, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -122,7 +122,7 @@ var _viewsIndexTpl = []byte("\x1f\x8b\x08\x00\x00\x00\x00\x00\x00\xff\x64\x8f\xb
 func viewsIndexTplBytes() ([]byte, error) {
 	return bindataRead(
 		_viewsIndexTpl,
-		"views/index.tpl",
+		literal_7019,
 	)
 }
 
@@ -132,7 +132,7 @@ func viewsIndexTpl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "views/index.tpl", size: 255, mode: os.FileMode(0o664), modTime: time.Unix(1541434906, 0)}
+	info := bindataFileInfo{name: literal_7019, size: 255, mode: os.FileMode(0o664), modTime: time.Unix(1541434906, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -149,7 +149,7 @@ func Asset(name string) ([]byte, error) {
 		}
 		return a.bytes, nil
 	}
-	return nil, fmt.Errorf("Asset %s not found", name)
+	return nil, fmt.Errorf(literal_0612, name)
 }
 
 // MustAsset is like Asset but panics when Asset would return an error.
@@ -189,9 +189,9 @@ func AssetNames() []string {
 
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
-	"views/blocks/block.tpl": viewsBlocksBlockTpl,
-	"views/header.tpl":       viewsHeaderTpl,
-	"views/index.tpl":        viewsIndexTpl,
+	literal_6130: viewsBlocksBlockTpl,
+	literal_0524:       viewsHeaderTpl,
+	literal_7019:        viewsIndexTpl,
 }
 
 // AssetDir returns the file names below a certain
@@ -217,12 +217,12 @@ func AssetDir(name string) ([]string, error) {
 		for _, p := range pathList {
 			node = node.Children[p]
 			if node == nil {
-				return nil, fmt.Errorf("Asset %s not found", name)
+				return nil, fmt.Errorf(literal_0612, name)
 			}
 		}
 	}
 	if node.Func != nil {
-		return nil, fmt.Errorf("Asset %s not found", name)
+		return nil, fmt.Errorf(literal_0612, name)
 	}
 	rv := make([]string, 0, len(node.Children))
 	for childName := range node.Children {
@@ -300,3 +300,11 @@ func assetFS() *assetfs.AssetFS {
 	}
 	panic("unreachable")
 }
+
+const literal_6130 = "views/blocks/block.tpl"
+
+const literal_0524 = "views/header.tpl"
+
+const literal_7019 = "views/index.tpl"
+
+const literal_0612 = "Asset %s not found"
