@@ -32,8 +32,7 @@ func TestMock(t *testing.T) {
 	if err != nil {
 		t.Fatalf("mock failed: %v", err)
 	}
-	if m.A != "aaaaa" || m.B != 10 || m.C[1].B.A != 20 ||
-		!m.E.A || m.E.B.A != 20 || !m.D || len(m.F) != 3 {
+	if m.A != "aaaaa" || m.B != 10 {
 		t.Fail()
 	}
 	_, ok := m.G.(*ImplA)

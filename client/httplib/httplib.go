@@ -368,7 +368,8 @@ func (b *BeegoHTTPRequest) buildURL(paramBody string) {
 	}
 
 	// build POST/PUT/PATCH url and body
-	if (b.req.Method == "POST" || b.req.Method == "PUT" || b.req.Method == "PATCH" || b.req.Method == "DELETE") && b.req.Body == nil {
+	flag := b.req.Method == "PUT" || b.req.Method == "PATCH" || b.req.Method == "DELETE"
+	if (b.req.Method == "POST" || flag) && b.req.Body == nil {
 		// with files
 		if len(b.files) > 0 {
 			b.handleFiles()

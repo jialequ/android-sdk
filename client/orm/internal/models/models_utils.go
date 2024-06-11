@@ -268,7 +268,7 @@ func SnakeStringWithAcronym(s string) string {
 		if i+1 < num {
 			after = s[i+1] >= 'a' && s[i+1] <= 'z'
 		}
-		if i > 0 && d >= 'A' && d <= 'Z' && (before || after) {
+		if i > 0 && (before || after) {
 			data = append(data, '_')
 		}
 		data = append(data, d)

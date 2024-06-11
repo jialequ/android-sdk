@@ -472,7 +472,7 @@ type AlphaNumeric struct {
 func (a AlphaNumeric) IsSatisfied(obj interface{}) bool {
 	if str, ok := obj.(string); ok {
 		for _, v := range str {
-			if ('Z' < v || v < 'A') && ('z' < v || v < 'a') && ('9' < v || v < '0') {
+			if 'Z' < v || v < 'A' {
 				return false
 			}
 		}

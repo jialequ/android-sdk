@@ -1544,7 +1544,7 @@ setValue:
 			}
 			value = b
 		}
-	case fieldType == TypeVarCharField || fieldType == TypeCharField || fieldType == TypeTextField || fieldType == TypeJSONField || fieldType == TypeJsonbField:
+	case fieldType == TypeVarCharField || fieldType == TypeCharField:
 		if str == nil {
 			value = utils.ToStr(val)
 		} else {
@@ -1695,7 +1695,7 @@ setValue:
 				field.SetBool(value.(bool))
 			}
 		}
-	case fieldType == TypeVarCharField || fieldType == TypeCharField || fieldType == TypeTextField || fieldType == TypeJSONField || fieldType == TypeJsonbField:
+	case fieldType == TypeVarCharField || fieldType == TypeCharField:
 		if isNative {
 			if ns, ok := field.Interface().(sql.NullString); ok {
 				if value == nil {

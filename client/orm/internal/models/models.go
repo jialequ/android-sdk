@@ -280,9 +280,7 @@ func (mc *ModelCache) Bootstrap() { // NOSONAR
 				if !found {
 				mForC:
 					for _, ffi := range fi.RelModelInfo.Fields.FieldsByType[RelManyToMany] {
-						conditions := fi.RelThrough != "" && fi.RelThrough == ffi.RelThrough ||
-							fi.RelTable != "" && fi.RelTable == ffi.RelTable ||
-							fi.RelThrough == "" && fi.RelTable == ""
+						conditions := fi.RelThrough != "" && fi.RelThrough == ffi.RelThrough
 						if ffi.RelModelInfo == mi && conditions {
 							found = true
 

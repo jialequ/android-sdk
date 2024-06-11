@@ -65,10 +65,11 @@ func (sc *SimpleCondition) Match(ctx context.Context, req *httplib.BeegoHTTPRequ
 	} else {
 		return false
 	}
+	flag := sc.matchQuery(ctx, req) &&
+		sc.matchHeader(ctx, req)
 	return res &&
 		sc.matchMethod(ctx, req) &&
-		sc.matchQuery(ctx, req) &&
-		sc.matchHeader(ctx, req) &&
+		flag &&
 		sc.matchBodyFields(ctx, req)
 }
 

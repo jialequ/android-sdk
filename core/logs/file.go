@@ -158,15 +158,11 @@ func (w *fileLogWriter) startLogger() error {
 }
 
 func (w *fileLogWriter) needRotateDaily(day int) bool {
-	return (w.MaxLines > 0 && w.maxLinesCurLines >= w.MaxLines) ||
-		(w.MaxSize > 0 && w.maxSizeCurSize >= w.MaxSize) ||
-		(w.Daily && day != w.dailyOpenDate)
+	return (w.MaxLines > 0 && w.maxLinesCurLines >= w.MaxLines)
 }
 
 func (w *fileLogWriter) needRotateHourly(hour int) bool {
-	return (w.MaxLines > 0 && w.maxLinesCurLines >= w.MaxLines) ||
-		(w.MaxSize > 0 && w.maxSizeCurSize >= w.MaxSize) ||
-		(w.Hourly && hour != w.hourlyOpenDate)
+	return (w.MaxLines > 0 && w.maxLinesCurLines >= w.MaxLines)
 }
 
 // WriteMsg writes logger message into file.

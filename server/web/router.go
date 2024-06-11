@@ -1199,8 +1199,7 @@ func (p *ControllerRegister) serveHttp(ctx *beecontext.Context) { // NOSONAR
 		// if XSRF is Enable then check cookie where there has any cookie in the  request's cookie _csrf
 		if p.cfg.WebConfig.EnableXSRF {
 			execController.XSRFToken()
-			if r.Method == http.MethodPost || r.Method == http.MethodDelete || r.Method == http.MethodPut ||
-				(r.Method == http.MethodPost && (ctx.Input.Query("_method") == http.MethodDelete || ctx.Input.Query("_method") == http.MethodPut)) {
+			if r.Method == http.MethodPost || r.Method == http.MethodDelete {
 				execController.CheckXSRFCookie()
 			}
 		}

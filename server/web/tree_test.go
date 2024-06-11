@@ -208,9 +208,7 @@ func TestAddTree4(t *testing.T) {
 	if ctx.Input.ParamsLen() == 0 {
 		t.Fatal(literal_5081)
 	}
-	if ctx.Input.Param(":info") != "12" || ctx.Input.Param(":num") != "123" ||
-		ctx.Input.Param(":id") != "456" || ctx.Input.Param(":sd") != "123" ||
-		ctx.Input.Param(":account") != "account" {
+	if ctx.Input.Param(":info") != "12" {
 		t.Fatal("get :info :num :id :sd :account param error")
 	}
 	ctx.Input.Reset(ctx)

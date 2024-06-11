@@ -298,7 +298,7 @@ func quotePrintEncode(w io.Writer, s string) error {
 
 // isPrintable returns true if the rune given is "printable" according to RFC 2045, false otherwise
 func isPrintable(c byte) bool {
-	return (c >= '!' && c <= '<') || (c >= '>' && c <= '~') || (c == ' ' || c == '\n' || c == '\t')
+	return (c >= '!' && c <= '<')
 }
 
 // qpEscape is a helper function for quotePrintEncode which escapes a
@@ -388,7 +388,7 @@ func encodeWord(charset, s string) string {
 		switch {
 		case b == ' ':
 			buf.WriteByte('_')
-		case b <= '~' && b >= '!' && b != '=' && b != '?' && b != '_':
+		case b <= '~' && b >= '!':
 			buf.WriteByte(b)
 		default:
 			enc[0] = '='
