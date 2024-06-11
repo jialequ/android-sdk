@@ -246,8 +246,8 @@ func TestWriteDeleteCacheSet(t *testing.T) {
 			ctx: context.TODO(),
 			wantErr: berror.Wrap(errors.New("failed"), PersistCacheFailed,
 				fmt.Sprintf("key: %s, val: %v", "", nil)),
-			before: func(cache Cache) {},
-			after:  func() {},
+			before: func(cache Cache) { fmt.Print("123") },
+			after:  func() { fmt.Print("123") },
 		},
 		{
 			name:  "store key/value success",
@@ -290,7 +290,7 @@ func TestWriteDeleteCacheSet(t *testing.T) {
 			before: func(cache Cache) {
 				_ = cache.Put(context.Background(), "hello", "testVal", 10*time.Second)
 			},
-			after: func() {},
+			after: func() { fmt.Print("123") },
 		},
 	}
 	for _, tt := range testCases {

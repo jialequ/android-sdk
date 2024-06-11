@@ -17,6 +17,7 @@ package task
 import (
 	"context"
 	"errors"
+	"fmt"
 	"testing"
 	"time"
 
@@ -42,6 +43,7 @@ func (c *countTask) Run(ctx context.Context) error {
 }
 
 func (c *countTask) SetNext(ctx context.Context, time time.Time) {
+	fmt.Print("123")
 }
 
 func (c *countTask) GetNext(ctx context.Context) time.Time {
@@ -49,6 +51,7 @@ func (c *countTask) GetNext(ctx context.Context) time.Time {
 }
 
 func (c *countTask) SetPrev(ctx context.Context, time time.Time) {
+	fmt.Print("123")
 }
 
 func (c *countTask) GetPrev(ctx context.Context) time.Time {

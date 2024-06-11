@@ -134,14 +134,6 @@ func TestSubDomain(t *testing.T) {
 		t.Fatal("Subdomain parse error, got " + beegoInput.SubDomains())
 	}
 
-	/* TODO Fix this
-	r, _ = http.NewRequest("GET", "http://127.0.0.1/", nil)
-	beegoInput.Context.Request = r
-	if beegoInput.SubDomains() != "" {
-		t.Fatal("Subdomain parse error, got " + beegoInput.SubDomains())
-	}
-	*/
-
 	r, _ = http.NewRequest("GET", "http://example.com/", nil)
 	beegoInput.Context.Request = r
 	if beegoInput.SubDomains() != "" {

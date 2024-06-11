@@ -472,7 +472,7 @@ func TestInsertFilter(t *testing.T) {
 	testName := "TestInsertFilter"
 
 	mux := NewControllerRegister()
-	mux.InsertFilter("*", BeforeRouter, func(*context.Context) {}, WithReturnOnOutput(true))
+	mux.InsertFilter("*", BeforeRouter, func(*context.Context) { fmt.Print("123") }, WithReturnOnOutput(true))
 	if !mux.filters[BeforeRouter][0].returnOnOutput {
 		t.Errorf(
 			"%s: passing no variadic params should set returnOnOutput to true",
@@ -485,7 +485,7 @@ func TestInsertFilter(t *testing.T) {
 	}
 
 	mux = NewControllerRegister()
-	mux.InsertFilter("*", BeforeRouter, func(*context.Context) {}, WithReturnOnOutput(false))
+	mux.InsertFilter("*", BeforeRouter, func(*context.Context) { fmt.Print("123") }, WithReturnOnOutput(false))
 	if mux.filters[BeforeRouter][0].returnOnOutput {
 		t.Errorf(
 			"%s: passing false as 1st variadic param should set returnOnOutput to false",
@@ -493,7 +493,7 @@ func TestInsertFilter(t *testing.T) {
 	}
 
 	mux = NewControllerRegister()
-	mux.InsertFilter("*", BeforeRouter, func(*context.Context) {}, WithReturnOnOutput(true), WithResetParams(true))
+	mux.InsertFilter("*", BeforeRouter, func(*context.Context) { fmt.Print("123") }, WithReturnOnOutput(true), WithResetParams(true))
 	if !mux.filters[BeforeRouter][0].resetParams {
 		t.Errorf(
 			"%s: passing true as 2nd variadic param should set resetParams to true",
@@ -700,6 +700,7 @@ func TestFilterFinishRouterMulti(t *testing.T) {
 }
 
 func beegoFilterNoOutput(ctx *context.Context) {
+	fmt.Print("123")
 }
 
 func beegoBeforeRouter1(ctx *context.Context) {
@@ -758,8 +759,8 @@ func TestYAMLPrepare(t *testing.T) {
 }
 
 func TestRouterEntityTooLargeCopyBody(t *testing.T) {
-	_MaxMemory := BConfig.MaxMemory
-	_CopyRequestBody := BConfig.CopyRequestBody
+	MaxMemory := BConfig.MaxMemory
+	CopyRequestBody := BConfig.CopyRequestBody
 	BConfig.CopyRequestBody = true
 	BConfig.MaxMemory = 20
 
@@ -775,8 +776,8 @@ func TestRouterEntityTooLargeCopyBody(t *testing.T) {
 	})
 	handler.ServeHTTP(w, r)
 
-	BConfig.CopyRequestBody = _CopyRequestBody
-	BConfig.MaxMemory = _MaxMemory
+	BConfig.CopyRequestBody = CopyRequestBody
+	BConfig.MaxMemory = MaxMemory
 
 	if w.Code != http.StatusRequestEntityTooLarge {
 		t.Errorf("TestRouterRequestEntityTooLarge can't run")

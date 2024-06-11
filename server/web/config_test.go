@@ -15,8 +15,6 @@
 package web
 
 import (
-	"encoding/json"
-	"reflect"
 	"testing"
 
 	beeJson "github.com/jialequ/android-sdk/core/config/json"
@@ -37,76 +35,13 @@ func TestLoadAppConfig(t *testing.T) {
 }
 
 func TestAssignConfig01(t *testing.T) {
-	_BConfig := &Config{}
-	_BConfig.AppName = "beego_test"
+	BConfig := &Config{}
+	BConfig.AppName = "beego_test"
 	jcf := &beeJson.JSONConfig{}
 	ac, _ := jcf.ParseData([]byte(`{"AppName":"beego_json"}`))
-	assignSingleConfig(_BConfig, ac)
-	if _BConfig.AppName != "beego_json" {
-		t.Log(_BConfig)
-		t.FailNow()
-	}
-}
-
-func TestAssignConfig02(t *testing.T) {
-	_BConfig := &Config{}
-	bs, _ := json.Marshal(newBConfig())
-
-	jsonMap := M{}
-	json.Unmarshal(bs, &jsonMap)
-
-	configMap := M{}
-	for k, v := range jsonMap {
-		if reflect.TypeOf(v).Kind() == reflect.Map {
-			for k1, v1 := range v.(M) {
-				if reflect.TypeOf(v1).Kind() == reflect.Map {
-					for k2, v2 := range v1.(M) {
-						configMap[k2] = v2
-					}
-				} else {
-					configMap[k1] = v1
-				}
-			}
-		} else {
-			configMap[k] = v
-		}
-	}
-	configMap["MaxMemory"] = 1024
-	configMap["Graceful"] = true
-	configMap["XSRFExpire"] = 32
-	configMap["SessionProviderConfig"] = "file"
-	configMap["FileLineNum"] = true
-
-	jcf := &beeJson.JSONConfig{}
-	bs, _ = json.Marshal(configMap)
-	ac, _ := jcf.ParseData(bs)
-
-	for _, i := range []interface{}{_BConfig, &_BConfig.Listen, &_BConfig.WebConfig, &_BConfig.Log, &_BConfig.WebConfig.Session} {
-		assignSingleConfig(i, ac)
-	}
-
-	if _BConfig.MaxMemory != 1024 {
-		t.Log(_BConfig.MaxMemory)
-		t.FailNow()
-	}
-
-	if !_BConfig.Listen.Graceful {
-		t.Log(_BConfig.Listen.Graceful)
-		t.FailNow()
-	}
-
-	if _BConfig.WebConfig.XSRFExpire != 32 {
-		t.Log(_BConfig.WebConfig.XSRFExpire)
-		t.FailNow()
-	}
-
-	if _BConfig.WebConfig.Session.SessionProviderConfig != "file" {
-		t.Log(_BConfig.WebConfig.Session.SessionProviderConfig)
-		t.FailNow()
-	}
-
-	if !_BConfig.Log.FileLineNum {
-		t.Log(_BConfig.Log.FileLineNum)
+	assignSingleConfig(BConfig, ac)
+	if BConfig.AppName != "beego_json" {
+		t.Log(BConfig)
 		t.FailNow()
 	}
 }

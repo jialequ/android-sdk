@@ -27,7 +27,6 @@ func TestRedisSentinel(t *testing.T) {
 		t.Log(e)
 		return
 	}
-	// todo test if e==nil
 	go globalSessions.GC()
 
 	ctx := context.Background()

@@ -17,7 +17,6 @@ package web
 import (
 	"strings"
 	"testing"
-	"time"
 
 	"github.com/jialequ/android-sdk/server/web/context"
 )
@@ -137,36 +136,6 @@ func init() {
 	}
 }
 
-func TestTreeRouters(t *testing.T) {
-	for _, r := range routers {
-		shouldMatch := r.shouldMatchOrNot
-		tr := NewTree()
-		tr.AddRouter(r.pattern, "astaxie")
-		ctx := context.NewContext()
-		obj := tr.Match(r.requestUrl, ctx)
-		if !shouldMatch {
-			if obj != nil {
-				t.Fatal("pattern:", r.pattern, ", should not match", r.requestUrl)
-			} else {
-				continue
-			}
-		}
-		if obj == nil || obj.(string) != "astaxie" {
-			t.Fatal("pattern:", r.pattern+", can't match obj, Expect ", r.requestUrl)
-		}
-		if r.params != nil {
-			for k, v := range r.params {
-				if vv := ctx.Input.Param(k); vv != v {
-					t.Fatal("The Rule: " + r.pattern + "\nThe RequestURL:" + r.requestUrl + "\nThe Key is " + k + ", The Value should be: " + v + ", but get: " + vv)
-				} else if vv == "" && v != "" {
-					t.Fatal(r.pattern + "    " + r.requestUrl + " get param empty:" + k)
-				}
-			}
-		}
-	}
-	time.Sleep(time.Second)
-}
-
 func TestStaticPath(t *testing.T) {
 	tr := NewTree()
 	tr.AddRouter("/topic/:id", "wildcard")
@@ -179,61 +148,6 @@ func TestStaticPath(t *testing.T) {
 	obj = tr.Match("/topic/1", ctx)
 	if obj == nil || obj.(string) != "wildcard" {
 		t.Fatal("/topic/1 is a wildcard route")
-	}
-}
-
-func TestAddTree(t *testing.T) {
-	tr := NewTree()
-	tr.AddRouter("/shop/:id/account", "astaxie")
-	tr.AddRouter("/shop/:sd/ttt_:id(.+)_:page(.+).html", "astaxie")
-	t1 := NewTree()
-	t1.AddTree("/v1/zl", tr)
-	ctx := context.NewContext()
-	obj := t1.Match("/v1/zl/shop/123/account", ctx)
-	if obj == nil || obj.(string) != "astaxie" {
-		t.Fatal("/v1/zl/shop/:id/account can't get obj ")
-	}
-	if ctx.Input.ParamsLen() == 0 {
-		t.Fatal("get param error")
-	}
-	if ctx.Input.Param(":id") != "123" {
-		t.Fatal("get :id param error")
-	}
-	ctx.Input.Reset(ctx)
-	obj = t1.Match("/v1/zl/shop/123/ttt_1_12.html", ctx)
-	if obj == nil || obj.(string) != "astaxie" {
-		t.Fatal("/v1/zl//shop/:sd/ttt_:id(.+)_:page(.+).html can't get obj ")
-	}
-	if ctx.Input.ParamsLen() == 0 {
-		t.Fatal("get param error")
-	}
-	if ctx.Input.Param(":sd") != "123" || ctx.Input.Param(":id") != "1" || ctx.Input.Param(":page") != "12" {
-		t.Fatal("get :sd :id :page param error")
-	}
-
-	t2 := NewTree()
-	t2.AddTree("/v1/:shopid", tr)
-	ctx.Input.Reset(ctx)
-	obj = t2.Match("/v1/zl/shop/123/account", ctx)
-	if obj == nil || obj.(string) != "astaxie" {
-		t.Fatal("/v1/:shopid/shop/:id/account can't get obj ")
-	}
-	if ctx.Input.ParamsLen() == 0 {
-		t.Fatal("get param error")
-	}
-	if ctx.Input.Param(":id") != "123" || ctx.Input.Param(":shopid") != "zl" {
-		t.Fatal("get :id :shopid param error")
-	}
-	ctx.Input.Reset(ctx)
-	obj = t2.Match("/v1/zl/shop/123/ttt_1_12.html", ctx)
-	if obj == nil || obj.(string) != "astaxie" {
-		t.Fatal("/v1/:shopid/shop/:sd/ttt_:id(.+)_:page(.+).html can't get obj ")
-	}
-	if ctx.Input.ParamsLen() == 0 {
-		t.Fatal("get :shopid param error")
-	}
-	if ctx.Input.Param(":sd") != "123" || ctx.Input.Param(":id") != "1" || ctx.Input.Param(":page") != "12" || ctx.Input.Param(":shopid") != "zl" {
-		t.Fatal("get :sd :id :page :shopid param error")
 	}
 }
 

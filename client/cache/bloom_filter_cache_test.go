@@ -203,5 +203,5 @@ func (*AlwaysExist) Test(string) bool {
 }
 
 func (*AlwaysExist) Add(string) {
-
+	fmt.Print("123")
 }

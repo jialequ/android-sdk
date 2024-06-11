@@ -217,7 +217,7 @@ func TestPreflight(t *testing.T) {
 	}
 }
 
-func Benchmark_WithoutCORS(b *testing.B) {
+func BenchmarkWithoutCORS(b *testing.B) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	web.BConfig.RunMode = web.PROD
@@ -231,7 +231,7 @@ func Benchmark_WithoutCORS(b *testing.B) {
 	}
 }
 
-func Benchmark_WithCORS(b *testing.B) {
+func BenchmarkWithCORS(b *testing.B) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	web.BConfig.RunMode = web.PROD
