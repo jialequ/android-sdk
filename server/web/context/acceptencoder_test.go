@@ -19,7 +19,7 @@ import (
 	"testing"
 )
 
-func Test_ExtractEncoding(t *testing.T) {
+func TestExtractEncoding(t *testing.T) {
 	if parseEncoding(&http.Request{Header: map[string][]string{"Accept-Encoding": {"gzip,deflate"}}}) != "gzip" {
 		t.Fail()
 	}

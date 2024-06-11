@@ -74,7 +74,7 @@ var (
 	cacheUnderlying = NewMemoryCache()
 )
 
-func TestBloomFilterCache_Get(t *testing.T) {
+func TestBloomFilterCacheGet(t *testing.T) {
 	testCases := []struct {
 		name    string
 		key     string

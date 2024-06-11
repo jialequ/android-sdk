@@ -23,7 +23,7 @@ import (
 	"github.com/jialequ/android-sdk/core/logs"
 )
 
-func TestDefaultIndexNaming_IndexName(t *testing.T) {
+func TestDefaultIndexNamingIndexName(t *testing.T) {
 	tm := time.Date(2020, 9, 12, 1, 34, 45, 234, time.UTC)
 	lm := &logs.LogMsg{
 		When: tm,

@@ -114,7 +114,7 @@ func TestMemcacheCache(t *testing.T) {
 	// test clear all
 }
 
-func TestReadThroughCache_Memcache_Get(t *testing.T) {
+func TestReadThroughCacheMemcacheGet(t *testing.T) {
 	bm, err := cache.NewCache("memcache", fmt.Sprintf(`{"conn": "%s"}`, "127.0.0.1:11211"))
 	assert.Nil(t, err)
 

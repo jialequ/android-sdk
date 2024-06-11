@@ -26,7 +26,7 @@ func (cc *SampleCacheCheck) Check() error {
 	return errors.New("no cache detected")
 }
 
-func TestList_01(t *testing.T) {
+func TestList01(t *testing.T) {
 	m := make(M)
 	list("BConfig", BConfig, m)
 	om := oldMap()

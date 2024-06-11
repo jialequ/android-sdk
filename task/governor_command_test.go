@@ -59,7 +59,7 @@ func (c *countTask) GetTimeout(ctx context.Context) time.Duration {
 	return 0
 }
 
-func TestRunTaskCommand_Execute(t *testing.T) {
+func TestRunTaskCommandExecute(t *testing.T) {
 	task := &countTask{}
 	AddTask("count", task)
 
@@ -91,7 +91,7 @@ func TestRunTaskCommand_Execute(t *testing.T) {
 	assert.Equal(t, "mock error", res.Error.Error())
 }
 
-func TestListTaskCommand_Execute(t *testing.T) {
+func TestListTaskCommandExecute(t *testing.T) {
 	task := &countTask{}
 
 	cmd := &listTaskCommand{}

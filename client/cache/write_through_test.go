@@ -27,7 +27,7 @@ import (
 	"github.com/jialequ/android-sdk/core/berror"
 )
 
-func TestWriteThoughCache_Set(t *testing.T) {
+func TestWriteThoughCacheSet(t *testing.T) {
 	mockDbStore := make(map[string]any)
 
 	testCases := []struct {

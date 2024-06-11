@@ -378,7 +378,7 @@ func TestMapGet(t *testing.T) {
 	}
 }
 
-func Test_eq(t *testing.T) {
+func Testeq(t *testing.T) {
 	tests := []struct {
 		a      interface{}
 		b      interface{}
@@ -445,7 +445,7 @@ func Test_eq(t *testing.T) {
 	}
 }
 
-func Test_lt(t *testing.T) {
+func Testlt(t *testing.T) {
 	tests := []struct {
 		a      interface{}
 		b      interface{}

@@ -136,7 +136,7 @@ func TestCacheScan(t *testing.T) {
 	assert.Equal(t, 0, len(keys))
 }
 
-func TestReadThroughCache_redis_Get(t *testing.T) {
+func TestReadThroughCacheredisGet(t *testing.T) {
 	bm, err := cache.NewCache("redis", fmt.Sprintf(`{"conn": "%s"}`, "127.0.0.1:6379"))
 	assert.Nil(t, err)
 
@@ -249,7 +249,7 @@ func (m *MockOrm) Load(key string) (any, error) {
 	return m.kvs[key], nil
 }
 
-func TestCache_associate(t *testing.T) {
+func TestCacheassociate(t *testing.T) {
 	testCases := []struct {
 		name            string
 		skipEmptyPrefix bool
@@ -297,7 +297,7 @@ func TestCache_associate(t *testing.T) {
 	}
 }
 
-func TestCache_parseConf(t *testing.T) {
+func TestCacheparseConf(t *testing.T) {
 	tests := []struct {
 		name string
 

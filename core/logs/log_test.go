@@ -74,7 +74,7 @@ func (*mockLogger) Destroy()                    {}
 func (*mockLogger) Flush()                      {}
 func (*mockLogger) SetFormatter(_ LogFormatter) {}
 
-func TestBeeLogger_AsyncNonBlockWrite(t *testing.T) {
+func TestBeeLoggerAsyncNonBlockWrite(t *testing.T) {
 	testCases := []struct {
 		name         string
 		before       func()

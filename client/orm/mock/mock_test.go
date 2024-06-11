@@ -23,7 +23,7 @@ import (
 	"github.com/jialequ/android-sdk/client/orm"
 )
 
-func TestOrmStub_FilterChain(t *testing.T) {
+func TestOrmStubFilterChain(t *testing.T) {
 	os := newOrmStub()
 	inv := &orm.Invocation{
 		Args: []interface{}{10},

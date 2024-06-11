@@ -27,7 +27,7 @@ import (
 	"github.com/jialequ/android-sdk/client/orm/internal/models"
 )
 
-func TestDbBase_InsertValueSQL(t *testing.T) {
+func TestDbBaseInsertValueSQL(t *testing.T) {
 
 	mi := &models.ModelInfo{
 		Table: "test_table",
@@ -134,7 +134,7 @@ func TestDbBase_InsertValueSQL(t *testing.T) {
 	}
 }
 
-func TestDbBase_UpdateSQL(t *testing.T) {
+func TestDbBaseUpdateSQL(t *testing.T) {
 	mi := &models.ModelInfo{
 		Table: "test_table",
 	}
@@ -178,7 +178,7 @@ func TestDbBase_UpdateSQL(t *testing.T) {
 	}
 }
 
-func TestDbBase_DeleteSQL(t *testing.T) {
+func TestDbBaseDeleteSQL(t *testing.T) {
 	mi := &models.ModelInfo{
 		Table: "test_table",
 	}
@@ -235,7 +235,7 @@ func TestDbBase_DeleteSQL(t *testing.T) {
 	}
 }
 
-func TestDbBase_buildSetSQL(t *testing.T) {
+func TestDbBasebuildSetSQL(t *testing.T) {
 
 	testCases := []struct {
 		name string
@@ -537,7 +537,7 @@ func TestDbBase_buildSetSQL(t *testing.T) {
 	}
 }
 
-func TestDbBase_UpdateBatchSQL(t *testing.T) {
+func TestDbBaseUpdateBatchSQL(t *testing.T) {
 	mi := &models.ModelInfo{
 		Table: "test_tab",
 		Fields: &models.Fields{
@@ -653,7 +653,7 @@ func TestDbBase_UpdateBatchSQL(t *testing.T) {
 	}
 }
 
-func TestDbBase_InsertOrUpdateSQL(t *testing.T) {
+func TestDbBaseInsertOrUpdateSQL(t *testing.T) {
 
 	mi := &models.ModelInfo{
 		Table: "test_tab",
@@ -890,7 +890,7 @@ func TestDbBase_InsertOrUpdateSQL(t *testing.T) {
 
 }
 
-func TestDbBase_readBatchSQL(t *testing.T) {
+func TestDbBasereadBatchSQL(t *testing.T) {
 
 	mc := models.NewModelCacheHandler()
 
@@ -1195,7 +1195,7 @@ func TestDbBase_readBatchSQL(t *testing.T) {
 
 }
 
-func TestDbBase_readValuesSQL(t *testing.T) {
+func TestDbBasereadValuesSQL(t *testing.T) {
 
 	mc := models.NewModelCacheHandler()
 
@@ -1333,7 +1333,7 @@ func TestDbBase_readValuesSQL(t *testing.T) {
 
 }
 
-func TestDbBase_countSQL(t *testing.T) {
+func TestDbBasecountSQL(t *testing.T) {
 
 	mc := models.NewModelCacheHandler()
 

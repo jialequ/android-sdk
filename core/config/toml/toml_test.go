@@ -24,14 +24,14 @@ import (
 	"github.com/jialequ/android-sdk/core/config"
 )
 
-func TestConfig_Parse(t *testing.T) {
+func TestConfigParse(t *testing.T) {
 	// file not found
 	cfg := &Config{}
 	_, err := cfg.Parse("invalid_file_name.txt")
 	assert.NotNil(t, err)
 }
 
-func TestConfig_ParseData(t *testing.T) {
+func TestConfigParseData(t *testing.T) {
 	data := `
 name="Tom"
 `
@@ -41,7 +41,7 @@ name="Tom"
 	assert.NotNil(t, c)
 }
 
-func TestConfigContainer_Bool(t *testing.T) {
+func TestConfigContainerBool(t *testing.T) {
 	data := `
 Man=true
 Woman="true"
@@ -60,7 +60,7 @@ Woman="true"
 	assert.Equal(t, config.InvalidValueTypeError, err)
 }
 
-func TestConfigContainer_DefaultBool(t *testing.T) {
+func TestConfigContainerDefaultBool(t *testing.T) {
 	data := `
 Man=true
 Woman="false"
@@ -80,7 +80,7 @@ Woman="false"
 	assert.True(t, val)
 }
 
-func TestConfigContainer_DefaultFloat(t *testing.T) {
+func TestConfigContainerDefaultFloat(t *testing.T) {
 	data := `
 Price=12.3
 PriceInvalid="12.3"
@@ -100,7 +100,7 @@ PriceInvalid="12.3"
 	assert.Equal(t, 11.2, val)
 }
 
-func TestConfigContainer_DefaultInt(t *testing.T) {
+func TestConfigContainerDefaultInt(t *testing.T) {
 	data := `
 Age=12
 AgeInvalid="13"
@@ -120,7 +120,7 @@ AgeInvalid="13"
 	assert.Equal(t, 11, val)
 }
 
-func TestConfigContainer_DefaultString(t *testing.T) {
+func TestConfigContainerDefaultString(t *testing.T) {
 	data := `
 Name="Tom"
 NameInvalid=13
@@ -140,7 +140,7 @@ NameInvalid=13
 	assert.Equal(t, "Jerry", val)
 }
 
-func TestConfigContainer_DefaultStrings(t *testing.T) {
+func TestConfigContainerDefaultStrings(t *testing.T) {
 	data := `
 Name=["Tom", "Jerry"]
 NameInvalid="Tom"
@@ -160,7 +160,7 @@ NameInvalid="Tom"
 	assert.Equal(t, []string{"Jerry"}, val)
 }
 
-func TestConfigContainer_DIY(t *testing.T) {
+func TestConfigContainerDIY(t *testing.T) {
 	data := `
 Name=["Tom", "Jerry"]
 `
@@ -173,7 +173,7 @@ Name=["Tom", "Jerry"]
 	assert.Nil(t, err)
 }
 
-func TestConfigContainer_Float(t *testing.T) {
+func TestConfigContainerFloat(t *testing.T) {
 	data := `
 Price=12.3
 PriceInvalid="12.3"
@@ -194,7 +194,7 @@ PriceInvalid="12.3"
 	assert.Equal(t, config.InvalidValueTypeError, err)
 }
 
-func TestConfigContainer_Int(t *testing.T) {
+func TestConfigContainerInt(t *testing.T) {
 	data := `
 Age=12
 AgeInvalid="13"
@@ -215,7 +215,7 @@ AgeInvalid="13"
 	assert.Equal(t, config.InvalidValueTypeError, err)
 }
 
-func TestConfigContainer_GetSection(t *testing.T) {
+func TestConfigContainerGetSection(t *testing.T) {
 	data := `
 [servers]
 
@@ -239,7 +239,7 @@ func TestConfigContainer_GetSection(t *testing.T) {
 	assert.Equal(t, 2, len(m))
 }
 
-func TestConfigContainer_String(t *testing.T) {
+func TestConfigContainerString(t *testing.T) {
 	data := `
 Name="Tom"
 NameInvalid=13
@@ -266,7 +266,7 @@ Name="Jerry"
 	assert.Equal(t, "Jerry", val)
 }
 
-func TestConfigContainer_Strings(t *testing.T) {
+func TestConfigContainerStrings(t *testing.T) {
 	data := `
 Name=["Tom", "Jerry"]
 NameInvalid="Tom"
@@ -287,7 +287,7 @@ NameInvalid="Tom"
 	assert.Equal(t, config.InvalidValueTypeError, err)
 }
 
-func TestConfigContainer_Set(t *testing.T) {
+func TestConfigContainerSet(t *testing.T) {
 	data := `
 Name=["Tom", "Jerry"]
 NameInvalid="Tom"
@@ -304,7 +304,7 @@ NameInvalid="Tom"
 	assert.Equal(t, "11", age)
 }
 
-func TestConfigContainer_SubAndMushall(t *testing.T) {
+func TestConfigContainerSubAndMushall(t *testing.T) {
 	data := `
 [servers]
 
@@ -344,7 +344,7 @@ func TestConfigContainer_SubAndMushall(t *testing.T) {
 	assert.Equal(t, "10.0.0.1", svr.Ip)
 }
 
-func TestConfigContainer_SaveConfigFile(t *testing.T) {
+func TestConfigContainerSaveConfigFile(t *testing.T) {
 	filename := "test_config.toml"
 	path := os.TempDir() + string(os.PathSeparator) + filename
 	data := `

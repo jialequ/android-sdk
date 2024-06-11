@@ -81,7 +81,7 @@ func TestReconnect(t *testing.T) {
 	}
 }
 
-func TestConnWriter_Format(t *testing.T) {
+func TestConnWriterFormat(t *testing.T) {
 	lg := &LogMsg{
 		Level:      LevelDebug,
 		Msg:        "Hello, world",

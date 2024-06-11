@@ -23,7 +23,7 @@ import (
 	"github.com/jialequ/android-sdk/client/orm"
 )
 
-func TestSimpleCondition_Match(t *testing.T) {
+func TestSimpleConditionMatch(t *testing.T) {
 	cond := NewSimpleCondition("", "")
 	res := cond.Match(context.Background(), &orm.Invocation{})
 	assert.True(t, res)

@@ -218,7 +218,7 @@ func TestSyncDb(t *testing.T) {
 	defaultModelCache.Clean()
 }
 
-func TestRegisterModels(_ *testing.T) {
+func TestRegisterModels( *testing.T) {
 	RegisterModel(new(Data), new(DataNull), new(DataCustom))
 	RegisterModel(new(User))
 	RegisterModel(new(Profile))
@@ -1784,7 +1784,7 @@ func TestQueryM2M(t *testing.T) {
 	throwFailNow(t, AssertIs(num, 1))
 }
 
-func TestQueryRelate(_ *testing.T) {
+func TestQueryRelate( *testing.T) {
 	// post := &Post{Id: 2}
 
 	// qs := dORM.QueryRelate(post, "Tags")

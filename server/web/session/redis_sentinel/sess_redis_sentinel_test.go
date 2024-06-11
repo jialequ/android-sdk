@@ -94,7 +94,7 @@ func TestRedisSentinel(t *testing.T) {
 	sess.SessionRelease(ctx, w)
 }
 
-func TestProvider_SessionInit(t *testing.T) {
+func TestProviderSessionInit(t *testing.T) {
 	savePath := `
 { "save_path": "my save path", "idle_timeout": "3s"}
 `

@@ -50,7 +50,7 @@ func TestControllerRegisterInsertFilterChain(t *testing.T) {
 	assert.Equal(t, "filter-chain", w.Header().Get("filter"))
 }
 
-func TestControllerRegister_InsertFilterChain_Order(t *testing.T) {
+func TestControllerRegisterInsertFilterChainOrder(t *testing.T) {
 	InsertFilterChain("/abc", func(next FilterFunc) FilterFunc {
 		return func(ctx *context.Context) {
 			ctx.Output.Header("first", fmt.Sprintf("%d", time.Now().UnixNano()))

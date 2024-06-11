@@ -20,7 +20,7 @@ import (
 	"testing"
 )
 
-func Test_gob(t *testing.T) {
+func Testgob(t *testing.T) {
 	a := make(map[interface{}]interface{})
 	a["username"] = "astaxie"
 	a[12] = 234

@@ -36,7 +36,7 @@ func TestLoadAppConfig(t *testing.T) {
 	println(1 << 30)
 }
 
-func TestAssignConfig_01(t *testing.T) {
+func TestAssignConfig01(t *testing.T) {
 	_BConfig := &Config{}
 	_BConfig.AppName = "beego_test"
 	jcf := &beeJson.JSONConfig{}
@@ -48,7 +48,7 @@ func TestAssignConfig_01(t *testing.T) {
 	}
 }
 
-func TestAssignConfig_02(t *testing.T) {
+func TestAssignConfig02(t *testing.T) {
 	_BConfig := &Config{}
 	bs, _ := json.Marshal(newBConfig())
 
@@ -111,7 +111,7 @@ func TestAssignConfig_02(t *testing.T) {
 	}
 }
 
-func TestAssignConfig_03(t *testing.T) {
+func TestAssignConfig03(t *testing.T) {
 	jcf := &beeJson.JSONConfig{}
 	ac, _ := jcf.ParseData([]byte(`{"AppName":"beego"}`))
 	ac.Set("AppName", "test_app")

@@ -142,7 +142,7 @@ func TestTimeout(t *testing.T) {
 	}
 }
 
-func TestTask_Run(t *testing.T) {
+func TestTaskRun(t *testing.T) {
 	cnt := -1
 	task := func(ctx context.Context) error {
 		cnt++

@@ -21,7 +21,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestProvider_SessionInit(t *testing.T) {
+func TestProviderSessionInit(t *testing.T) {
 	// using old style
 	savePath := `http://host:port/,100`
 	cp := &Provider{}

@@ -29,7 +29,7 @@ import (
 	"github.com/jialequ/android-sdk/core/berror"
 )
 
-func TestWriteDoubleDeleteCache_Set(t *testing.T) {
+func TestWriteDoubleDeleteCacheSet(t *testing.T) {
 	mockDbStore := make(map[string]any)
 
 	cancels := make([]func(), 0)
@@ -216,7 +216,7 @@ func ExampleWriteDoubleDeleteCache() {
 	// write data to somewhere key /biz/user/id=1, val I am user 1
 }
 
-func TestWriteDeleteCache_Set(t *testing.T) {
+func TestWriteDeleteCacheSet(t *testing.T) {
 	mockDbStore := make(map[string]any)
 
 	cancels := make([]func(), 0)

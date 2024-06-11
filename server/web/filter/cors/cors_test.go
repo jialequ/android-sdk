@@ -53,7 +53,7 @@ func (gr *HTTPHeaderGuardRecorder) Header() http.Header {
 	return gr.ResponseRecorder.Header()
 }
 
-func Test_AllowAll(t *testing.T) {
+func TestAllowAll(t *testing.T) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	handler.InsertFilter("*", web.BeforeRouter, Allow(&Options{
@@ -70,7 +70,7 @@ func Test_AllowAll(t *testing.T) {
 	}
 }
 
-func Test_AllowRegexMatch(t *testing.T) {
+func TestAllowRegexMatch(t *testing.T) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	handler.InsertFilter("*", web.BeforeRouter, Allow(&Options{
@@ -90,7 +90,7 @@ func Test_AllowRegexMatch(t *testing.T) {
 	}
 }
 
-func Test_AllowRegexNoMatch(t *testing.T) {
+func TestAllowRegexNoMatch(t *testing.T) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	handler.InsertFilter("*", web.BeforeRouter, Allow(&Options{
@@ -110,7 +110,7 @@ func Test_AllowRegexNoMatch(t *testing.T) {
 	}
 }
 
-func Test_OtherHeaders(t *testing.T) {
+func TestOtherHeaders(t *testing.T) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	handler.InsertFilter("*", web.BeforeRouter, Allow(&Options{
@@ -154,7 +154,7 @@ func Test_OtherHeaders(t *testing.T) {
 	}
 }
 
-func Test_DefaultAllowHeaders(t *testing.T) {
+func TestDefaultAllowHeaders(t *testing.T) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	handler.InsertFilter("*", web.BeforeRouter, Allow(&Options{
@@ -173,7 +173,7 @@ func Test_DefaultAllowHeaders(t *testing.T) {
 	}
 }
 
-func Test_Preflight(t *testing.T) {
+func TestPreflight(t *testing.T) {
 	recorder := NewRecorder()
 	handler := web.NewControllerRegister()
 	handler.InsertFilter("*", web.BeforeRouter, Allow(&Options{
