@@ -22,13 +22,24 @@ import (
 
 	"github.com/prometheus/client_golang/prometheus"
 
-	beego "github.com/jialequ/android-sdk"
 	"github.com/jialequ/android-sdk/core/logs"
 	"github.com/jialequ/android-sdk/server/web"
 	"github.com/jialequ/android-sdk/server/web/context"
 )
 
 const unknownRouterPattern = "UnknownRouterPattern"
+
+var (
+	BuildVersion     string
+	BuildGitRevision string
+	BuildStatus      string
+	BuildTag         string
+	BuildTime        string
+
+	GoVersion string
+
+	GitBranch string
+)
 
 // FilterChainBuilder is an extension point,
 // when we want to support some configuration,
@@ -80,13 +91,13 @@ func registerBuildInfo() {
 		Help:      "The building information",
 		ConstLabels: map[string]string{
 			"appname":        web.BConfig.AppName,
-			"build_version":  beego.BuildVersion,
-			"build_revision": beego.BuildGitRevision,
-			"build_status":   beego.BuildStatus,
-			"build_tag":      beego.BuildTag,
-			"build_time":     strings.Replace(beego.BuildTime, "--", " ", 1),
-			"go_version":     beego.GoVersion,
-			"git_branch":     beego.GitBranch,
+			"build_version":  BuildVersion,
+			"build_revision": BuildGitRevision,
+			"build_status":   BuildStatus,
+			"build_tag":      BuildTag,
+			"build_time":     strings.Replace(BuildTime, "--", " ", 1),
+			"go_version":     GoVersion,
+			"git_branch":     GitBranch,
 			"start_time":     time.Now().Format("2006-01-02 15:04:05"),
 		},
 	}, []string{})

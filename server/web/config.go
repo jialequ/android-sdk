@@ -24,7 +24,6 @@ import (
 	"runtime"
 	"strings"
 
-	beego "github.com/jialequ/android-sdk"
 	"github.com/jialequ/android-sdk/core/config"
 	"github.com/jialequ/android-sdk/core/logs"
 	"github.com/jialequ/android-sdk/core/utils"
@@ -525,7 +524,7 @@ func newBConfig() *Config {
 		AppName:             "beego",
 		RunMode:             PROD,
 		RouterCaseSensitive: true,
-		ServerName:          "beegoServer:" + beego.VERSION,
+		ServerName:          "beegoServer:" + "2.0.0",
 		RecoverPanic:        true,
 
 		CopyRequestBody:    false,

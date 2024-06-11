@@ -23,7 +23,6 @@ import (
 	"strconv"
 	"strings"
 
-	beego "github.com/jialequ/android-sdk"
 	"github.com/jialequ/android-sdk/core/utils"
 	"github.com/jialequ/android-sdk/server/web/context"
 )
@@ -91,7 +90,7 @@ func showErr(err interface{}, ctx *context.Context, stack string) {
 		"RequestURL":    ctx.Input.URI(),
 		"RemoteAddr":    ctx.Input.IP(),
 		"Stack":         stack,
-		"BeegoVersion":  beego.VERSION,
+		"BeegoVersion":  "2.0.0",
 		"GoVersion":     runtime.Version(),
 	}
 	t.Execute(ctx.ResponseWriter, data)
@@ -378,7 +377,7 @@ func responseError(rw http.ResponseWriter, r *http.Request, errCode int, errCont
 	t, _ := template.New("beegoerrortemp").Parse(errtpl)
 	data := M{
 		"Title":        http.StatusText(errCode),
-		"BeegoVersion": beego.VERSION,
+		"BeegoVersion": "2.0.0",
 		"Content":      template.HTML(errContent),
 	}
 	t.Execute(rw, data)

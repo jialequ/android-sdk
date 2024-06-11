@@ -1,0 +1,3 @@
+#!/bin/bash
+cd unit
+go test ./... -coverprofile=cover.out && go tool cover -func=cover.out
