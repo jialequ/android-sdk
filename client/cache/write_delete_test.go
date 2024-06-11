@@ -29,7 +29,7 @@ import (
 	"github.com/jialequ/android-sdk/core/berror"
 )
 
-func TestWriteDoubleDeleteCache_Set(t *testing.T) {
+func TestWriteDoubleDeleteCacheSet(t *testing.T) {
 	mockDbStore := make(map[string]any)
 
 	cancels := make([]func(), 0)
@@ -163,7 +163,7 @@ func TestNewWriteDoubleDeleteCache(t *testing.T) {
 				cache: nil,
 				fn:    storeFunc,
 			},
-			wantErr: berror.Error(InvalidInitParameters, "cache or storeFunc can not be nil"),
+			wantErr: berror.Error(InvalidInitParameters, literal_7085),
 		},
 		{
 			name: "nil storeFunc parameters",
@@ -171,7 +171,7 @@ func TestNewWriteDoubleDeleteCache(t *testing.T) {
 				cache: underlyingCache,
 				fn:    nil,
 			},
-			wantErr: berror.Error(InvalidInitParameters, "cache or storeFunc can not be nil"),
+			wantErr: berror.Error(InvalidInitParameters, literal_7085),
 		},
 		{
 			name: "init write-though cache success",
@@ -216,7 +216,7 @@ func ExampleWriteDoubleDeleteCache() {
 	// write data to somewhere key /biz/user/id=1, val I am user 1
 }
 
-func TestWriteDeleteCache_Set(t *testing.T) {
+func TestWriteDeleteCacheSet(t *testing.T) {
 	mockDbStore := make(map[string]any)
 
 	cancels := make([]func(), 0)
@@ -246,8 +246,8 @@ func TestWriteDeleteCache_Set(t *testing.T) {
 			ctx: context.TODO(),
 			wantErr: berror.Wrap(errors.New("failed"), PersistCacheFailed,
 				fmt.Sprintf("key: %s, val: %v", "", nil)),
-			before: func(cache Cache) {},
-			after:  func() {},
+			before: func(cache Cache) { fmt.Print("123") },
+			after:  func() { fmt.Print("123") },
 		},
 		{
 			name:  "store key/value success",
@@ -290,7 +290,7 @@ func TestWriteDeleteCache_Set(t *testing.T) {
 			before: func(cache Cache) {
 				_ = cache.Put(context.Background(), "hello", "testVal", 10*time.Second)
 			},
-			after: func() {},
+			after: func() { fmt.Print("123") },
 		},
 	}
 	for _, tt := range testCases {
@@ -341,7 +341,7 @@ func TestNewWriteDeleteCache(t *testing.T) {
 				cache: nil,
 				fn:    storeFunc,
 			},
-			wantErr: berror.Error(InvalidInitParameters, "cache or storeFunc can not be nil"),
+			wantErr: berror.Error(InvalidInitParameters, literal_7085),
 		},
 		{
 			name: "nil storeFunc parameters",
@@ -349,7 +349,7 @@ func TestNewWriteDeleteCache(t *testing.T) {
 				cache: underlyingCache,
 				fn:    nil,
 			},
-			wantErr: berror.Error(InvalidInitParameters, "cache or storeFunc can not be nil"),
+			wantErr: berror.Error(InvalidInitParameters, literal_7085),
 		},
 		{
 			name: "init write-though cache success",
@@ -391,3 +391,5 @@ func ExampleNewWriteDeleteCache() {
 	// Output:
 	// write data to somewhere key /biz/user/id=1, val I am user 1
 }
+
+const literal_7085 = "cache or storeFunc can not be nil"

@@ -24,14 +24,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestSingleflight_Memory_Get(t *testing.T) {
+func TestSingleflightMemoryGet(t *testing.T) {
 	bm, err := NewCache("memory", `{"interval":20}`)
 	assert.Nil(t, err)
 
 	testSingleflightCacheConcurrencyGet(t, bm)
 }
 
-func TestSingleflight_file_Get(t *testing.T) {
+func TestSingleflightfileGet(t *testing.T) {
 	fc := NewFileCache().(*FileCache)
 	fc.CachePath = "////aaa"
 	err := fc.Init()

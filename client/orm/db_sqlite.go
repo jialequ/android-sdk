@@ -30,19 +30,19 @@ import (
 // sqlite operators.
 var sqliteOperators = map[string]string{
 	"exact":       "= ?",
-	"iexact":      "LIKE ? ESCAPE '\\'",
-	"contains":    "LIKE ? ESCAPE '\\'",
-	"icontains":   "LIKE ? ESCAPE '\\'",
+	"iexact":      literal_0492,
+	"contains":    literal_0492,
+	"icontains":   literal_0492,
 	"gt":          "> ?",
 	"gte":         ">= ?",
 	"lt":          "< ?",
 	"lte":         "<= ?",
 	"eq":          "= ?",
 	"ne":          "!= ?",
-	"startswith":  "LIKE ? ESCAPE '\\'",
-	"endswith":    "LIKE ? ESCAPE '\\'",
-	"istartswith": "LIKE ? ESCAPE '\\'",
-	"iendswith":   "LIKE ? ESCAPE '\\'",
+	"startswith":  literal_0492,
+	"endswith":    literal_0492,
+	"istartswith": literal_0492,
+	"iendswith":   literal_0492,
 }
 
 // sqlite column types.
@@ -184,3 +184,5 @@ func newdbBaseSqlite() dbBaser {
 	b.ins = b
 	return b
 }
+
+const literal_0492 = "LIKE ? ESCAPE '\\'"

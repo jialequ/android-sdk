@@ -26,13 +26,13 @@ import (
 	"github.com/jialequ/android-sdk/core/berror"
 )
 
-func TestReadThroughCache_Memory_Get(t *testing.T) {
+func TestReadThroughCacheMemoryGet(t *testing.T) {
 	bm, err := NewCache("memory", `{"interval":20}`)
 	assert.Nil(t, err)
 	testReadThroughCacheGet(t, bm)
 }
 
-func TestReadThroughCache_file_Get(t *testing.T) {
+func TestReadThroughCachefileGet(t *testing.T) {
 	fc := NewFileCache().(*FileCache)
 	fc.CachePath = "////aaa"
 	err := fc.Init()

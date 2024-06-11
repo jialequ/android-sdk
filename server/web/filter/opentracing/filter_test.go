@@ -25,7 +25,7 @@ import (
 	"github.com/jialequ/android-sdk/server/web/context"
 )
 
-func TestFilterChainBuilder_FilterChain(t *testing.T) {
+func TestFilterChainBuilderFilterChain(t *testing.T) {
 	builder := &FilterChainBuilder{
 		CustomSpanFunc: func(span opentracing.Span, ctx *context.Context) {
 			span.SetTag("aa", "bbb")

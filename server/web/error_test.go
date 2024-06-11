@@ -39,14 +39,14 @@ func (ec *errorTestController) Get() {
 	ec.Abort("404")
 }
 
-func TestErrorCode_01(t *testing.T) {
+func TestErrorCode01(t *testing.T) {
 	registerDefaultErrorHandler()
 	for k := range ErrorMaps {
 		r, _ := http.NewRequest("GET", "/error?code="+k, nil)
 		w := httptest.NewRecorder()
 
 		handler := NewControllerRegister()
-		handler.Add("/error", &errorTestController{})
+		handler.Add(literal_2584, &errorTestController{})
 		handler.ServeHTTP(w, r)
 		code, _ := strconv.Atoi(k)
 		if w.Code != code {
@@ -58,26 +58,26 @@ func TestErrorCode_01(t *testing.T) {
 	}
 }
 
-func TestErrorCode_02(t *testing.T) {
+func TestErrorCode02(t *testing.T) {
 	registerDefaultErrorHandler()
 	r, _ := http.NewRequest("GET", "/error?code=0", nil)
 	w := httptest.NewRecorder()
 
 	handler := NewControllerRegister()
-	handler.Add("/error", &errorTestController{})
+	handler.Add(literal_2584, &errorTestController{})
 	handler.ServeHTTP(w, r)
 	if w.Code != 404 {
 		t.Fail()
 	}
 }
 
-func TestErrorCode_03(t *testing.T) {
+func TestErrorCode03(t *testing.T) {
 	registerDefaultErrorHandler()
 	r, _ := http.NewRequest("GET", "/error?code=panic", nil)
 	w := httptest.NewRecorder()
 
 	handler := NewControllerRegister()
-	handler.Add("/error", &errorTestController{})
+	handler.Add(literal_2584, &errorTestController{})
 	handler.ServeHTTP(w, r)
 	if w.Code != 200 {
 		t.Fail()
@@ -86,3 +86,5 @@ func TestErrorCode_03(t *testing.T) {
 		t.Fail()
 	}
 }
+
+const literal_2584 = "/error"

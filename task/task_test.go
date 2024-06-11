@@ -29,15 +29,15 @@ import (
 func TestParse(t *testing.T) {
 	m := newTaskManager()
 	defer m.ClearTask()
-	tk := NewTask("taska", "0/30 * * * * *", func(ctx context.Context) error {
-		fmt.Println("hello world")
+	tk := NewTask("taska", literal_2143, func(ctx context.Context) error {
+		fmt.Println(literal_2694)
 		return nil
 	})
 	err := tk.Run(nil)
 	if err != nil {
 		t.Fatal(err)
 	}
-	assert.Equal(t, "0/30 * * * * *", tk.GetSpec(context.Background()))
+	assert.Equal(t, literal_2143, tk.GetSpec(context.Background()))
 	m.AddTask("taska", tk)
 	m.StartTask()
 	time.Sleep(3 * time.Second)
@@ -48,8 +48,8 @@ func TestParse(t *testing.T) {
 func TestModifyTaskListAfterRunning(t *testing.T) {
 	m := newTaskManager()
 	defer m.ClearTask()
-	tk := NewTask("taskb", "0/30 * * * * *", func(ctx context.Context) error {
-		fmt.Println("hello world")
+	tk := NewTask("taskb", literal_2143, func(ctx context.Context) error {
+		fmt.Println(literal_2694)
 		return nil
 	})
 	err := tk.Run(nil)
@@ -142,14 +142,14 @@ func TestTimeout(t *testing.T) {
 	}
 }
 
-func TestTask_Run(t *testing.T) {
+func TestTaskRun(t *testing.T) {
 	cnt := -1
 	task := func(ctx context.Context) error {
 		cnt++
 		fmt.Printf("Hello, world! %d \n", cnt)
 		return fmt.Errorf("Hello, world! %d", cnt)
 	}
-	tk := NewTask("taska", "0/30 * * * * *", task)
+	tk := NewTask("taska", literal_2143, task)
 	for i := 0; i < 200; i++ {
 		e := tk.Run(nil)
 		assert.NotNil(t, e)
@@ -163,15 +163,15 @@ func TestTask_Run(t *testing.T) {
 
 func TestCrudTask(t *testing.T) {
 	m := newTaskManager()
-	m.AddTask("my-task1", NewTask("my-task1", "0/30 * * * * *", func(ctx context.Context) error {
+	m.AddTask(literal_9170, NewTask(literal_9170, literal_2143, func(ctx context.Context) error {
 		return nil
 	}))
 
-	m.AddTask("my-task2", NewTask("my-task2", "0/30 * * * * *", func(ctx context.Context) error {
+	m.AddTask("my-task2", NewTask("my-task2", literal_2143, func(ctx context.Context) error {
 		return nil
 	}))
 
-	m.DeleteTask("my-task1")
+	m.DeleteTask(literal_9170)
 	assert.Equal(t, 1, len(m.adminTaskList))
 
 	m.ClearTask()
@@ -184,7 +184,7 @@ func TestGracefulShutdown(t *testing.T) {
 	waitDone := atomic.Value{}
 	waitDone.Store(false)
 	tk := NewTask("everySecond", "* * * * * *", func(ctx context.Context) error {
-		fmt.Println("hello world")
+		fmt.Println(literal_2694)
 		time.Sleep(2 * time.Second)
 		waitDone.Store(true)
 		return nil
@@ -211,7 +211,7 @@ func TestGetAllTasks(t *testing.T) {
 	m := newTaskManager()
 	defer m.ClearTask()
 
-	tk := NewTask("task1", "0/30 * * * * *", func(ctx context.Context) error {
+	tk := NewTask("task1", literal_2143, func(ctx context.Context) error {
 		return nil
 	})
 
@@ -227,3 +227,9 @@ func TestGetAllTasks(t *testing.T) {
 
 	assert.Equal(t, 2, total)
 }
+
+const literal_2143 = "0/30 * * * * *"
+
+const literal_2694 = "hello world"
+
+const literal_9170 = "my-task1"

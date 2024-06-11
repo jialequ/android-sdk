@@ -27,7 +27,6 @@ func TestRedisSentinel(t *testing.T) {
 		t.Log(e)
 		return
 	}
-	// todo test if e==nil
 	go globalSessions.GC()
 
 	ctx := context.Background()
@@ -94,7 +93,7 @@ func TestRedisSentinel(t *testing.T) {
 	sess.SessionRelease(ctx, w)
 }
 
-func TestProvider_SessionInit(t *testing.T) {
+func TestProviderSessionInit(t *testing.T) {
 	savePath := `
 { "save_path": "my save path", "idle_timeout": "3s"}
 `

@@ -68,7 +68,7 @@ func (t *Tree) addtree(segments []string, tree *Tree, wildcards []string, reg st
 	}
 	// Rule: /login/*/access match /login/2009/11/access
 	// if already has *, and when loop the access, should as a regexpStr
-	if !iswild && utils.InSlice(":splat", wildcards) {
+	if !iswild && utils.InSlice(literal_0918, wildcards) {
 		iswild = true
 		regexpStr = seg
 	}
@@ -82,10 +82,10 @@ func (t *Tree) addtree(segments []string, tree *Tree, wildcards []string, reg st
 				if reg == "" {
 					rr := ""
 					for _, w := range wildcards {
-						if w == ":splat" {
+						if w == literal_0918 {
 							rr = rr + "(.+)/"
 						} else {
-							rr = rr + "([^/]+)/"
+							rr = rr + literal_3691
 						}
 					}
 					regexpStr = rr + regexpStr
@@ -100,7 +100,7 @@ func (t *Tree) addtree(segments []string, tree *Tree, wildcards []string, reg st
 						if w == "." || w == ":" {
 							continue
 						}
-						regexpStr = "([^/]+)/" + regexpStr
+						regexpStr = literal_3691 + regexpStr
 					}
 				}
 			}
@@ -124,10 +124,10 @@ func (t *Tree) addtree(segments []string, tree *Tree, wildcards []string, reg st
 			if reg == "" {
 				rr := ""
 				for _, w := range wildcards {
-					if w == ":splat" {
+					if w == literal_0918 {
 						rr = rr + "(.+)/"
 					} else {
-						rr = rr + "([^/]+)/"
+						rr = rr + literal_3691
 					}
 				}
 				regexpStr = rr + regexpStr
@@ -140,7 +140,7 @@ func (t *Tree) addtree(segments []string, tree *Tree, wildcards []string, reg st
 				params = params[1:]
 			} else {
 				for range params {
-					regexpStr = "([^/]+)/" + regexpStr
+					regexpStr = literal_3691 + regexpStr
 				}
 			}
 		} else {
@@ -172,7 +172,7 @@ func filterTreeWithPrefix(t *Tree, wildcards []string, reg string) { // NOSONAR
 				l.regexps = regexp.MustCompile("^" + reg + "/" + strings.Trim(l.regexps.String(), "^$") + "$")
 			} else {
 				for _, v := range l.wildcards {
-					if v == ":splat" {
+					if v == literal_0918 {
 						reg = reg + "/(.+)"
 					} else {
 						reg = reg + "/([^/]+)"
@@ -185,10 +185,10 @@ func filterTreeWithPrefix(t *Tree, wildcards []string, reg string) { // NOSONAR
 			l.wildcards = append(wildcards, l.wildcards...)
 			if l.regexps != nil {
 				for _, w := range wildcards {
-					if w == ":splat" {
+					if w == literal_0918 {
 						reg = "(.+)/" + reg
 					} else {
-						reg = "([^/]+)/" + reg
+						reg = literal_3691 + reg
 					}
 				}
 				l.regexps = regexp.MustCompile("^" + reg + strings.Trim(l.regexps.String(), "^$") + "$")
@@ -221,7 +221,7 @@ func (t *Tree) addseg(segments []string, route interface{}, wildcards []string, 
 		}
 		// Rule: /login/*/access match /login/2009/11/access
 		// if already has *, and when loop the access, should as a regexpStr
-		if !iswild && utils.InSlice(":splat", wildcards) {
+		if !iswild && utils.InSlice(literal_0918, wildcards) {
 			iswild = true
 			regexpStr = seg
 		}
@@ -237,10 +237,10 @@ func (t *Tree) addseg(segments []string, route interface{}, wildcards []string, 
 				if reg == "" {
 					rr := ""
 					for _, w := range wildcards {
-						if w == ":splat" {
+						if w == literal_0918 {
 							rr = rr + "(.+)/"
 						} else {
-							rr = rr + "([^/]+)/"
+							rr = rr + literal_3691
 						}
 					}
 					regexpStr = rr + regexpStr
@@ -401,8 +401,8 @@ func (leaf *leafInfo) match(treePattern string, wildcardValues []string, ctx *co
 			return true
 		}
 		// match *
-		if len(leaf.wildcards) == 1 && leaf.wildcards[0] == ":splat" {
-			ctx.Input.SetParam(":splat", treePattern)
+		if len(leaf.wildcards) == 1 && leaf.wildcards[0] == literal_0918 {
+			ctx.Input.SetParam(literal_0918, treePattern)
 			return true
 		}
 		// match *.* or :id
@@ -484,7 +484,7 @@ func splitSegment(key string) (bool, []string, string) { // NOSONAR
 		if key == "*.*" {
 			return true, []string{".", ":path", ":ext"}, ""
 		}
-		return true, []string{":splat"}, ""
+		return true, []string{literal_0918}, ""
 	}
 	if strings.ContainsAny(key, ":") {
 		var paramsNum int
@@ -586,3 +586,7 @@ func splitSegment(key string) (bool, []string, string) { // NOSONAR
 	}
 	return false, nil, ""
 }
+
+const literal_0918 = ":splat"
+
+const literal_3691 = "([^/]+)/"

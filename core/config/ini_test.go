@@ -79,7 +79,7 @@ password = ${GOPATH}
 		}
 	)
 
-	f, err := os.Create("testini.conf")
+	f, err := os.Create(literal_8974)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -89,8 +89,8 @@ password = ${GOPATH}
 		t.Fatal(err)
 	}
 	f.Close()
-	defer os.Remove("testini.conf")
-	iniconf, err := NewConfig("ini", "testini.conf")
+	defer os.Remove(literal_8974)
+	iniconf, err := NewConfig("ini", literal_8974)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -185,3 +185,5 @@ name=mysql
 
 	}
 }
+
+const literal_8974 = "testini.conf"

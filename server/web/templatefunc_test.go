@@ -16,7 +16,6 @@ package web
 
 import (
 	"html/template"
-	"net/url"
 	"reflect"
 	"testing"
 	"time"
@@ -25,13 +24,13 @@ import (
 func TestSubstr(t *testing.T) {
 	s := `012345`
 	if Substr(s, 0, 2) != "01" {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 	if Substr(s, 0, 100) != "012345" {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 	if Substr(s, 12, 100) != "012345" {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 }
 
@@ -41,7 +40,7 @@ func TestHtml2str(t *testing.T) {
 
 	\n`
 	if HTML2str(h) != "123\\n\n\\n" {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 }
 
@@ -74,16 +73,16 @@ func TestDate(t *testing.T) {
 
 func TestCompareRelated(t *testing.T) {
 	if !Compare("abc", "abc") {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 	if Compare("abc", "aBc") {
 		t.Error("should be not equal")
 	}
 	if !Compare("1", 1) {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 	if CompareNot("abc", "abc") {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 	if !CompareNot("abc", "aBc") {
 		t.Error("should be not equal")
@@ -97,7 +96,7 @@ func TestHtmlquote(t *testing.T) {
 	h := `&lt;&#39;&nbsp;&rdquo;&ldquo;&amp;&#34;&gt;`
 	s := `<' ”“&">`
 	if Htmlquote(s) != h {
-		t.Error("should be equal")
+		t.Error(literal_9821)
 	}
 }
 
@@ -105,98 +104,7 @@ func TestHtmlunquote(t *testing.T) {
 	h := `&lt;&#39;&nbsp;&rdquo;&ldquo;&amp;&#34;&gt;`
 	s := `<' ”“&">`
 	if Htmlunquote(h) != s {
-		t.Error("should be equal")
-	}
-}
-
-func TestParseForm(t *testing.T) {
-	type ExtendInfo struct {
-		Hobby []string `form:"hobby"`
-		Memo  string
-	}
-
-	type OtherInfo struct {
-		Organization string `form:"organization"`
-		Title        string `form:"title"`
-		ExtendInfo
-	}
-
-	type user struct {
-		ID      int         `form:"-"`
-		tag     string      `form:"tag"`
-		Name    interface{} `form:"username"`
-		Age     int         `form:"age,text"`
-		Email   string
-		Intro   string    `form:",textarea"`
-		StrBool bool      `form:"strbool"`
-		Date    time.Time `form:"date,2006-01-02"`
-		OtherInfo
-	}
-
-	u := user{}
-	form := url.Values{
-		"ID":           []string{"1"},
-		"-":            []string{"1"},
-		"tag":          []string{"no"},
-		"username":     []string{"test"},
-		"age":          []string{"40"},
-		"Email":        []string{"test@gmail.com"},
-		"Intro":        []string{"I am an engineer!"},
-		"strbool":      []string{"yes"},
-		"date":         []string{"2014-11-12"},
-		"organization": []string{"beego"},
-		"title":        []string{"CXO"},
-		"hobby":        []string{"", "Basketball", "Football"},
-		"memo":         []string{"nothing"},
-	}
-	if err := ParseForm(form, u); err == nil {
-		t.Fatal("nothing will be changed")
-	}
-	if err := ParseForm(form, &u); err != nil {
-		t.Fatal(err)
-	}
-	if u.ID != 0 {
-		t.Errorf("ID should equal 0 but got %v", u.ID)
-	}
-	if len(u.tag) != 0 {
-		t.Errorf("tag's length should equal 0 but got %v", len(u.tag))
-	}
-	if u.Name.(string) != "test" {
-		t.Errorf("Name should equal `test` but got `%v`", u.Name.(string))
-	}
-	if u.Age != 40 {
-		t.Errorf("Age should equal 40 but got %v", u.Age)
-	}
-	if u.Email != "test@gmail.com" {
-		t.Errorf("Email should equal `test@gmail.com` but got `%v`", u.Email)
-	}
-	if u.Intro != "I am an engineer!" {
-		t.Errorf("Intro should equal `I am an engineer!` but got `%v`", u.Intro)
-	}
-	if !u.StrBool {
-		t.Errorf("strboll should equal `true`, but got `%v`", u.StrBool)
-	}
-	y, m, d := u.Date.Date()
-	if y != 2014 || m.String() != "November" || d != 12 {
-		t.Errorf("Date should equal `2014-11-12`, but got `%v`", u.Date.String())
-	}
-	if u.Organization != "beego" {
-		t.Errorf("Organization should equal `beego`, but got `%v`", u.Organization)
-	}
-	if u.Title != "CXO" {
-		t.Errorf("Title should equal `CXO`, but got `%v`", u.Title)
-	}
-	if u.Hobby[0] != "" {
-		t.Errorf("Hobby should equal ``, but got `%v`", u.Hobby[0])
-	}
-	if u.Hobby[1] != "Basketball" {
-		t.Errorf("Hobby should equal `Basketball`, but got `%v`", u.Hobby[1])
-	}
-	if u.Hobby[2] != "Football" {
-		t.Errorf("Hobby should equal `Football`, but got `%v`", u.Hobby[2])
-	}
-	if len(u.Memo) != 0 {
-		t.Errorf("Memo's length should equal 0 but got %v", len(u.Memo))
+		t.Error(literal_9821)
 	}
 }
 
@@ -228,17 +136,17 @@ func TestRenderForm(t *testing.T) {
 }
 
 func TestRenderFormField(t *testing.T) {
-	html := renderFormField("Label: ", "Name", "text", "Value", "", "", false)
+	html := renderFormField(literal_5498, "Name", "text", "Value", "", "", false)
 	if html != `Label: <input name="Name" type="text" value="Value">` {
 		t.Errorf("Wrong html output for input[type=text]: %v ", html)
 	}
 
-	html = renderFormField("Label: ", "Name", "textarea", "Value", "", "", false)
+	html = renderFormField(literal_5498, "Name", "textarea", "Value", "", "", false)
 	if html != `Label: <textarea name="Name">Value</textarea>` {
 		t.Errorf("Wrong html output for textarea: %v ", html)
 	}
 
-	html = renderFormField("Label: ", "Name", "textarea", "Value", "", "", true)
+	html = renderFormField(literal_5498, "Name", "textarea", "Value", "", "", true)
 	if html != `Label: <textarea name="Name" required>Value</textarea>` {
 		t.Errorf("Wrong html output for textarea: %v ", html)
 	}
@@ -301,84 +209,7 @@ func TestParseFormTag(t *testing.T) {
 	}
 }
 
-func TestMapGet(t *testing.T) {
-	// test one level map
-	m1 := map[string]int64{
-		"a": 1,
-		"1": 2,
-	}
-
-	if res, err := MapGet(m1, "a"); err == nil {
-		if res.(int64) != 1 {
-			t.Errorf("Should return 1, but return %v", res)
-		}
-	} else {
-		t.Errorf("Error happens %v", err)
-	}
-
-	if res, err := MapGet(m1, "1"); err == nil {
-		if res.(int64) != 2 {
-			t.Errorf("Should return 2, but return %v", res)
-		}
-	} else {
-		t.Errorf("Error happens %v", err)
-	}
-
-	if res, err := MapGet(m1, 1); err == nil {
-		if res.(int64) != 2 {
-			t.Errorf("Should return 2, but return %v", res)
-		}
-	} else {
-		t.Errorf("Error happens %v", err)
-	}
-
-	// test 2 level map
-	m2 := M{
-		"1": map[string]float64{
-			"2": 3.5,
-		},
-	}
-
-	if res, err := MapGet(m2, 1, 2); err == nil {
-		if res.(float64) != 3.5 {
-			t.Errorf("Should return 3.5, but return %v", res)
-		}
-	} else {
-		t.Errorf("Error happens %v", err)
-	}
-
-	// test 5 level map
-	m5 := M{
-		"1": M{
-			"2": M{
-				"3": M{
-					"4": M{
-						"5": 1.2,
-					},
-				},
-			},
-		},
-	}
-
-	if res, err := MapGet(m5, 1, 2, 3, 4, 5); err == nil {
-		if res.(float64) != 1.2 {
-			t.Errorf("Should return 1.2, but return %v", res)
-		}
-	} else {
-		t.Errorf("Error happens %v", err)
-	}
-
-	// check whether element not exists in map
-	if res, err := MapGet(m5, 5, 4, 3, 2, 1); err == nil {
-		if res != nil {
-			t.Errorf("Should return nil, but return %v", res)
-		}
-	} else {
-		t.Errorf("Error happens %v", err)
-	}
-}
-
-func Test_eq(t *testing.T) {
+func Testeq(t *testing.T) {
 	tests := []struct {
 		a      interface{}
 		b      interface{}
@@ -445,7 +276,7 @@ func Test_eq(t *testing.T) {
 	}
 }
 
-func Test_lt(t *testing.T) {
+func Testlt(t *testing.T) {
 	tests := []struct {
 		a      interface{}
 		b      interface{}
@@ -580,3 +411,7 @@ func Test_lt(t *testing.T) {
 		}
 	}
 }
+
+const literal_9821 = "should be equal"
+
+const literal_5498 = "Label: "

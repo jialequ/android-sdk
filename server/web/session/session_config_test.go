@@ -212,7 +212,7 @@ func TestNewManagerConfig(t *testing.T) {
 	}
 }
 
-func TestManagerConfig_Opts(t *testing.T) {
+func TestManagerConfigOpts(t *testing.T) {
 	c := NewManagerConfig()
 	c.Opts(CfgSetCookie(true))
 

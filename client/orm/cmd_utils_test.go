@@ -8,7 +8,7 @@ import (
 	"github.com/jialequ/android-sdk/client/orm/internal/models"
 )
 
-func Test_getColumnTyp(t *testing.T) {
+func TestgetColumnTyp(t *testing.T) {
 	testCases := []struct {
 		name string
 		fi   *models.FieldInfo

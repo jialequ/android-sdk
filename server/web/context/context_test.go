@@ -22,7 +22,7 @@ import (
 	"github.com/jialequ/android-sdk/server/web/session"
 )
 
-func TestXsrfReset_01(t *testing.T) {
+func TestXsrfReset01(t *testing.T) {
 	r := &http.Request{}
 	c := NewContext()
 	c.Request = r
@@ -48,21 +48,21 @@ func TestXsrfReset_01(t *testing.T) {
 	}
 }
 
-func TestContext_Session(t *testing.T) {
+func TestContextSession(t *testing.T) {
 	c := NewContext()
 	if store, err := c.Session(); store != nil || err == nil {
 		t.FailNow()
 	}
 }
 
-func TestContext_Session1(t *testing.T) {
+func TestContextSession1(t *testing.T) {
 	c := Context{}
 	if store, err := c.Session(); store != nil || err == nil {
 		t.FailNow()
 	}
 }
 
-func TestContext_Session2(t *testing.T) {
+func TestContextSession2(t *testing.T) {
 	c := NewContext()
 	c.Input.CruSession = &session.MemSessionStore{}
 

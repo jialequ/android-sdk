@@ -32,7 +32,7 @@ import (
 func TestRedisCache(t *testing.T) {
 	redisAddr := os.Getenv("REDIS_ADDR")
 	if redisAddr == "" {
-		redisAddr = "127.0.0.1:6379"
+		redisAddr = literal_6042
 	}
 
 	bm, err := cache.NewCache("redis", fmt.Sprintf(`{"conn": "%s"}`, redisAddr))
@@ -109,7 +109,7 @@ func TestCacheScan(t *testing.T) {
 
 	addr := os.Getenv("REDIS_ADDR")
 	if addr == "" {
-		addr = "127.0.0.1:6379"
+		addr = literal_6042
 	}
 
 	// init
@@ -136,8 +136,8 @@ func TestCacheScan(t *testing.T) {
 	assert.Equal(t, 0, len(keys))
 }
 
-func TestReadThroughCache_redis_Get(t *testing.T) {
-	bm, err := cache.NewCache("redis", fmt.Sprintf(`{"conn": "%s"}`, "127.0.0.1:6379"))
+func TestReadThroughCacheredisGet(t *testing.T) {
+	bm, err := cache.NewCache("redis", fmt.Sprintf(`{"conn": "%s"}`, literal_6042))
 	assert.Nil(t, err)
 
 	testReadThroughCacheGet(t, bm)
@@ -249,7 +249,7 @@ func (m *MockOrm) Load(key string) (any, error) {
 	return m.kvs[key], nil
 }
 
-func TestCache_associate(t *testing.T) {
+func TestCacheassociate(t *testing.T) {
 	testCases := []struct {
 		name            string
 		skipEmptyPrefix bool
@@ -261,27 +261,27 @@ func TestCache_associate(t *testing.T) {
 			name:            "skip prefix",
 			skipEmptyPrefix: true,
 			prefix:          "",
-			input:           "my-key",
-			wantRes:         "my-key",
+			input:           literal_6187,
+			wantRes:         literal_6187,
 		},
 		{
 			name:            "skip prefix but prefix not empty",
 			skipEmptyPrefix: true,
 			prefix:          "abc",
-			input:           "my-key",
+			input:           literal_6187,
 			wantRes:         "abc:my-key",
 		},
 		{
 			name:            "using empty prefix",
 			skipEmptyPrefix: false,
 			prefix:          "",
-			input:           "my-key",
+			input:           literal_6187,
 			wantRes:         ":my-key",
 		},
 		{
 			name:    "using prefix",
 			prefix:  "abc",
-			input:   "my-key",
+			input:   literal_6187,
 			wantRes: "abc:my-key",
 		},
 	}
@@ -297,7 +297,7 @@ func TestCache_associate(t *testing.T) {
 	}
 }
 
-func TestCache_parseConf(t *testing.T) {
+func TestCacheparseConf(t *testing.T) {
 	tests := []struct {
 		name string
 
@@ -309,11 +309,11 @@ func TestCache_parseConf(t *testing.T) {
 		{
 			name: "just conn",
 			configStr: `{
-  "conn": "127.0.0.1:6379"
+  "conn": literal_6042
 }`,
 
 			wantCache: Cache{
-				conninfo:        "127.0.0.1:6379",
+				conninfo:        literal_6042,
 				dbNum:           0,
 				key:             DefaultKey,
 				password:        "",
@@ -336,7 +336,7 @@ func TestCache_parseConf(t *testing.T) {
 }`,
 
 			wantCache: Cache{
-				conninfo:        "127.0.0.1:6379",
+				conninfo:        literal_6042,
 				dbNum:           2,
 				key:             "mykey",
 				password:        "mypwd",
@@ -359,3 +359,7 @@ func TestCache_parseConf(t *testing.T) {
 		})
 	}
 }
+
+const literal_6042 = "127.0.0.1:6379"
+
+const literal_6187 = "my-key"

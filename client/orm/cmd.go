@@ -126,7 +126,7 @@ func (d *commandSyncDb) Run() error { // NOSONAR
 				if d.rtOnError {
 					return err
 				}
-				fmt.Printf("    %s\n", err.Error())
+				fmt.Printf(literal_5270, err.Error())
 			}
 		}
 	}
@@ -141,7 +141,7 @@ func (d *commandSyncDb) Run() error { // NOSONAR
 		if d.rtOnError {
 			return err
 		}
-		fmt.Printf("    %s\n", err.Error())
+		fmt.Printf(literal_5270, err.Error())
 	}
 
 	ctx := context.Background()
@@ -163,7 +163,7 @@ func (d *commandSyncDb) Run() error { // NOSONAR
 				if d.rtOnError {
 					return err
 				}
-				fmt.Printf("    %s\n", err.Error())
+				fmt.Printf(literal_5270, err.Error())
 			}
 
 			for _, fi := range mi.Fields.FieldsDB {
@@ -181,13 +181,13 @@ func (d *commandSyncDb) Run() error { // NOSONAR
 
 				_, err := db.Exec(query)
 				if d.verbose {
-					fmt.Printf("    %s\n", query)
+					fmt.Printf(literal_5270, query)
 				}
 				if err != nil {
 					if d.rtOnError {
 						return err
 					}
-					fmt.Printf("    %s\n", err.Error())
+					fmt.Printf(literal_5270, err.Error())
 				}
 			}
 
@@ -200,13 +200,13 @@ func (d *commandSyncDb) Run() error { // NOSONAR
 					query := idx.SQL
 					_, err := db.Exec(query)
 					if d.verbose {
-						fmt.Printf("    %s\n", query)
+						fmt.Printf(literal_5270, query)
 					}
 					if err != nil {
 						if d.rtOnError {
 							return err
 						}
-						fmt.Printf("    %s\n", err.Error())
+						fmt.Printf(literal_5270, err.Error())
 					}
 				}
 			}
@@ -233,7 +233,7 @@ func (d *commandSyncDb) Run() error { // NOSONAR
 				if d.rtOnError {
 					return err
 				}
-				fmt.Printf("    %s\n", err.Error())
+				fmt.Printf(literal_5270, err.Error())
 			}
 		}
 		if d.verbose {
@@ -301,3 +301,5 @@ func RunSyncdb(name string, force bool, verbose bool) error {
 	cmd.rtOnError = true
 	return cmd.Run()
 }
+
+const literal_5270 = "    %s\n"

@@ -29,13 +29,13 @@ func testOpenFile(encoding string, content []byte, t *testing.T) {
 	assetOpenFileAndContent(sch, reader, content, t)
 }
 
-func TestOpenStaticFile_1(t *testing.T) {
+func TestOpenStaticFile1(t *testing.T) {
 	file, _ := os.Open(licenseFile)
 	content, _ := io.ReadAll(file)
 	testOpenFile("", content, t)
 }
 
-func TestOpenStaticFileGzip_1(t *testing.T) {
+func TestOpenStaticFileGzip1(t *testing.T) {
 	file, _ := os.Open(licenseFile)
 	var zipBuf bytes.Buffer
 	fileWriter, _ := gzip.NewWriterLevel(&zipBuf, gzip.BestCompression)
@@ -46,7 +46,7 @@ func TestOpenStaticFileGzip_1(t *testing.T) {
 	testOpenFile("gzip", content, t)
 }
 
-func TestOpenStaticFileDeflate_1(t *testing.T) {
+func TestOpenStaticFileDeflate1(t *testing.T) {
 	file, _ := os.Open(licenseFile)
 	var zipBuf bytes.Buffer
 	fileWriter, _ := zlib.NewWriterLevel(&zipBuf, zlib.BestCompression)

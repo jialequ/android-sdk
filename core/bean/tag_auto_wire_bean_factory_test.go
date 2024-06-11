@@ -22,7 +22,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestTagAutoWireBeanFactory_AutoWire(t *testing.T) {
+func TestTagAutoWireBeanFactoryAutoWire(t *testing.T) {
 	factory := NewTagAutoWireBeanFactory()
 	bm := &ComplicateStruct{}
 	err := factory.AutoWire(context.Background(), nil, bm)

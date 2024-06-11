@@ -185,7 +185,7 @@ func (w *fileLogWriter) WriteMsg(lm *LogMsg) error { // NOSONAR
 			w.Lock()
 			if w.needRotateHourly(h) {
 				if err := w.doRotate(lm.When); err != nil {
-					fmt.Fprintf(os.Stderr, "FileLogWriter(%q): %s\n", w.Filename, err)
+					fmt.Fprintf(os.Stderr, literal_6132, w.Filename, err)
 				}
 			}
 			w.Unlock()
@@ -194,7 +194,7 @@ func (w *fileLogWriter) WriteMsg(lm *LogMsg) error { // NOSONAR
 			w.Lock()
 			if w.needRotateDaily(d) {
 				if err := w.doRotate(lm.When); err != nil {
-					fmt.Fprintf(os.Stderr, "FileLogWriter(%q): %s\n", w.Filename, err)
+					fmt.Fprintf(os.Stderr, literal_6132, w.Filename, err)
 				}
 			}
 			w.Unlock()
@@ -271,7 +271,7 @@ func (w *fileLogWriter) dailyRotate(openTime time.Time) {
 	w.Lock()
 	if w.needRotateDaily(time.Now().Day()) {
 		if err := w.doRotate(time.Now()); err != nil {
-			fmt.Fprintf(os.Stderr, "FileLogWriter(%q): %s\n", w.Filename, err)
+			fmt.Fprintf(os.Stderr, literal_6132, w.Filename, err)
 		}
 	}
 	w.Unlock()
@@ -286,7 +286,7 @@ func (w *fileLogWriter) hourlyRotate(openTime time.Time) {
 	w.Lock()
 	if w.needRotateHourly(time.Now().Hour()) {
 		if err := w.doRotate(time.Now()); err != nil {
-			fmt.Fprintf(os.Stderr, "FileLogWriter(%q): %s\n", w.Filename, err)
+			fmt.Fprintf(os.Stderr, literal_6132, w.Filename, err)
 		}
 	}
 	w.Unlock()
@@ -440,3 +440,5 @@ func (w *fileLogWriter) Flush() {
 func init() {
 	Register(AdapterFile, newFileWriter)
 }
+
+const literal_6132 = "FileLogWriter(%q): %s\n"

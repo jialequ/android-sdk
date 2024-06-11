@@ -21,13 +21,13 @@ import (
 )
 
 func TestStatics(t *testing.T) {
-	StatisticsMap.AddStatistics("POST", "/api/user", "&admin.user", time.Duration(2000))
-	StatisticsMap.AddStatistics("POST", "/api/user", "&admin.user", time.Duration(120000))
-	StatisticsMap.AddStatistics("GET", "/api/user", "&admin.user", time.Duration(13000))
-	StatisticsMap.AddStatistics("POST", "/api/admin", "&admin.user", time.Duration(14000))
-	StatisticsMap.AddStatistics("POST", "/api/user/astaxie", "&admin.user", time.Duration(12000))
-	StatisticsMap.AddStatistics("POST", "/api/user/xiemengjun", "&admin.user", time.Duration(13000))
-	StatisticsMap.AddStatistics("DELETE", "/api/user", "&admin.user", time.Duration(1400))
+	StatisticsMap.AddStatistics("POST", literal_1793, literal_7903, time.Duration(2000))
+	StatisticsMap.AddStatistics("POST", literal_1793, literal_7903, time.Duration(120000))
+	StatisticsMap.AddStatistics("GET", literal_1793, literal_7903, time.Duration(13000))
+	StatisticsMap.AddStatistics("POST", "/api/admin", literal_7903, time.Duration(14000))
+	StatisticsMap.AddStatistics("POST", "/api/user/astaxie", literal_7903, time.Duration(12000))
+	StatisticsMap.AddStatistics("POST", "/api/user/xiemengjun", literal_7903, time.Duration(13000))
+	StatisticsMap.AddStatistics("DELETE", literal_1793, literal_7903, time.Duration(1400))
 	t.Log(StatisticsMap.GetMap())
 
 	data := StatisticsMap.GetMapData()
@@ -38,3 +38,7 @@ func TestStatics(t *testing.T) {
 
 	t.Log(string(b))
 }
+
+const literal_1793 = "/api/user"
+
+const literal_7903 = "&admin.user"

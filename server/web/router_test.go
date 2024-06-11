@@ -64,7 +64,7 @@ func (tc *TestController) Param() {
 }
 
 func (tc *TestController) List() {
-	tc.Ctx.Output.Body([]byte("i am list"))
+	tc.Ctx.Output.Body([]byte(literal_9524))
 }
 
 func (tc *TestController) Params() {
@@ -123,13 +123,13 @@ func TestPrefixUrlFor(t *testing.T) {
 
 func TestUrlFor(t *testing.T) {
 	handler := NewControllerRegister()
-	handler.Add("/api/list", &TestController{}, WithRouterMethods(&TestController{}, "*:List"))
+	handler.Add(literal_7852, &TestController{}, WithRouterMethods(&TestController{}, literal_5874))
 	handler.Add("/person/:last/:first", &TestController{}, WithRouterMethods(&TestController{}, "*:Param"))
-	if a := handler.URLFor("TestController.List"); a != "/api/list" {
+	if a := handler.URLFor(literal_9501); a != literal_7852 {
 		logs.Info(a)
 		t.Errorf("TestController.List must equal to /api/list")
 	}
-	if a := handler.URLFor("TestController.Param", ":last", "xie", ":first", "asta"); a != "/person/xie/asta" {
+	if a := handler.URLFor(literal_8203, ":last", "xie", ":first", "asta"); a != "/person/xie/asta" {
 		t.Errorf("TestController.Param must equal to /person/xie/asta, but get " + a)
 	}
 }
@@ -141,7 +141,7 @@ func TestUrlFor3(t *testing.T) {
 	if a != "/test/myext" && a != "/Test/Myext" {
 		t.Errorf("TestController.Myext must equal to /test/myext, but get " + a)
 	}
-	a = handler.URLFor("TestController.GetURL")
+	a = handler.URLFor(literal_3284)
 	if a != "/test/geturl" && a != "/Test/GetURL" {
 		t.Errorf("TestController.GetURL must equal to /test/geturl, but get " + a)
 	}
@@ -149,23 +149,23 @@ func TestUrlFor3(t *testing.T) {
 
 func TestUrlFor2(t *testing.T) {
 	handler := NewControllerRegister()
-	handler.Add("/v1/:v/cms_:id(.+)_:page(.+).html", &TestController{}, WithRouterMethods(&TestController{}, "*:List"))
+	handler.Add("/v1/:v/cms_:id(.+)_:page(.+).html", &TestController{}, WithRouterMethods(&TestController{}, literal_5874))
 	handler.Add("/v1/:username/edit", &TestController{}, WithRouterMethods(&TestController{}, "get:GetURL"))
 	handler.Add("/v1/:v(.+)_cms/ttt_:id(.+)_:page(.+).html", &TestController{}, WithRouterMethods(&TestController{}, "*:Param"))
 	handler.Add("/:year:int/:month:int/:title/:entid", &TestController{})
-	if handler.URLFor("TestController.GetURL", ":username", "astaxie") != "/v1/astaxie/edit" {
-		logs.Info(handler.URLFor("TestController.GetURL"))
+	if handler.URLFor(literal_3284, ":username", "astaxie") != "/v1/astaxie/edit" {
+		logs.Info(handler.URLFor(literal_3284))
 		t.Errorf("TestController.List must equal to /v1/astaxie/edit")
 	}
 
-	if handler.URLFor("TestController.List", ":v", "za", ":id", "12", ":page", "123") !=
+	if handler.URLFor(literal_9501, ":v", "za", ":id", "12", ":page", "123") !=
 		"/v1/za/cms_12_123.html" {
-		logs.Info(handler.URLFor("TestController.List"))
+		logs.Info(handler.URLFor(literal_9501))
 		t.Errorf("TestController.List must equal to /v1/za/cms_12_123.html")
 	}
-	if handler.URLFor("TestController.Param", ":v", "za", ":id", "12", ":page", "123") !=
+	if handler.URLFor(literal_8203, ":v", "za", ":id", "12", ":page", "123") !=
 		"/v1/za_cms/ttt_12_123.html" {
-		logs.Info(handler.URLFor("TestController.Param"))
+		logs.Info(handler.URLFor(literal_8203))
 		t.Errorf("TestController.List must equal to /v1/za_cms/ttt_12_123.html")
 	}
 	if handler.URLFor("TestController.Get", ":year", "1111", ":month", "11",
@@ -177,14 +177,14 @@ func TestUrlFor2(t *testing.T) {
 }
 
 func TestUserFunc(t *testing.T) {
-	r, _ := http.NewRequest("GET", "/api/list", nil)
+	r, _ := http.NewRequest("GET", literal_7852, nil)
 	w := httptest.NewRecorder()
 
 	handler := NewControllerRegister()
-	handler.Add("/api/list", &TestController{}, WithRouterMethods(&TestController{}, "*:List"))
+	handler.Add(literal_7852, &TestController{}, WithRouterMethods(&TestController{}, literal_5874))
 	handler.ServeHTTP(w, r)
-	if w.Body.String() != "i am list" {
-		t.Errorf("user define func can't run")
+	if w.Body.String() != literal_9524 {
+		t.Errorf(literal_0497)
 	}
 }
 
@@ -207,8 +207,8 @@ func TestAutoFunc(t *testing.T) {
 	handler := NewControllerRegister()
 	handler.AddAuto(&TestController{})
 	handler.ServeHTTP(w, r)
-	if w.Body.String() != "i am list" {
-		t.Errorf("user define func can't run")
+	if w.Body.String() != literal_9524 {
+		t.Errorf(literal_0497)
 	}
 }
 
@@ -219,8 +219,8 @@ func TestAutoFunc2(t *testing.T) {
 	handler := NewControllerRegister()
 	handler.AddAuto(&TestController{})
 	handler.ServeHTTP(w, r)
-	if w.Body.String() != "i am list" {
-		t.Errorf("user define func can't run")
+	if w.Body.String() != literal_9524 {
+		t.Errorf(literal_0497)
 	}
 }
 
@@ -232,7 +232,7 @@ func TestAutoFuncParams(t *testing.T) {
 	handler.AddAuto(&TestController{})
 	handler.ServeHTTP(w, r)
 	if w.Body.String() != "20091112" {
-		t.Errorf("user define func can't run")
+		t.Errorf(literal_0497)
 	}
 }
 
@@ -244,7 +244,7 @@ func TestAutoExtFunc(t *testing.T) {
 	handler.AddAuto(&TestController{})
 	handler.ServeHTTP(w, r)
 	if w.Body.String() != "json" {
-		t.Errorf("user define func can't run")
+		t.Errorf(literal_0497)
 	}
 }
 
@@ -340,7 +340,7 @@ func TestPrepare(t *testing.T) {
 	handler.Add("/json/list", &JSONController{})
 	handler.ServeHTTP(w, r)
 	if w.Body.String() != `"prepare"` {
-		t.Errorf(w.Body.String() + "user define func can't run")
+		t.Errorf(w.Body.String() + literal_0497)
 	}
 }
 
@@ -351,7 +351,7 @@ func TestAutoPrefix(t *testing.T) {
 	handler := NewControllerRegister()
 	handler.AddAutoPrefix("/admin", &TestController{})
 	handler.ServeHTTP(w, r)
-	if w.Body.String() != "i am list" {
+	if w.Body.String() != literal_9524 {
 		t.Errorf("TestAutoPrefix can't run")
 	}
 }
@@ -389,11 +389,11 @@ func sayhello(w http.ResponseWriter, r *http.Request) {
 }
 
 func TestRouterHandler(t *testing.T) {
-	r, _ := http.NewRequest("POST", "/sayhi", nil)
+	r, _ := http.NewRequest("POST", literal_1302, nil)
 	w := httptest.NewRecorder()
 
 	handler := NewControllerRegister()
-	handler.Handler("/sayhi", http.HandlerFunc(sayhello))
+	handler.Handler(literal_1302, http.HandlerFunc(sayhello))
 	handler.ServeHTTP(w, r)
 	if w.Body.String() != "sayhello" {
 		t.Errorf("TestRouterHandler can't run")
@@ -405,7 +405,7 @@ func TestRouterHandlerAll(t *testing.T) {
 	w := httptest.NewRecorder()
 
 	handler := NewControllerRegister()
-	handler.Handler("/sayhi", http.HandlerFunc(sayhello), true)
+	handler.Handler(literal_1302, http.HandlerFunc(sayhello), true)
 	handler.ServeHTTP(w, r)
 	if w.Body.String() != "sayhello" {
 		t.Errorf("TestRouterHandler can't run")
@@ -430,9 +430,9 @@ func (a *AdminController) Get() {
 
 func TestRouterFunc(t *testing.T) {
 	mux := NewControllerRegister()
-	mux.Get("/action", beegoFilterFunc)
-	mux.Post("/action", beegoFilterFunc)
-	rw, r := testRequest("GET", "/action")
+	mux.Get(literal_3609, beegoFilterFunc)
+	mux.Post(literal_3609, beegoFilterFunc)
+	rw, r := testRequest("GET", literal_3609)
 	mux.ServeHTTP(rw, r)
 	if rw.Body.String() != "hello" {
 		t.Errorf("TestRouterFunc can't run")
@@ -441,8 +441,8 @@ func TestRouterFunc(t *testing.T) {
 
 func BenchmarkFunc(b *testing.B) {
 	mux := NewControllerRegister()
-	mux.Get("/action", beegoFilterFunc)
-	rw, r := testRequest("GET", "/action")
+	mux.Get(literal_3609, beegoFilterFunc)
+	rw, r := testRequest("GET", literal_3609)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		mux.ServeHTTP(rw, r)
@@ -451,8 +451,8 @@ func BenchmarkFunc(b *testing.B) {
 
 func BenchmarkController(b *testing.B) {
 	mux := NewControllerRegister()
-	mux.Add("/action", &AdminController{})
-	rw, r := testRequest("GET", "/action")
+	mux.Add(literal_3609, &AdminController{})
+	rw, r := testRequest("GET", literal_3609)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		mux.ServeHTTP(rw, r)
@@ -472,7 +472,7 @@ func TestInsertFilter(t *testing.T) {
 	testName := "TestInsertFilter"
 
 	mux := NewControllerRegister()
-	mux.InsertFilter("*", BeforeRouter, func(*context.Context) {}, WithReturnOnOutput(true))
+	mux.InsertFilter("*", BeforeRouter, func(*context.Context) { fmt.Print("123") }, WithReturnOnOutput(true))
 	if !mux.filters[BeforeRouter][0].returnOnOutput {
 		t.Errorf(
 			"%s: passing no variadic params should set returnOnOutput to true",
@@ -485,7 +485,7 @@ func TestInsertFilter(t *testing.T) {
 	}
 
 	mux = NewControllerRegister()
-	mux.InsertFilter("*", BeforeRouter, func(*context.Context) {}, WithReturnOnOutput(false))
+	mux.InsertFilter("*", BeforeRouter, func(*context.Context) { fmt.Print("123") }, WithReturnOnOutput(false))
 	if mux.filters[BeforeRouter][0].returnOnOutput {
 		t.Errorf(
 			"%s: passing false as 1st variadic param should set returnOnOutput to false",
@@ -493,7 +493,7 @@ func TestInsertFilter(t *testing.T) {
 	}
 
 	mux = NewControllerRegister()
-	mux.InsertFilter("*", BeforeRouter, func(*context.Context) {}, WithReturnOnOutput(true), WithResetParams(true))
+	mux.InsertFilter("*", BeforeRouter, func(*context.Context) { fmt.Print("123") }, WithReturnOnOutput(true), WithResetParams(true))
 	if !mux.filters[BeforeRouter][0].resetParams {
 		t.Errorf(
 			"%s: passing true as 2nd variadic param should set resetParams to true",
@@ -578,7 +578,7 @@ func TestFilterBeforeExec(t *testing.T) {
 		t.Errorf(testName + " BeforeExec did not return properly")
 	}
 	if strings.Contains(rw.Body.String(), "BeforeRouter") {
-		t.Errorf(testName + " BeforeRouter ran in error")
+		t.Errorf(testName + literal_8209)
 	}
 }
 
@@ -602,10 +602,10 @@ func TestFilterAfterExec(t *testing.T) {
 		t.Errorf(testName + " AfterExec did not run")
 	}
 	if !strings.Contains(rw.Body.String(), "hello") {
-		t.Errorf(testName + " handler did not run properly")
+		t.Errorf(testName + literal_1275)
 	}
 	if strings.Contains(rw.Body.String(), "BeforeRouter") {
-		t.Errorf(testName + " BeforeRouter ran in error")
+		t.Errorf(testName + literal_8209)
 	}
 	if strings.Contains(rw.Body.String(), "BeforeExec") {
 		t.Errorf(testName + " BeforeExec ran in error")
@@ -633,13 +633,13 @@ func TestFilterFinishRouter(t *testing.T) {
 		t.Errorf(testName + " FinishRouter did not run")
 	}
 	if !strings.Contains(rw.Body.String(), "hello") {
-		t.Errorf(testName + " handler did not run properly")
+		t.Errorf(testName + literal_1275)
 	}
 	if strings.Contains(rw.Body.String(), "AfterExec1") {
 		t.Errorf(testName + " AfterExec ran in error")
 	}
 	if strings.Contains(rw.Body.String(), "BeforeRouter") {
-		t.Errorf(testName + " BeforeRouter ran in error")
+		t.Errorf(testName + literal_8209)
 	}
 	if strings.Contains(rw.Body.String(), "BeforeExec") {
 		t.Errorf(testName + " BeforeExec ran in error")
@@ -665,7 +665,7 @@ func TestFilterFinishRouterMultiFirstOnly(t *testing.T) {
 		t.Errorf(testName + " FinishRouter1 did not run")
 	}
 	if !strings.Contains(rw.Body.String(), "hello") {
-		t.Errorf(testName + " handler did not run properly")
+		t.Errorf(testName + literal_1275)
 	}
 	// not expected in body
 	if strings.Contains(rw.Body.String(), "FinishRouter2") {
@@ -692,7 +692,7 @@ func TestFilterFinishRouterMulti(t *testing.T) {
 		t.Errorf(testName + " FinishRouter1 did not run")
 	}
 	if !strings.Contains(rw.Body.String(), "hello") {
-		t.Errorf(testName + " handler did not run properly")
+		t.Errorf(testName + literal_1275)
 	}
 	if !strings.Contains(rw.Body.String(), "FinishRouter2") {
 		t.Errorf(testName + " FinishRouter2 did not run properly")
@@ -700,6 +700,7 @@ func TestFilterFinishRouterMulti(t *testing.T) {
 }
 
 func beegoFilterNoOutput(ctx *context.Context) {
+	fmt.Print("123")
 }
 
 func beegoBeforeRouter1(ctx *context.Context) {
@@ -758,8 +759,8 @@ func TestYAMLPrepare(t *testing.T) {
 }
 
 func TestRouterEntityTooLargeCopyBody(t *testing.T) {
-	_MaxMemory := BConfig.MaxMemory
-	_CopyRequestBody := BConfig.CopyRequestBody
+	MaxMemory := BConfig.MaxMemory
+	CopyRequestBody := BConfig.CopyRequestBody
 	BConfig.CopyRequestBody = true
 	BConfig.MaxMemory = 20
 
@@ -775,8 +776,8 @@ func TestRouterEntityTooLargeCopyBody(t *testing.T) {
 	})
 	handler.ServeHTTP(w, r)
 
-	BConfig.CopyRequestBody = _CopyRequestBody
-	BConfig.MaxMemory = _MaxMemory
+	BConfig.CopyRequestBody = CopyRequestBody
+	BConfig.MaxMemory = MaxMemory
 
 	if w.Code != http.StatusRequestEntityTooLarge {
 		t.Errorf("TestRouterRequestEntityTooLarge can't run")
@@ -793,22 +794,22 @@ func TestRouterSessionSet(t *testing.T) {
 	r, _ := http.NewRequest("GET", "/user", nil)
 	w := httptest.NewRecorder()
 	handler := NewControllerRegister()
-	handler.Add("/user", &TestController{}, WithRouterMethods(&TestController{}, "get:Get"),
+	handler.Add("/user", &TestController{}, WithRouterMethods(&TestController{}, literal_4287),
 		WithRouterSessionOn(false))
 	handler.ServeHTTP(w, r)
-	if w.Header().Get("Set-Cookie") != "" {
-		t.Errorf("TestRotuerSessionSet failed")
+	if w.Header().Get(literal_1958) != "" {
+		t.Errorf(literal_1968)
 	}
 
 	// global sessionOn = false, router sessionOn = true
 	r, _ = http.NewRequest("GET", "/user", nil)
 	w = httptest.NewRecorder()
 	handler = NewControllerRegister()
-	handler.Add("/user", &TestController{}, WithRouterMethods(&TestController{}, "get:Get"),
+	handler.Add("/user", &TestController{}, WithRouterMethods(&TestController{}, literal_4287),
 		WithRouterSessionOn(true))
 	handler.ServeHTTP(w, r)
-	if w.Header().Get("Set-Cookie") != "" {
-		t.Errorf("TestRotuerSessionSet failed")
+	if w.Header().Get(literal_1958) != "" {
+		t.Errorf(literal_1968)
 	}
 
 	BConfig.WebConfig.Session.SessionOn = true
@@ -819,22 +820,22 @@ func TestRouterSessionSet(t *testing.T) {
 	r, _ = http.NewRequest("GET", "/user", nil)
 	w = httptest.NewRecorder()
 	handler = NewControllerRegister()
-	handler.Add("/user", &TestController{}, WithRouterMethods(&TestController{}, "get:Get"),
+	handler.Add("/user", &TestController{}, WithRouterMethods(&TestController{}, literal_4287),
 		WithRouterSessionOn(false))
 	handler.ServeHTTP(w, r)
-	if w.Header().Get("Set-Cookie") != "" {
-		t.Errorf("TestRotuerSessionSet failed")
+	if w.Header().Get(literal_1958) != "" {
+		t.Errorf(literal_1968)
 	}
 
 	// global sessionOn = true, router sessionOn = true
 	r, _ = http.NewRequest("GET", "/user", nil)
 	w = httptest.NewRecorder()
 	handler = NewControllerRegister()
-	handler.Add("/user", &TestController{}, WithRouterMethods(&TestController{}, "get:Get"),
+	handler.Add("/user", &TestController{}, WithRouterMethods(&TestController{}, literal_4287),
 		WithRouterSessionOn(true))
 	handler.ServeHTTP(w, r)
-	if w.Header().Get("Set-Cookie") == "" {
-		t.Errorf("TestRotuerSessionSet failed")
+	if w.Header().Get(literal_1958) == "" {
+		t.Errorf(literal_1968)
 	}
 }
 
@@ -1102,8 +1103,8 @@ func TestRouterAddRouterPointerMethodPanicNotImplementInterface(t *testing.T) {
 
 func TestGetAllControllerInfo(t *testing.T) {
 	handler := NewControllerRegister()
-	handler.Add("/level1", &TestController{}, WithRouterMethods(&TestController{}, "get:Get"))
-	handler.Add("/level1/level2", &TestController{}, WithRouterMethods(&TestController{}, "get:Get"))
+	handler.Add("/level1", &TestController{}, WithRouterMethods(&TestController{}, literal_4287))
+	handler.Add("/level1/level2", &TestController{}, WithRouterMethods(&TestController{}, literal_4287))
 	handler.Add("/:name1", &TestController{}, WithRouterMethods(&TestController{}, "post:Post"))
 
 	var actualPatterns []string
@@ -1128,3 +1129,31 @@ func TestGetAllControllerInfo(t *testing.T) {
 		t.Errorf("ControllerInfo.GetMethod expected %#v, but %#v got", expectedMethods, actualMethods)
 	}
 }
+
+const literal_9524 = "i am list"
+
+const literal_7852 = "/api/list"
+
+const literal_5874 = "*:List"
+
+const literal_9501 = "TestController.List"
+
+const literal_8203 = "TestController.Param"
+
+const literal_3284 = "TestController.GetURL"
+
+const literal_0497 = "user define func can't run"
+
+const literal_1302 = "/sayhi"
+
+const literal_3609 = "/action"
+
+const literal_8209 = " BeforeRouter ran in error"
+
+const literal_1275 = " handler did not run properly"
+
+const literal_4287 = "get:Get"
+
+const literal_1958 = "Set-Cookie"
+
+const literal_1968 = "TestRotuerSessionSet failed"

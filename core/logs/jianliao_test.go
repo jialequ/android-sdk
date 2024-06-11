@@ -21,7 +21,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestJLWriter_Format(t *testing.T) {
+func TestJLWriterFormat(t *testing.T) {
 	lg := &LogMsg{
 		Level:      LevelDebug,
 		Msg:        "Hello, world",

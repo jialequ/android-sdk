@@ -7,11 +7,11 @@ import (
 func TestCompareGoVersion(t *testing.T) {
 	targetVersion := "go1.8"
 	if compareGoVersion("go1.12.4", targetVersion) != 1 {
-		t.Error("should be 1")
+		t.Error(literal_7382)
 	}
 
 	if compareGoVersion("go1.8.7", targetVersion) != 1 {
-		t.Error("should be 1")
+		t.Error(literal_7382)
 	}
 
 	if compareGoVersion("go1.8", targetVersion) != 0 {
@@ -23,7 +23,7 @@ func TestCompareGoVersion(t *testing.T) {
 	}
 
 	if compareGoVersion("go1.12.1rc1", targetVersion) != 1 {
-		t.Error("should be 1")
+		t.Error(literal_7382)
 	}
 
 	if compareGoVersion("go1.8rc1", targetVersion) != 0 {
@@ -34,3 +34,5 @@ func TestCompareGoVersion(t *testing.T) {
 		t.Error("should be -1")
 	}
 }
+
+const literal_7382 = "should be 1"

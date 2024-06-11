@@ -369,7 +369,7 @@ func (t *dbTables) getCondSQL(cond *Condition, sub bool, tz *time.Location) (whe
 
 			index, _, fi, suc := t.parseExprs(mi, exprs)
 			if !suc {
-				panic(fmt.Errorf("unknown field/column name `%s`", strings.Join(p.exprs, ExprSep)))
+				panic(fmt.Errorf(literal_7658, strings.Join(p.exprs, ExprSep)))
 			}
 
 			if operator == "" {
@@ -414,7 +414,7 @@ func (t *dbTables) getGroupSQL(groups []string) (groupSQL string) {
 
 		index, _, fi, suc := t.parseExprs(t.mi, exprs)
 		if !suc {
-			panic(fmt.Errorf("unknown field/column name `%s`", strings.Join(exprs, ExprSep)))
+			panic(fmt.Errorf(literal_7658, strings.Join(exprs, ExprSep)))
 		}
 
 		groupSqls = append(groupSqls, fmt.Sprintf("%s.%s%s%s", index, Q, fi.Column, Q))
@@ -443,12 +443,12 @@ func (t *dbTables) getOrderSQL(orders []*order_clause.Order) (orderSQL string) {
 			} else if len(clause) == 1 {
 				orderSqls = append(orderSqls, fmt.Sprintf("%s %s", clause[0], order.SortString()))
 			} else {
-				panic(fmt.Errorf("unknown field/column name `%s`", strings.Join(clause, ExprSep)))
+				panic(fmt.Errorf(literal_7658, strings.Join(clause, ExprSep)))
 			}
 		} else {
 			index, _, fi, suc := t.parseExprs(t.mi, clause)
 			if !suc {
-				panic(fmt.Errorf("unknown field/column name `%s`", strings.Join(clause, ExprSep)))
+				panic(fmt.Errorf(literal_7658, strings.Join(clause, ExprSep)))
 			}
 
 			orderSqls = append(orderSqls, fmt.Sprintf("%s.%s%s%s %s", index, Q, fi.Column, Q, order.SortString()))
@@ -499,3 +499,5 @@ func newDbTables(mi *models.ModelInfo, base dbBaser) *dbTables {
 	tables.base = base
 	return tables
 }
+
+const literal_7658 = "unknown field/column name `%s`"

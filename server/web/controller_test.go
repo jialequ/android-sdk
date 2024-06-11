@@ -146,7 +146,7 @@ func TestAdditionalViewPaths(t *testing.T) {
 	defer os.RemoveAll(dir2)
 
 	dir1file := "file1.tpl"
-	dir2file := "file2.tpl"
+	dir2file := literal_9237
 
 	genFile := func(dir string, name string, content string) {
 		os.MkdirAll(filepath.Dir(filepath.Join(dir, name)), 0o777)
@@ -180,7 +180,7 @@ func TestAdditionalViewPaths(t *testing.T) {
 	}
 
 	func() {
-		ctrl.TplName = "file2.tpl"
+		ctrl.TplName = literal_9237
 		defer func() {
 			if r := recover(); r == nil {
 				t.Fatal("TestAdditionalViewPaths expected error")
@@ -189,7 +189,7 @@ func TestAdditionalViewPaths(t *testing.T) {
 		ctrl.RenderString()
 	}()
 
-	ctrl.TplName = "file2.tpl"
+	ctrl.TplName = literal_9237
 	ctrl.ViewPath = dir2
 	ctrl.RenderString()
 }
@@ -198,7 +198,7 @@ func TestBindJson(t *testing.T) {
 	var s struct {
 		Foo string `json:"foo"`
 	}
-	header := map[string][]string{"Content-Type": {"application/json"}}
+	header := map[string][]string{literal_0265: {"application/json"}}
 	request := &http.Request{Header: header}
 	input := &context.BeegoInput{RequestBody: []byte(`{"foo": "FOO"}`)}
 	ctx := &context.Context{Request: request, Input: input}
@@ -230,7 +230,7 @@ func TestBindXML(t *testing.T) {
 <root>
    <foo>FOO</foo>
 </root>`
-	header := map[string][]string{"Content-Type": {"text/xml"}}
+	header := map[string][]string{literal_0265: {"text/xml"}}
 	request := &http.Request{Header: header}
 	input := &context.BeegoInput{RequestBody: []byte(xmlBody)}
 	ctx := &context.Context{Request: request, Input: input}
@@ -244,7 +244,7 @@ func TestBindYAML(t *testing.T) {
 	var s struct {
 		Foo string `yaml:"foo"`
 	}
-	header := map[string][]string{"Content-Type": {"application/x-yaml"}}
+	header := map[string][]string{literal_0265: {"application/x-yaml"}}
 	request := &http.Request{Header: header}
 	input := &context.BeegoInput{RequestBody: []byte("foo: FOO")}
 	ctx := &context.Context{Request: request, Input: input}
@@ -271,11 +271,11 @@ func (t *TestRespController) TestResponse() {
 func (t *TestRespController) TestSaveToFile() {
 	err := t.SaveToFile(fileKey, toFile)
 	if err != nil {
-		t.Ctx.WriteString("save file fail")
+		t.Ctx.WriteString(literal_7856)
 	}
 	err = os.Remove(toFile)
 	if err != nil {
-		t.Ctx.WriteString("save file fail")
+		t.Ctx.WriteString(literal_7856)
 	}
 	t.Ctx.WriteString("save file success")
 }
@@ -378,7 +378,7 @@ func TestControllerSaveFile(t *testing.T) {
 	// create fake POST request
 	r, _ := http.NewRequest("POST", "/upload_file", bodyReader)
 	r.Header.Set("Accept", context.ApplicationForm)
-	r.Header.Set("Content-Type", contType)
+	r.Header.Set(literal_0265, contType)
 	w := httptest.NewRecorder()
 
 	// setup the handler
@@ -391,10 +391,16 @@ func TestControllerSaveFile(t *testing.T) {
 	bs := make([]byte, 100)
 	n, err := response.Body.Read(bs)
 	assert.NoError(t, err)
-	if string(bs[:n]) == "save file fail" {
+	if string(bs[:n]) == literal_7856 {
 		t.Errorf("TestSaveToFile() failed to validate response")
 	}
 	if response.StatusCode != http.StatusOK {
 		t.Errorf("TestSaveToFile() failed to validate response code for %s", context.ApplicationJSON)
 	}
 }
+
+const literal_9237 = "file2.tpl"
+
+const literal_0265 = "Content-Type"
+
+const literal_7856 = "save file fail"

@@ -27,7 +27,7 @@ import (
 	"github.com/jialequ/android-sdk/client/orm/internal/models"
 )
 
-func TestDbBase_InsertValueSQL(t *testing.T) {
+func TestDbBaseInsertValueSQL(t *testing.T) {
 
 	mi := &models.ModelInfo{
 		Table: "test_table",
@@ -50,7 +50,7 @@ func TestDbBase_InsertValueSQL(t *testing.T) {
 			isMulti: false,
 			names:   []string{"name", "age"},
 			values:  []interface{}{"test", 18},
-			wantRes: "INSERT INTO `test_table` (`name`, `age`) VALUES (?, ?)",
+			wantRes: literal_3207,
 		},
 		{
 			name: "single insert by dbBasePostgres",
@@ -60,7 +60,7 @@ func TestDbBase_InsertValueSQL(t *testing.T) {
 			isMulti: false,
 			names:   []string{"name", "age"},
 			values:  []interface{}{"test", 18},
-			wantRes: "INSERT INTO \"test_table\" (\"name\", \"age\") VALUES ($1, $2)",
+			wantRes: literal_2571,
 		},
 		{
 			name: "multi insert by dbBase",
@@ -90,7 +90,7 @@ func TestDbBase_InsertValueSQL(t *testing.T) {
 			isMulti: true,
 			names:   []string{"name", "age"},
 			values:  []interface{}{"test", 18, "test2"},
-			wantRes: "INSERT INTO `test_table` (`name`, `age`) VALUES (?, ?)",
+			wantRes: literal_3207,
 		},
 		{
 			name: "multi insert by dbBasePostgres but values is not enough",
@@ -100,7 +100,7 @@ func TestDbBase_InsertValueSQL(t *testing.T) {
 			isMulti: true,
 			names:   []string{"name", "age"},
 			values:  []interface{}{"test", 18, "test2"},
-			wantRes: "INSERT INTO \"test_table\" (\"name\", \"age\") VALUES ($1, $2)",
+			wantRes: literal_2571,
 		},
 		{
 			name: "single insert by dbBase but values is double to names",
@@ -110,7 +110,7 @@ func TestDbBase_InsertValueSQL(t *testing.T) {
 			isMulti: false,
 			names:   []string{"name", "age"},
 			values:  []interface{}{"test", 18, "test2", 19},
-			wantRes: "INSERT INTO `test_table` (`name`, `age`) VALUES (?, ?)",
+			wantRes: literal_3207,
 		},
 		{
 			name: "single insert by dbBasePostgres but values is double to names",
@@ -120,7 +120,7 @@ func TestDbBase_InsertValueSQL(t *testing.T) {
 			isMulti: false,
 			names:   []string{"name", "age"},
 			values:  []interface{}{"test", 18, "test2", 19},
-			wantRes: "INSERT INTO \"test_table\" (\"name\", \"age\") VALUES ($1, $2)",
+			wantRes: literal_2571,
 		},
 	}
 
@@ -134,7 +134,7 @@ func TestDbBase_InsertValueSQL(t *testing.T) {
 	}
 }
 
-func TestDbBase_UpdateSQL(t *testing.T) {
+func TestDbBaseUpdateSQL(t *testing.T) {
 	mi := &models.ModelInfo{
 		Table: "test_table",
 	}
@@ -178,7 +178,7 @@ func TestDbBase_UpdateSQL(t *testing.T) {
 	}
 }
 
-func TestDbBase_DeleteSQL(t *testing.T) {
+func TestDbBaseDeleteSQL(t *testing.T) {
 	mi := &models.ModelInfo{
 		Table: "test_table",
 	}
@@ -235,7 +235,7 @@ func TestDbBase_DeleteSQL(t *testing.T) {
 	}
 }
 
-func TestDbBase_buildSetSQL(t *testing.T) {
+func TestDbBasebuildSetSQL(t *testing.T) {
 
 	testCases := []struct {
 		name string
@@ -537,7 +537,7 @@ func TestDbBase_buildSetSQL(t *testing.T) {
 	}
 }
 
-func TestDbBase_UpdateBatchSQL(t *testing.T) {
+func TestDbBaseUpdateBatchSQL(t *testing.T) {
 	mi := &models.ModelInfo{
 		Table: "test_tab",
 		Fields: &models.Fields{
@@ -653,7 +653,7 @@ func TestDbBase_UpdateBatchSQL(t *testing.T) {
 	}
 }
 
-func TestDbBase_InsertOrUpdateSQL(t *testing.T) {
+func TestDbBaseInsertOrUpdateSQL(t *testing.T) {
 
 	mi := &models.ModelInfo{
 		Table: "test_tab",
@@ -890,7 +890,7 @@ func TestDbBase_InsertOrUpdateSQL(t *testing.T) {
 
 }
 
-func TestDbBase_readBatchSQL(t *testing.T) {
+func TestDbBasereadBatchSQL(t *testing.T) {
 
 	mc := models.NewModelCacheHandler()
 
@@ -1195,7 +1195,7 @@ func TestDbBase_readBatchSQL(t *testing.T) {
 
 }
 
-func TestDbBase_readValuesSQL(t *testing.T) {
+func TestDbBasereadValuesSQL(t *testing.T) {
 
 	mc := models.NewModelCacheHandler()
 
@@ -1333,7 +1333,7 @@ func TestDbBase_readValuesSQL(t *testing.T) {
 
 }
 
-func TestDbBase_countSQL(t *testing.T) {
+func TestDbBasecountSQL(t *testing.T) {
 
 	mc := models.NewModelCacheHandler()
 
@@ -1457,3 +1457,7 @@ type testTab2 struct {
 	Age2   int64 `orm:"column(age_2)"`
 	Score2 int64 `orm:"column(score_2)"`
 }
+
+const literal_3207 = "INSERT INTO `test_table` (`name`, `age`) VALUES (?, ?)"
+
+const literal_2571 = "INSERT INTO \"test_table\" (\"name\", \"age\") VALUES ($1, $2)"

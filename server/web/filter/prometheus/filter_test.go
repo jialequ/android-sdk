@@ -41,7 +41,7 @@ func TestFilterChain(t *testing.T) {
 	time.Sleep(1 * time.Second)
 }
 
-func TestFilterChainBuilder_report(t *testing.T) {
+func TestFilterChainBuilderreport(t *testing.T) {
 	ctx := context.NewContext()
 	r, _ := http.NewRequest("GET", "/prometheus/user", nil)
 	w := httptest.NewRecorder()

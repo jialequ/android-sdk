@@ -21,7 +21,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestLogMsg_OldStyleFormat(t *testing.T) {
+func TestLogMsgOldStyleFormat(t *testing.T) {
 	lg := &LogMsg{
 		Level:      LevelDebug,
 		Msg:        "Hello, world",

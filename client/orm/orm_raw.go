@@ -246,7 +246,7 @@ func (o *rawSet) loopSetRefs(refs []interface{}, sInds []reflect.Value, nIndsPtr
 		tpName := ind.Type().String()
 
 		if ind.Kind() == reflect.Struct {
-			if tpName == "time.Time" {
+			if tpName == literal_2764 {
 				value := reflect.ValueOf(refs[cur]).Elem().Interface()
 				if isPtr && value == nil {
 					val = reflect.New(val.Type()).Elem()
@@ -309,7 +309,7 @@ func (o *rawSet) QueryRow(containers ...interface{}) error { // NOSONAR
 		sInds = append(sInds, ind)
 		eTyps = append(eTyps, etyp)
 
-		if typ.Kind() == reflect.Struct && typ.String() != "time.Time" {
+		if typ.Kind() == reflect.Struct && typ.String() != literal_2764 {
 			if len(containers) > 1 {
 				panic(errors.New("<RawSeter.QueryRow> now support one struct only. see #384"))
 			}
@@ -470,7 +470,7 @@ func (o *rawSet) QueryRows(containers ...interface{}) (int64, error) { // NOSONA
 		sInds = append(sInds, sInd)
 		eTyps = append(eTyps, etyp)
 
-		if typ.Kind() == reflect.Struct && typ.String() != "time.Time" {
+		if typ.Kind() == reflect.Struct && typ.String() != literal_2764 {
 			if len(containers) > 1 {
 				panic(errors.New("<RawSeter.QueryRow> now support one struct only. see #384"))
 			}
@@ -920,3 +920,5 @@ func newRawSet(orm *ormBase, query string, args []interface{}) RawSeter {
 	o.orm = orm
 	return o
 }
+
+const literal_2764 = "time.Time"

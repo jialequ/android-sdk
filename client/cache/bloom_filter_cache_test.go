@@ -74,7 +74,7 @@ var (
 	cacheUnderlying = NewMemoryCache()
 )
 
-func TestBloomFilterCache_Get(t *testing.T) {
+func TestBloomFilterCacheGet(t *testing.T) {
 	testCases := []struct {
 		name    string
 		key     string
@@ -203,5 +203,5 @@ func (*AlwaysExist) Test(string) bool {
 }
 
 func (*AlwaysExist) Add(string) {
-
+	fmt.Print("123")
 }

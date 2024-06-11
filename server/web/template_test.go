@@ -53,7 +53,7 @@ func TestTemplate(t *testing.T) {
 	dir := filepath.Join(tmpDir, "_beeTmp", "TestTemplate")
 	files := []string{
 		"header.tpl",
-		"index.tpl",
+		literal_6178,
 		"blocks/block.tpl",
 	}
 	if err := os.MkdirAll(dir, 0o777); err != nil {
@@ -83,7 +83,7 @@ func TestTemplate(t *testing.T) {
 	if len(beeTemplates) != 3 {
 		t.Fatalf("should be 3 but got %v", len(beeTemplates))
 	}
-	if err := beeTemplates["index.tpl"].ExecuteTemplate(os.Stdout, "index.tpl", nil); err != nil {
+	if err := beeTemplates[literal_6178].ExecuteTemplate(os.Stdout, literal_6178, nil); err != nil {
 		t.Fatal(err)
 	}
 	for _, name := range files {
@@ -123,7 +123,7 @@ func TestRelativeTemplate(t *testing.T) {
 
 	files := []string{
 		"easyui/public/menu.tpl",
-		"easyui/rbac/user.tpl",
+		literal_4567,
 	}
 	if err := os.MkdirAll(dir, 0o777); err != nil {
 		t.Fatal(err)
@@ -145,7 +145,7 @@ func TestRelativeTemplate(t *testing.T) {
 		t.Fatal(err)
 	}
 	beeTemplates := beeViewPathTemplates[dir]
-	if err := beeTemplates["easyui/rbac/user.tpl"].ExecuteTemplate(os.Stdout, "easyui/rbac/user.tpl", nil); err != nil {
+	if err := beeTemplates[literal_4567].ExecuteTemplate(os.Stdout, literal_4567, nil); err != nil {
 		t.Fatal(err)
 	}
 	for _, name := range files {
@@ -230,7 +230,7 @@ func TestTemplateLayout(t *testing.T) {
 
 	dir := filepath.Join(tmpDir, "_beeTmp", "TestTemplateLayout")
 	files := []string{
-		"add.tpl",
+		literal_9614,
 		"layout_blog.tpl",
 	}
 	if err := os.MkdirAll(dir, 0o777); err != nil {
@@ -263,7 +263,7 @@ func TestTemplateLayout(t *testing.T) {
 	}
 	out := bytes.NewBufferString("")
 
-	if err := beeTemplates["add.tpl"].ExecuteTemplate(out, "add.tpl", map[string]string{"Title": "Hello", "SomeVar": "val"}); err != nil {
+	if err := beeTemplates[literal_9614].ExecuteTemplate(out, literal_9614, map[string]string{"Title": "Hello", "SomeVar": "val"}); err != nil {
 		t.Fatal(err)
 	}
 	if out.String() != output {
@@ -317,11 +317,11 @@ func TestFsBinData(t *testing.T) {
 	if len(beeTemplates) != 3 {
 		t.Fatalf("should be 3 but got %v", len(beeTemplates))
 	}
-	if err := beeTemplates["index.tpl"].ExecuteTemplate(os.Stdout, "index.tpl", map[string]string{"Title": "Hello", "SomeVar": "val"}); err != nil {
+	if err := beeTemplates[literal_6178].ExecuteTemplate(os.Stdout, literal_6178, map[string]string{"Title": "Hello", "SomeVar": "val"}); err != nil {
 		t.Fatal(err)
 	}
 	out := bytes.NewBufferString("")
-	if err := beeTemplates["index.tpl"].ExecuteTemplate(out, "index.tpl", map[string]string{"Title": "Hello", "SomeVar": "val"}); err != nil {
+	if err := beeTemplates[literal_6178].ExecuteTemplate(out, literal_6178, map[string]string{"Title": "Hello", "SomeVar": "val"}); err != nil {
 		t.Fatal(err)
 	}
 
@@ -330,3 +330,9 @@ func TestFsBinData(t *testing.T) {
 		t.Fatal("Compare failed")
 	}
 }
+
+const literal_6178 = "index.tpl"
+
+const literal_4567 = "easyui/rbac/user.tpl"
+
+const literal_9614 = "add.tpl"

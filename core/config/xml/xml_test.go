@@ -59,7 +59,7 @@ func TestXML(t *testing.T) {
 		}
 	)
 
-	f, err := os.Create("testxml.conf")
+	f, err := os.Create(literal_6720)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -69,9 +69,9 @@ func TestXML(t *testing.T) {
 		t.Fatal(err)
 	}
 	f.Close()
-	defer os.Remove("testxml.conf")
+	defer os.Remove(literal_6720)
 
-	xmlconf, err := config.NewConfig("xml", "testxml.conf")
+	xmlconf, err := config.NewConfig("xml", literal_6720)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -172,3 +172,5 @@ func TestXMLMissConfig(t *testing.T) {
 type Section struct {
 	Name string `xml:"name"`
 }
+
+const literal_6720 = "testxml.conf"

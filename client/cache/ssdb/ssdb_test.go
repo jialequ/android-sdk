@@ -101,7 +101,7 @@ func TestSsdbcacheCache(t *testing.T) {
 	assert.False(t, e2)
 }
 
-func TestReadThroughCache_ssdb_Get(t *testing.T) {
+func TestReadThroughCachessdbGet(t *testing.T) {
 	bm, err := cache.NewCache("ssdb", fmt.Sprintf(`{"conn": "%s"}`, "127.0.0.1:8888"))
 	assert.Nil(t, err)
 

@@ -26,18 +26,18 @@ import (
 var postgresOperators = map[string]string{
 	"exact":       "= ?",
 	"iexact":      "= UPPER(?)",
-	"contains":    "LIKE ?",
-	"icontains":   "LIKE UPPER(?)",
+	"contains":    literal_5942,
+	"icontains":   literal_0396,
 	"gt":          "> ?",
 	"gte":         ">= ?",
 	"lt":          "< ?",
 	"lte":         "<= ?",
 	"eq":          "= ?",
 	"ne":          "!= ?",
-	"startswith":  "LIKE ?",
-	"endswith":    "LIKE ?",
-	"istartswith": "LIKE UPPER(?)",
-	"iendswith":   "LIKE UPPER(?)",
+	"startswith":  literal_5942,
+	"endswith":    literal_5942,
+	"istartswith": literal_0396,
+	"iendswith":   literal_0396,
 }
 
 // postgresql column field types.
@@ -197,3 +197,7 @@ func newdbBasePostgres() dbBaser {
 	b.ins = b
 	return b
 }
+
+const literal_5942 = "LIKE ?"
+
+const literal_0396 = "LIKE UPPER(?)"

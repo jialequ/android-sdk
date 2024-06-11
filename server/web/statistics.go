@@ -102,13 +102,13 @@ func (m *URLMap) GetMap() map[string]interface{} {
 				fmt.Sprintf("% -10s", kk),
 				fmt.Sprintf("% -16d", vv.RequestNum),
 				fmt.Sprintf("%d", vv.TotalTime),
-				fmt.Sprintf("% -16s", utils.ToShortTimeFormat(vv.TotalTime)),
+				fmt.Sprintf(literal_8120, utils.ToShortTimeFormat(vv.TotalTime)),
 				fmt.Sprintf("%d", vv.MaxTime),
-				fmt.Sprintf("% -16s", utils.ToShortTimeFormat(vv.MaxTime)),
+				fmt.Sprintf(literal_8120, utils.ToShortTimeFormat(vv.MaxTime)),
 				fmt.Sprintf("%d", vv.MinTime),
-				fmt.Sprintf("% -16s", utils.ToShortTimeFormat(vv.MinTime)),
+				fmt.Sprintf(literal_8120, utils.ToShortTimeFormat(vv.MinTime)),
 				fmt.Sprintf("%d", time.Duration(int64(vv.TotalTime)/vv.RequestNum)),
-				fmt.Sprintf("% -16s", utils.ToShortTimeFormat(time.Duration(int64(vv.TotalTime)/vv.RequestNum))),
+				fmt.Sprintf(literal_8120, utils.ToShortTimeFormat(time.Duration(int64(vv.TotalTime)/vv.RequestNum))),
 			}
 			resultLists = append(resultLists, result)
 		}
@@ -149,3 +149,5 @@ func init() {
 		urlmap: make(map[string]map[string]*Statistics),
 	}
 }
+
+const literal_8120 = "% -16s"

@@ -12,7 +12,7 @@ type testDefinition struct {
 	expectedParser paramParser
 }
 
-func Test_Parsers(t *testing.T) {
+func TestParsers(t *testing.T) {
 	// ints
 	checkParser(testDefinition{"1", 1, intParser{}}, t)
 	checkParser(testDefinition{"-1", int64(-1), intParser{}}, t)

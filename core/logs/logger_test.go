@@ -19,7 +19,7 @@ import (
 	"time"
 )
 
-func TestFormatHeader_0(t *testing.T) {
+func TestFormatHeader0(t *testing.T) {
 	tm := time.Now()
 	if tm.Year() >= 2100 {
 		t.FailNow()
@@ -39,7 +39,7 @@ func TestFormatHeader_0(t *testing.T) {
 	}
 }
 
-func TestFormatHeader_1(t *testing.T) {
+func TestFormatHeader1(t *testing.T) {
 	tm := time.Now()
 	year := tm.Year()
 	dur := time.Second

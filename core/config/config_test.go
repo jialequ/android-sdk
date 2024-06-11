@@ -33,9 +33,9 @@ func TestExpandValueEnv(t *testing.T) {
 		{"${}", ""},
 		{"${{}}", ""},
 		{"${{||}}", "}"},
-		{"${pwd||}", ""},
-		{"${pwd||}", ""},
-		{"${pwd||}", ""},
+		{literal_9407, ""},
+		{literal_9407, ""},
+		{literal_9407, ""},
 		{"${pwd||}}", "}"},
 		{"${pwd||{{||}}}", "{{||}}"},
 		{"${GOPATH}", os.Getenv("GOPATH")},
@@ -51,3 +51,5 @@ func TestExpandValueEnv(t *testing.T) {
 		}
 	}
 }
+
+const literal_9407 = "${pwd||}"

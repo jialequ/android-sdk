@@ -24,7 +24,7 @@ import (
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
-func TestEtcdConfigerProvider_Parse(t *testing.T) {
+func TestEtcdConfigerProviderParse(t *testing.T) {
 	provider := &EtcdConfigerProvider{}
 	cfger, err := provider.Parse(readEtcdConfig())
 	assert.Nil(t, err)

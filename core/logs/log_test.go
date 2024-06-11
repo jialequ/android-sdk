@@ -70,11 +70,11 @@ func (m *mockLogger) GetCnt() int {
 	return m.writeCnt
 }
 
-func (*mockLogger) Destroy()                    {}
-func (*mockLogger) Flush()                      {}
-func (*mockLogger) SetFormatter(_ LogFormatter) {}
+func (*mockLogger) Destroy()                    { fmt.Print("123") }
+func (*mockLogger) Flush()                      { fmt.Print("123") }
+func (*mockLogger) SetFormatter(_ LogFormatter) { fmt.Print("123") }
 
-func TestBeeLogger_AsyncNonBlockWrite(t *testing.T) {
+func TestBeeLoggerAsyncNonBlockWrite(t *testing.T) {
 	testCases := []struct {
 		name         string
 		before       func()

@@ -53,7 +53,7 @@ func (gr *HTTPHeaderGuardRecorder) Header() http.Header {
 	return gr.ResponseRecorder.Header()
 }
 
-func Test_AllowAll(t *testing.T) {
+func TestAllowAll(t *testing.T) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	handler.InsertFilter("*", web.BeforeRouter, Allow(&Options{
@@ -70,7 +70,7 @@ func Test_AllowAll(t *testing.T) {
 	}
 }
 
-func Test_AllowRegexMatch(t *testing.T) {
+func TestAllowRegexMatch(t *testing.T) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	handler.InsertFilter("*", web.BeforeRouter, Allow(&Options{
@@ -90,7 +90,7 @@ func Test_AllowRegexMatch(t *testing.T) {
 	}
 }
 
-func Test_AllowRegexNoMatch(t *testing.T) {
+func TestAllowRegexNoMatch(t *testing.T) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	handler.InsertFilter("*", web.BeforeRouter, Allow(&Options{
@@ -110,14 +110,14 @@ func Test_AllowRegexNoMatch(t *testing.T) {
 	}
 }
 
-func Test_OtherHeaders(t *testing.T) {
+func TestOtherHeaders(t *testing.T) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	handler.InsertFilter("*", web.BeforeRouter, Allow(&Options{
 		AllowAllOrigins:  true,
 		AllowCredentials: true,
 		AllowMethods:     []string{"PATCH", "GET"},
-		AllowHeaders:     []string{"Origin", "X-whatever"},
+		AllowHeaders:     []string{"Origin", literal_9580},
 		ExposeHeaders:    []string{"Content-Length", "Hello"},
 		MaxAge:           5 * time.Minute,
 	}))
@@ -154,7 +154,7 @@ func Test_OtherHeaders(t *testing.T) {
 	}
 }
 
-func Test_DefaultAllowHeaders(t *testing.T) {
+func TestDefaultAllowHeaders(t *testing.T) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	handler.InsertFilter("*", web.BeforeRouter, Allow(&Options{
@@ -173,13 +173,13 @@ func Test_DefaultAllowHeaders(t *testing.T) {
 	}
 }
 
-func Test_Preflight(t *testing.T) {
+func TestPreflight(t *testing.T) {
 	recorder := NewRecorder()
 	handler := web.NewControllerRegister()
 	handler.InsertFilter("*", web.BeforeRouter, Allow(&Options{
 		AllowAllOrigins: true,
 		AllowMethods:    []string{"PUT", "PATCH"},
-		AllowHeaders:    []string{"Origin", "X-whatever", "X-CaseSensitive"},
+		AllowHeaders:    []string{"Origin", literal_9580, "X-CaseSensitive"},
 	}))
 
 	handler.Any("/foo", func(ctx *context.Context) {
@@ -200,7 +200,7 @@ func Test_Preflight(t *testing.T) {
 		t.Errorf("Allow-Methods is expected to be PUT,PATCH, found %v", methodsVal)
 	}
 
-	if !strings.Contains(headersVal, "X-whatever") {
+	if !strings.Contains(headersVal, literal_9580) {
 		t.Errorf("Allow-Headers is expected to contain X-whatever, found %v", headersVal)
 	}
 
@@ -217,7 +217,7 @@ func Test_Preflight(t *testing.T) {
 	}
 }
 
-func Benchmark_WithoutCORS(b *testing.B) {
+func BenchmarkWithoutCORS(b *testing.B) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	web.BConfig.RunMode = web.PROD
@@ -231,7 +231,7 @@ func Benchmark_WithoutCORS(b *testing.B) {
 	}
 }
 
-func Benchmark_WithCORS(b *testing.B) {
+func BenchmarkWithCORS(b *testing.B) {
 	recorder := httptest.NewRecorder()
 	handler := web.NewControllerRegister()
 	web.BConfig.RunMode = web.PROD
@@ -239,7 +239,7 @@ func Benchmark_WithCORS(b *testing.B) {
 		AllowAllOrigins:  true,
 		AllowCredentials: true,
 		AllowMethods:     []string{"PATCH", "GET"},
-		AllowHeaders:     []string{"Origin", "X-whatever"},
+		AllowHeaders:     []string{"Origin", literal_9580},
 		MaxAge:           5 * time.Minute,
 	}))
 	handler.Any("/foo", func(ctx *context.Context) {
@@ -251,3 +251,5 @@ func Benchmark_WithCORS(b *testing.B) {
 		handler.ServeHTTP(recorder, r)
 	}
 }
+
+const literal_9580 = "X-whatever"

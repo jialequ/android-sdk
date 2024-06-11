@@ -39,7 +39,7 @@ func TestFilter(t *testing.T) {
 }
 
 var FilterAdminUser = func(ctx *context.Context) {
-	ctx.Output.Body([]byte("i am admin"))
+	ctx.Output.Body([]byte(literal_3461))
 }
 
 // Filter pattern /admin/:all
@@ -51,7 +51,7 @@ func TestPatternTwo(t *testing.T) {
 	handler := NewControllerRegister()
 	handler.InsertFilter("/admin/?:all", BeforeRouter, FilterAdminUser)
 	handler.ServeHTTP(w, r)
-	if w.Body.String() != "i am admin" {
+	if w.Body.String() != literal_3461 {
 		t.Errorf("filter /admin/ can't run")
 	}
 }
@@ -62,7 +62,9 @@ func TestPatternThree(t *testing.T) {
 	handler := NewControllerRegister()
 	handler.InsertFilter("/admin/:all", BeforeRouter, FilterAdminUser)
 	handler.ServeHTTP(w, r)
-	if w.Body.String() != "i am admin" {
+	if w.Body.String() != literal_3461 {
 		t.Errorf("filter /admin/astaxie can't run")
 	}
 }
+
+const literal_3461 = "i am admin"

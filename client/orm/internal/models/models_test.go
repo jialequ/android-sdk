@@ -33,7 +33,7 @@ func (i *Interface) TableEngine() string {
 	return "innodb"
 }
 
-func TestDbBase_GetTables(t *testing.T) {
+func TestDbBaseGetTables(t *testing.T) {
 	c := NewModelCacheHandler()
 	c.Register("", true, &Interface{})
 	mi, ok := c.Get("INTERFACE_")

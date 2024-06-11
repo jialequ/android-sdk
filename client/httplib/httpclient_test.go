@@ -103,7 +103,7 @@ func (c *ClientTestSuite) SetupSuite() {
 
 	ssr := slideShowResponse{
 		Slideshow: slideshow{
-			Title: "Sample Slide Show",
+			Title: literal_6054,
 			Slides: []slide{
 				{
 					Title: "Content",
@@ -115,7 +115,7 @@ func (c *ClientTestSuite) SetupSuite() {
 		},
 	}
 
-	handler.HandleFunc("/req2resp", func(writer http.ResponseWriter, request *http.Request) {
+	handler.HandleFunc(literal_0759, func(writer http.ResponseWriter, request *http.Request) {
 		data, _ := io.ReadAll(request.Body)
 		_, _ = writer.Write(data)
 	})
@@ -186,7 +186,7 @@ func (c *ClientTestSuite) TestClientGet() {
 	var s slideShowResponse
 	err = client.Get(&s, "/get")
 	require.NoError(t, err)
-	assert.Equal(t, "Sample Slide Show", s.Slideshow.Title)
+	assert.Equal(t, literal_6054, s.Slideshow.Title)
 	assert.Equal(t, 2, len(s.Slideshow.Slides))
 	assert.Equal(t, "Overview", s.Slideshow.Slides[1].Title)
 
@@ -194,7 +194,7 @@ func (c *ClientTestSuite) TestClientGet() {
 	var ss slideshow
 	err = client.Get(&ss, "/get/xml")
 	require.NoError(t, err)
-	assert.Equal(t, "Sample Slide Show", ss.Title)
+	assert.Equal(t, literal_6054, ss.Title)
 	assert.Equal(t, 2, len(ss.Slides))
 	assert.Equal(t, "Overview", ss.Slides[1].Title)
 
@@ -204,19 +204,19 @@ func (c *ClientTestSuite) TestClientGet() {
 	if err != nil {
 		t.Fatal(err)
 	}
-	assert.Equal(t, "Sample Slide Show", s.Slideshow.Title)
+	assert.Equal(t, literal_6054, s.Slideshow.Title)
 	assert.Equal(t, 2, len(s.Slideshow.Slides))
 	assert.Equal(t, "Overview", s.Slideshow.Slides[1].Title)
 }
 
 func (c *ClientTestSuite) TestClientPost() {
 	t := c.T()
-	client, err := NewClient("test", "http://localhost:8080")
+	client, err := NewClient("test", literal_6792)
 	require.NoError(t, err)
 
 	input := slideShowResponse{
 		Slideshow: slideshow{
-			Title: "Sample Slide Show",
+			Title: literal_6054,
 			Slides: []slide{
 				{
 					Title: "Content",
@@ -231,7 +231,7 @@ func (c *ClientTestSuite) TestClientPost() {
 	jsonStr, err := json.Marshal(input)
 	require.NoError(t, err)
 	resp := slideShowResponse{}
-	err = client.Post(&resp, "/req2resp", jsonStr)
+	err = client.Post(&resp, literal_0759, jsonStr)
 	require.NoError(t, err)
 	assert.Equal(t, input.Slideshow, resp.Slideshow)
 	assert.Equal(t, http.MethodPost, resp.Resp.Request.Method)
@@ -239,12 +239,12 @@ func (c *ClientTestSuite) TestClientPost() {
 
 func (c *ClientTestSuite) TestClientPut() {
 	t := c.T()
-	client, err := NewClient("test", "http://localhost:8080")
+	client, err := NewClient("test", literal_6792)
 	require.NoError(t, err)
 
 	input := slideShowResponse{
 		Slideshow: slideshow{
-			Title: "Sample Slide Show",
+			Title: literal_6054,
 			Slides: []slide{
 				{
 					Title: "Content",
@@ -259,7 +259,7 @@ func (c *ClientTestSuite) TestClientPut() {
 	jsonStr, err := json.Marshal(input)
 	require.NoError(t, err)
 	resp := slideShowResponse{}
-	err = client.Put(&resp, "/req2resp", jsonStr)
+	err = client.Put(&resp, literal_0759, jsonStr)
 	require.NoError(t, err)
 	assert.Equal(t, input.Slideshow, resp.Slideshow)
 	assert.Equal(t, http.MethodPut, resp.Resp.Request.Method)
@@ -267,11 +267,11 @@ func (c *ClientTestSuite) TestClientPut() {
 
 func (c *ClientTestSuite) TestClientDelete() {
 	t := c.T()
-	client, err := NewClient("test", "http://localhost:8080")
+	client, err := NewClient("test", literal_6792)
 	require.NoError(t, err)
 
 	resp := &slideShowResponse{}
-	err = client.Delete(resp, "/req2resp")
+	err = client.Delete(resp, literal_0759)
 	require.NoError(t, err)
 	defer resp.Resp.Body.Close()
 
@@ -281,10 +281,10 @@ func (c *ClientTestSuite) TestClientDelete() {
 
 func (c *ClientTestSuite) TestClientHead() {
 	t := c.T()
-	client, err := NewClient("test", "http://localhost:8080")
+	client, err := NewClient("test", literal_6792)
 	require.NoError(t, err)
 	resp := &slideShowResponse{}
-	err = client.Head(resp, "/req2resp")
+	err = client.Head(resp, literal_0759)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -292,3 +292,9 @@ func (c *ClientTestSuite) TestClientHead() {
 	assert.NotNil(t, resp)
 	assert.Equal(t, http.MethodHead, resp.Resp.Request.Method)
 }
+
+const literal_6054 = "Sample Slide Show"
+
+const literal_0759 = "/req2resp"
+
+const literal_6792 = "http://localhost:8080"

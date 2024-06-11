@@ -46,7 +46,7 @@ func TestSnakeString(t *testing.T) {
 	for _, v := range camel {
 		res := SnakeString(v)
 		if res != answer[v] {
-			t.Error("Unit Test Fail:", v, res, answer[v])
+			t.Error(literal_8042, v, res, answer[v])
 		}
 	}
 }
@@ -63,7 +63,7 @@ func TestSnakeStringWithAcronym(t *testing.T) {
 	for _, v := range camel {
 		res := SnakeStringWithAcronym(v)
 		if res != answer[v] {
-			t.Error("Unit Test Fail:", v, res, answer[v])
+			t.Error(literal_8042, v, res, answer[v])
 		}
 	}
 }
@@ -80,7 +80,9 @@ func TestCamelString(t *testing.T) {
 	for _, v := range snake {
 		res := CamelString(v)
 		if res != answer[v] {
-			t.Error("Unit Test Fail:", v, res, answer[v])
+			t.Error(literal_8042, v, res, answer[v])
 		}
 	}
 }
+
+const literal_8042 = "Unit Test Fail:"

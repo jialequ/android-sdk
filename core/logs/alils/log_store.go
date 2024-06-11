@@ -32,7 +32,7 @@ type Shard struct {
 // ListShards returns shard id list of this logstore.
 func (s *LogStore) ListShards() (shardIDs []int, err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_6582: "0",
 	}
 
 	uri := fmt.Sprintf("/logstores/%v/shards", s.Name)
@@ -88,7 +88,7 @@ func (s *LogStore) PutLogs(lg *LogGroup) (err error) {
 
 	h := map[string]string{
 		"x-sls-compresstype": "lz4",
-		"x-sls-bodyrawsize":  fmt.Sprintf("%v", len(body)),
+		literal_6582:  fmt.Sprintf("%v", len(body)),
 		"Content-Type":       "application/x-protobuf",
 	}
 
@@ -123,7 +123,7 @@ func (s *LogStore) PutLogs(lg *LogGroup) (err error) {
 // For more detail please read: http://gitlab.alibaba-inc.com/sls/doc/blob/master/api/shard.md#logstore
 func (s *LogStore) GetCursor(shardID int, from string) (cursor string, err error) {
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_6582: "0",
 	}
 
 	uri := fmt.Sprintf("/logstores/%v/shards/%v?type=cursor&from=%v",
@@ -172,7 +172,7 @@ func (s *LogStore) GetLogsBytes(shardID int, cursor string,
 	logGroupMaxCount int) (out []byte, nextCursor string, err error) {
 
 	h := map[string]string{
-		"x-sls-bodyrawsize": "0",
+		literal_6582: "0",
 		"Accept":            "application/x-protobuf",
 		"Accept-Encoding":   "lz4",
 	}
@@ -268,3 +268,5 @@ func (s *LogStore) GetLogs(shardID int, cursor string,
 
 	return
 }
+
+const literal_6582 = "x-sls-bodyrawsize"

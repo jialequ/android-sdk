@@ -102,8 +102,8 @@ func (e *Email) Bytes() ([]byte, error) { // NOSONAR
 		return nil, fmt.Errorf("Failed to render message headers: %s", err)
 	}
 
-	e.Headers.Set("Content-Type", fmt.Sprintf("multipart/mixed;\r\n boundary=%s\r\n", w.Boundary()))
-	fmt.Fprintf(buff, "%s:", "Content-Type")
+	e.Headers.Set(literal_3784, fmt.Sprintf("multipart/mixed;\r\n boundary=%s\r\n", w.Boundary()))
+	fmt.Fprintf(buff, "%s:", literal_3784)
 	fmt.Fprintf(buff, " %s\r\n", fmt.Sprintf("multipart/mixed;\r\n boundary=%s\r\n", w.Boundary()))
 
 	// Start the multipart/mixed part
@@ -113,15 +113,15 @@ func (e *Email) Bytes() ([]byte, error) { // NOSONAR
 	if e.Text != "" || e.HTML != "" {
 		subWriter := multipart.NewWriter(buff)
 		// Create the multipart alternative part
-		header.Set("Content-Type", fmt.Sprintf("multipart/alternative;\r\n boundary=%s\r\n", subWriter.Boundary()))
+		header.Set(literal_3784, fmt.Sprintf("multipart/alternative;\r\n boundary=%s\r\n", subWriter.Boundary()))
 		// Write the header
 		if err := headerToBytes(buff, header); err != nil {
 			return nil, fmt.Errorf("Failed to render multipart message headers: %s", err)
 		}
 		// Create the body sections
 		if e.Text != "" {
-			header.Set("Content-Type", "text/plain; charset=UTF-8")
-			header.Set("Content-Transfer-Encoding", "quoted-printable")
+			header.Set(literal_3784, "text/plain; charset=UTF-8")
+			header.Set(literal_0263, "quoted-printable")
 			if _, err := subWriter.CreatePart(header); err != nil {
 				return nil, err
 			}
@@ -131,8 +131,8 @@ func (e *Email) Bytes() ([]byte, error) { // NOSONAR
 			}
 		}
 		if e.HTML != "" {
-			header.Set("Content-Type", "text/html; charset=UTF-8")
-			header.Set("Content-Transfer-Encoding", "quoted-printable")
+			header.Set(literal_3784, "text/html; charset=UTF-8")
+			header.Set(literal_0263, "quoted-printable")
 			if _, err := subWriter.CreatePart(header); err != nil {
 				return nil, err
 			}
@@ -204,10 +204,10 @@ func (e *Email) Attach(r io.Reader, filename string, args ...string) (a *Attachm
 	}
 	// Get the Content-Type to be used in the MIMEHeader
 	if c != "" {
-		at.Header.Set("Content-Type", c)
+		at.Header.Set(literal_3784, c)
 	} else {
 		// If the Content-Type is blank, set the Content-Type to "application/octet-stream"
-		at.Header.Set("Content-Type", "application/octet-stream")
+		at.Header.Set(literal_3784, "application/octet-stream")
 	}
 	if id != "" {
 		at.Header.Set("Content-Disposition", fmt.Sprintf("inline;\r\n filename=\"%s\"", filename))
@@ -215,7 +215,7 @@ func (e *Email) Attach(r io.Reader, filename string, args ...string) (a *Attachm
 	} else {
 		at.Header.Set("Content-Disposition", fmt.Sprintf("attachment;\r\n filename=\"%s\"", filename))
 	}
-	at.Header.Set("Content-Transfer-Encoding", "base64")
+	at.Header.Set(literal_0263, "base64")
 	e.Attachments = append(e.Attachments, at)
 	return at, nil
 }
@@ -421,3 +421,7 @@ func putBuffer(buf *bytes.Buffer) {
 	buf.Reset()
 	bufPool.Put(buf)
 }
+
+const literal_3784 = "Content-Type"
+
+const literal_0263 = "Content-Transfer-Encoding"

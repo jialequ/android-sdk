@@ -21,7 +21,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestAccessLog_format(t *testing.T) {
+func TestAccessLogformat(t *testing.T) {
 	alc := &AccessLogRecord{
 		RequestTime: time.Date(2020, 9, 19, 21, 21, 21, 11, time.UTC),
 	}

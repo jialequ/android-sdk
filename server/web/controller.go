@@ -180,37 +180,37 @@ func (c *Controller) Finish() {
 
 // Get adds a request function to handle GET request.
 func (c *Controller) Get() {
-	http.Error(c.Ctx.ResponseWriter, "Method Not Allowed", http.StatusMethodNotAllowed)
+	http.Error(c.Ctx.ResponseWriter, literal_1907, http.StatusMethodNotAllowed)
 }
 
 // Post adds a request function to handle POST request.
 func (c *Controller) Post() {
-	http.Error(c.Ctx.ResponseWriter, "Method Not Allowed", http.StatusMethodNotAllowed)
+	http.Error(c.Ctx.ResponseWriter, literal_1907, http.StatusMethodNotAllowed)
 }
 
 // Delete adds a request function to handle DELETE request.
 func (c *Controller) Delete() {
-	http.Error(c.Ctx.ResponseWriter, "Method Not Allowed", http.StatusMethodNotAllowed)
+	http.Error(c.Ctx.ResponseWriter, literal_1907, http.StatusMethodNotAllowed)
 }
 
 // Put adds a request function to handle PUT request.
 func (c *Controller) Put() {
-	http.Error(c.Ctx.ResponseWriter, "Method Not Allowed", http.StatusMethodNotAllowed)
+	http.Error(c.Ctx.ResponseWriter, literal_1907, http.StatusMethodNotAllowed)
 }
 
 // Head adds a request function to handle HEAD request.
 func (c *Controller) Head() {
-	http.Error(c.Ctx.ResponseWriter, "Method Not Allowed", http.StatusMethodNotAllowed)
+	http.Error(c.Ctx.ResponseWriter, literal_1907, http.StatusMethodNotAllowed)
 }
 
 // Patch adds a request function to handle PATCH request.
 func (c *Controller) Patch() {
-	http.Error(c.Ctx.ResponseWriter, "Method Not Allowed", http.StatusMethodNotAllowed)
+	http.Error(c.Ctx.ResponseWriter, literal_1907, http.StatusMethodNotAllowed)
 }
 
 // Options adds a request function to handle OPTIONS request.
 func (c *Controller) Options() {
-	http.Error(c.Ctx.ResponseWriter, "Method Not Allowed", http.StatusMethodNotAllowed)
+	http.Error(c.Ctx.ResponseWriter, literal_1907, http.StatusMethodNotAllowed)
 }
 
 // Trace adds a request function to handle Trace request.
@@ -229,7 +229,7 @@ func (c *Controller) Trace() {
 		return
 	}
 	hs := fmt.Sprintf("\r\nTRACE %s %s%s\r\n", c.Ctx.Request.RequestURI, c.Ctx.Request.Proto, ts(c.Ctx.Request.Header))
-	c.Ctx.Output.Header("Content-Type", "message/http")
+	c.Ctx.Output.Header(literal_2874, "message/http")
 	c.Ctx.Output.Header("Content-Length", fmt.Sprint(len(hs)))
 	c.Ctx.Output.Header("Cache-Control", "no-cache, no-store, must-revalidate")
 	c.Ctx.WriteString(hs)
@@ -295,8 +295,8 @@ func (c *Controller) Render() error {
 		return err
 	}
 
-	if c.Ctx.ResponseWriter.Header().Get("Content-Type") == "" {
-		c.Ctx.Output.Header("Content-Type", "text/html; charset=utf-8")
+	if c.Ctx.ResponseWriter.Header().Get(literal_2874) == "" {
+		c.Ctx.Output.Header(literal_2874, "text/html; charset=utf-8")
 	}
 
 	return c.Ctx.Output.Body(rb)
@@ -811,3 +811,7 @@ func (c *Controller) XSRFFormHTML() string {
 func (c *Controller) GetControllerAndAction() (string, string) {
 	return c.controllerName, c.actionName
 }
+
+const literal_1907 = "Method Not Allowed"
+
+const literal_2874 = "Content-Type"
