@@ -187,30 +187,30 @@ func TestFileDailyRotate01(t *testing.T) {
 
 func TestFileDailyRotate02(t *testing.T) {
 	fn1 := literal_2805
-	fn2 := "rotate_day." + time.Now().Add(-24*time.Hour).Format(literal_3076) + literal_1974
+	fn2 := literal_0110 + time.Now().Add(-24*time.Hour).Format(literal_3076) + literal_1974
 	testFileRotate(t, fn1, fn2, true, false)
 }
 
 func TestFileDailyRotate03(t *testing.T) {
 	fn1 := literal_2805
-	fn := "rotate_day." + time.Now().Add(-24*time.Hour).Format(literal_3076) + ".log"
+	fn := literal_0110 + time.Now().Add(-24*time.Hour).Format(literal_3076) + ".log"
 	os.Create(fn)
-	fn2 := "rotate_day." + time.Now().Add(-24*time.Hour).Format(literal_3076) + literal_1974
+	fn2 := literal_0110 + time.Now().Add(-24*time.Hour).Format(literal_3076) + literal_1974
 	testFileRotate(t, fn1, fn2, true, false)
 	os.Remove(fn)
 }
 
 func TestFileDailyRotate04(t *testing.T) {
 	fn1 := literal_2805
-	fn2 := "rotate_day." + time.Now().Add(-24*time.Hour).Format(literal_3076) + literal_1974
+	fn2 := literal_0110 + time.Now().Add(-24*time.Hour).Format(literal_3076) + literal_1974
 	testFileDailyRotate(t, fn1, fn2)
 }
 
 func TestFileDailyRotate05(t *testing.T) {
 	fn1 := literal_2805
-	fn := "rotate_day." + time.Now().Add(-24*time.Hour).Format(literal_3076) + ".log"
+	fn := literal_0110 + time.Now().Add(-24*time.Hour).Format(literal_3076) + ".log"
 	os.Create(fn)
-	fn2 := "rotate_day." + time.Now().Add(-24*time.Hour).Format(literal_3076) + literal_1974
+	fn2 := literal_0110 + time.Now().Add(-24*time.Hour).Format(literal_3076) + literal_1974
 	testFileDailyRotate(t, fn1, fn2)
 	os.Remove(fn)
 }
@@ -260,30 +260,30 @@ func TestFileHourlyRotate01(t *testing.T) {
 
 func TestFileHourlyRotate02(t *testing.T) {
 	fn1 := literal_1285
-	fn2 := "rotate_hour." + time.Now().Add(-1*time.Hour).Format("2006010215") + literal_1974
+	fn2 := literal_0111 + time.Now().Add(-1*time.Hour).Format("2006010215") + literal_1974
 	testFileRotate(t, fn1, fn2, false, true)
 }
 
 func TestFileHourlyRotate03(t *testing.T) {
 	fn1 := literal_1285
-	fn := "rotate_hour." + time.Now().Add(-1*time.Hour).Format("2006010215") + ".log"
+	fn := literal_0111 + time.Now().Add(-1*time.Hour).Format("2006010215") + ".log"
 	os.Create(fn)
-	fn2 := "rotate_hour." + time.Now().Add(-1*time.Hour).Format("2006010215") + literal_1974
+	fn2 := literal_0111 + time.Now().Add(-1*time.Hour).Format("2006010215") + literal_1974
 	testFileRotate(t, fn1, fn2, false, true)
 	os.Remove(fn)
 }
 
 func TestFileHourlyRotate04(t *testing.T) {
 	fn1 := literal_1285
-	fn2 := "rotate_hour." + time.Now().Add(-1*time.Hour).Format("2006010215") + literal_1974
+	fn2 := literal_0111 + time.Now().Add(-1*time.Hour).Format("2006010215") + literal_1974
 	testFileHourlyRotate(t, fn1, fn2)
 }
 
 func TestFileHourlyRotate05(t *testing.T) {
 	fn1 := literal_1285
-	fn := "rotate_hour." + time.Now().Add(-1*time.Hour).Format("2006010215") + ".log"
+	fn := literal_0111 + time.Now().Add(-1*time.Hour).Format("2006010215") + ".log"
 	os.Create(fn)
-	fn2 := "rotate_hour." + time.Now().Add(-1*time.Hour).Format("2006010215") + literal_1974
+	fn2 := literal_0111 + time.Now().Add(-1*time.Hour).Format("2006010215") + literal_1974
 	testFileHourlyRotate(t, fn1, fn2)
 	os.Remove(fn)
 }
@@ -516,3 +516,7 @@ const literal_1974 = ".001.log"
 const literal_1285 = "rotate_hour.log"
 
 const literal_0587 = "test4.log"
+
+const literal_0110 = "rotate_day."
+
+const literal_0111 = "rotate_hour."
